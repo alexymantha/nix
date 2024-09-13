@@ -1,7 +1,9 @@
 { pkgs, ... }:
 {
-    # Make sure the nix daemon always runs
-    services.nix-daemon.enable = true;
+    imports = [
+	./home.nix
+    ];
+
     nix = {
         package = pkgs.nix;
         settings.experimental-features = [ "nix-command" "flakes" ];
@@ -14,17 +16,41 @@
             autoUpdate = true;
             upgrade = true;
         };
-        # updates homebrew packages on activation,
-        # can make darwin-rebuild much slower (otherwise i'd forget to do it ever though)
+	taps = [
+		"joallard/cf-keylayout"
+	];
         casks = [
             "cf-keylayout"
             "cloudflare-warp"
             "discord"
+            "firefox"
             "gimp"
             "obs"
             "slack"
             "vlc"
             "wezterm"
         ];
+    };
+
+    security.pam.enableSudoTouchIdAuth = true;
+    services = {
+        nix-daemon.enable = true;
+    };
+    system.defaults = {
+        NSGlobalDomain = {
+            InitialKeyRepeat = 15;
+            KeyRepeat = 2;
+            "com.apple.swipescrolldirection" = false;
+        };
+        dock = {
+            autohide = true;
+            autohide-delay = 0.0;
+            autohide-time-modifier = 0.01;
+            persistent-apps = [
+                "/Applications/Firefox.App"
+                "/Applications/WezTerm.App"
+                "/Applications/Discord.App"
+            ];
+        };
     };
 }
