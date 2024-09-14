@@ -16,6 +16,8 @@
     # Home manager
     home-manager.url = "github:nix-community/home-manager/release-24.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    nur.url = "github:nix-community/NUR";
   };
 
   outputs = {
@@ -24,6 +26,7 @@
     nixpkgs-unstable,
     home-manager,
     darwin,
+    nur,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -71,7 +74,8 @@
 	specialArgs = { inherit inputs outputs; };
         system = "aarch64-darwin";
         modules = [
-          ./darwin/default.nix
+          { nixpkgs.overlays = [ nur.overlay ]; }
+          ./darwin/default.nix 
         ];
       };
     };
@@ -84,6 +88,7 @@
         pkgs = nixpkgs.legacyPackages.aarch64-darwin; # Home-manager requires 'pkgs' instance
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
+          { nixpkgs.overlays = [ nur.overlay ]; }
           # > Our main home-manager configuration file <
           ./home-manager/home.nix
         ];
