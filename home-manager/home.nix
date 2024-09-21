@@ -18,10 +18,17 @@
       outputs.overlays.unstable-packages
       inputs.nur.overlay
     ];
+    config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+      "discord"
+    ];
   };
 
   programs = {
-    neovim.enable = true;
+    neovim = {
+      enable = true;
+      package = pkgs.unstable.neovim-unwrapped;
+      defaultEditor = true;
+    };
     home-manager.enable = true;
     git.enable = true;
     direnv.enable = true;
@@ -43,7 +50,26 @@
   };
 
   programs.waybar.enable = true;
-  programs.wofi.enable = true;
+  # From https://github.com/catppuccin/fuzzel/blob/main/themes/macchiato/red.ini
+  home.file.".config/fuzzel/themes/macchiato/red.ini".text = ''
+    [colors]
+    background=24273add
+    text=cad3f5ff
+    match=ed8796ff
+    selection=5b6078ff
+    selection-match=ed8796ff
+    selection-text=cad3f5ff
+    border=b7bdf8ff
+  '';
+  programs.fuzzel = {
+    enable = true;
+    settings = {
+      main = {
+        include = "${config.xdg.configHome}/fuzzel/themes/macchiato/red.ini";
+        dpi-aware = true;
+      };
+    };
+  };
   
   wayland.windowManager.hyprland = {
     enable = true;
@@ -62,11 +88,15 @@
     cargo
     chezmoi
     coreutils
+    discord
     unstable.go
     unstable.nodejs_22
     yubico-piv-tool
     ripgrep
     kitty
+    # Java stuff
+    temurin-bin-20
+    jdt-language-server
   ];
 
   home.sessionVariables = {

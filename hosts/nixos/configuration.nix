@@ -112,7 +112,6 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     clang
-    neovim
     git
     # Wayland stuff
     (catppuccin-sddm.override {
@@ -125,6 +124,7 @@
     slurp
     grim
     usbutils
+    unzip
   ];
 
   # This setups a SSH server. Very important if you're setting up a headless system.
