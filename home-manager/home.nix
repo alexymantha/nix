@@ -101,6 +101,7 @@
 
   home.sessionVariables = {
     YUBICO_PATH = "${pkgs.yubico-piv-tool}/lib";
+    JDTLS_PATH = "${pkgs.jdt-language-server}/share";
   };
 
   home.file.".config/Yubico/u2f_keys".text = ''
