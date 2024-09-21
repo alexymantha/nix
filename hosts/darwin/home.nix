@@ -14,7 +14,7 @@
     extraSpecialArgs = { inherit inputs outputs; };
     users = {
       # Import your home-manager configuration
-      amantha = import ../home-manager/home.nix;
+      amantha = import ../../home-manager/home.nix;
     };
   };
 }

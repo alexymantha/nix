@@ -17,18 +17,15 @@
             upgrade = true;
         };
 	taps = [
-		"joallard/cf-keylayout"
+            "joallard/cf-keylayout"
 	];
         casks = [
             "cf-keylayout"
-            "cloudflare-warp"
-            "discord"
             "firefox"
             "gimp"
             "obs"
             "slack"
             "vlc"
-            "wezterm"
         ];
     };
 
