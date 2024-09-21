@@ -40,7 +40,7 @@
       };
       initExtraFirst = ''
         ### SSH Agent
-        source ~/.scripts/yubikey
+        #source ~/.scripts/yubikey
 
         # Move this to history.append once available in current version
         setopt APPEND_HISTORY
@@ -191,8 +191,21 @@
     };
   };
 
+  programs.waybar.enable = true;
+  programs.wofi.enable = true;
+  
+  wayland.windowManager.hyprland = {
+    enable = true;
+    xwayland.enable = true;
+    #package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+
+    settings = {
+      source = "~/.config/hypr/amantha.conf";
+    };
+  };
+
   # Nicely reload system units when changing configs
-  # systemd.user.startServices = "sd-switch";
+  systemd.user.startServices = "sd-switch";
 
   home.packages = with pkgs; [
     cargo
@@ -202,18 +215,19 @@
     unstable.nodejs_22
     yubico-piv-tool
     ripgrep
+    kitty
   ];
 
   home.sessionVariables = {
     YUBICO_PATH = "${pkgs.yubico-piv-tool}/lib";
   };
 
-  # home.activation.chezmoi = lib.hm.dag.entryAfter ["writeBoundary"] ''
-  #    echo -e "\033[0;34mActivating chezmoi"
-  #    echo -e "\033[0;34m=================="
-  #    ${pkgs.chezmoi}/bin/chezmoi apply --verbose
-  #    echo -e "\033[0;34m=================="
-  #  '';
+  #home.activation.chezmoi = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    # echo -e "\033[0;34mActivating chezmoi"
+   #  echo -e "\033[0;34m=================="
+ #    ${pkgs.chezmoi}/bin/chezmoi apply --verbose
+  #   echo -e "\033[0;34m=================="
+#   '';
 
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion

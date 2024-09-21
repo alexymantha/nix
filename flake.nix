@@ -18,6 +18,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     nur.url = "github:nix-community/NUR";
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
   };
 
   outputs = {
@@ -59,9 +60,10 @@
     # NixOS configuration entrypoint
     # Available through 'nixos-rebuild --flake .#your-hostname'
     nixosConfigurations = {
-      your-hostname = nixpkgs.lib.nixosSystem {
-        amantha-nix = {inherit inputs outputs;};
+      amantha-nixos = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs outputs;};
         modules = [
+          { nixpkgs.overlays = [ nur.overlay ]; }
           # > Our main nixos configuration file <
           ./nixos/configuration.nix
         ];
@@ -76,21 +78,6 @@
         modules = [
           { nixpkgs.overlays = [ nur.overlay ]; }
           ./darwin/default.nix 
-        ];
-      };
-    };
-
-
-    # Standalone home-manager configuration entrypoint
-    # Available through 'home-manager --flake .#your-username@your-hostname'
-    homeConfigurations = {
-      "amantha@amantha-air" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.aarch64-darwin; # Home-manager requires 'pkgs' instance
-        extraSpecialArgs = {inherit inputs outputs;};
-        modules = [
-          { nixpkgs.overlays = [ nur.overlay ]; }
-          # > Our main home-manager configuration file <
-          ./home-manager/home.nix
         ];
       };
     };
