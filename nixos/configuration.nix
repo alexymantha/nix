@@ -55,8 +55,6 @@
   boot.initrd.kernelModules = ["amdgpu"];
 
   networking.hostName = "amantha-nixos"; # Define your hostname.
-  # Pick only one of the below networking options.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
 
   # Set your time zone.
@@ -126,6 +124,7 @@
     wl-clipboard
     slurp
     grim
+    usbutils
   ];
 
   # This setups a SSH server. Very important if you're setting up a headless system.
@@ -139,9 +138,24 @@
     };
   };
   services.seatd.enable = true;
+  services.pcscd.enable = true; 
+  security.pam.services = {
+    login.u2fAuth = true;
+    sudo.u2fAuth = true;
+  };
+
+  services.udev.extraRules = ''
+      ACTION=="remove",\
+       ENV{ID_BUS}=="usb",\
+       ENV{ID_MODEL_ID}=="0407",\
+       ENV{ID_VENDOR_ID}=="1050",\
+       ENV{ID_VENDOR}=="Yubico",\
+       RUN+="${pkgs.systemd}/bin/loginctl lock-sessions"
+  '';
 
   programs.hyprland = {
     enable = true;
+    # Use flake when it is fixed upstream.
     #    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
     #    portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
   };

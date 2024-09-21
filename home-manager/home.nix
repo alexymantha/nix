@@ -222,6 +222,10 @@
     YUBICO_PATH = "${pkgs.yubico-piv-tool}/lib";
   };
 
+  home.file.".config/Yubico/u2f_keys".text = ''
+    amantha:BoQ5kI6GuB5JPTi678Jp37AgtxstZq4jTzKHbFvYzDNH+R3IqchopN0ItO0bVbxQItaxD0p7vl7n0Op0fWjGrw==,kHhDd0dvFTpum6cTw/k/mDf5lWj8+aoz+YAKBqADGZsuYSDs6zvVRONGP2egM8b35wULUOzQvUTCMLr4pOeafQ==,es256,+presence
+  '';
+
   #home.activation.chezmoi = lib.hm.dag.entryAfter ["writeBoundary"] ''
     # echo -e "\033[0;34mActivating chezmoi"
    #  echo -e "\033[0;34m=================="
