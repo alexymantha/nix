@@ -1,8 +1,12 @@
-{ inputs, outputs, ... }: {
-    homebrew = {
-        casks = [
-            "cloudflare-warp"
-            "discord"
-        ];
-    };
+{
+  inputs,
+  outputs,
+  ...
+}: {
+  homebrew = {
+    casks = [
+      "cloudflare-warp"
+      "discord"
+    ];
+  };
 }

@@ -6,7 +6,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     # Also see the 'unstable-packages' overlay at 'overlays/default.nix'.
-    
+
     # Nix Darwin
     darwin.url = "github:lnl7/nix-darwin";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
@@ -44,7 +44,7 @@
       amantha-nixos = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
-          { nixpkgs.overlays = [ nur.overlay ]; }
+          {nixpkgs.overlays = [nur.overlay];}
           # > Our main nixos configuration file <
           ./hosts/nixos/configuration.nix
         ];
@@ -55,21 +55,21 @@
     darwinConfigurations = {
       # Personal laptop
       amantha-air = darwin.lib.darwinSystem {
-	specialArgs = { inherit inputs outputs; };
+        specialArgs = {inherit inputs outputs;};
         system = "aarch64-darwin";
         modules = [
-          { nixpkgs.overlays = [ nur.overlay ]; }
-          ./hosts/darwin/default.nix 
+          {nixpkgs.overlays = [nur.overlay];}
+          ./hosts/darwin/default.nix
           ./hosts/darwin/amantha-air/overrides.nix
         ];
       };
       # Work laptop
       amantha-mbp = darwin.lib.darwinSystem {
-	specialArgs = { inherit inputs outputs; };
+        specialArgs = {inherit inputs outputs;};
         system = "aarch64-darwin";
         modules = [
-          { nixpkgs.overlays = [ nur.overlay ]; }
-          ./hosts/darwin/default.nix 
+          {nixpkgs.overlays = [nur.overlay];}
+          ./hosts/darwin/default.nix
           ./hosts/darwin/amantha-mbp/overrides.nix
         ];
       };

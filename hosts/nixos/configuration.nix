@@ -47,20 +47,18 @@
   boot.initrd.kernelModules = ["amdgpu"];
 
   networking.hostName = "amantha-nixos"; # Define your hostname.
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
   # Set your time zone.
   time.timeZone = "America/Montreal";
 
   fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+    (nerdfonts.override {fonts = ["JetBrainsMono"];})
   ];
-
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
-    keyMap = "ca";
     useXkbConfig = true;
   };
 
@@ -83,7 +81,7 @@
   users.defaultUserShell = pkgs.zsh;
   users.users.amantha = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ];
+    extraGroups = ["wheel"];
     packages = with pkgs; [
       firefox
       tree
@@ -94,7 +92,13 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     clang
+    vesktop
     git
+    usbutils
+    fzf
+    jq
+    unzip
+    python3
     # Wayland stuff
     (catppuccin-sddm.override {
       flavor = "macchiato";
@@ -105,9 +109,6 @@
     wl-clipboard
     slurp
     grim
-    usbutils
-    unzip
-    python3
   ];
 
   services.openssh = {
@@ -119,7 +120,7 @@
     };
   };
   services.seatd.enable = true;
-  services.pcscd.enable = true; 
+  services.pcscd.enable = true;
   security.polkit.enable = true;
   security.pam.services = {
     sddm.u2fAuth = true;
@@ -129,12 +130,12 @@
   };
 
   services.udev.extraRules = ''
-      ACTION=="remove",\
-       ENV{ID_BUS}=="usb",\
-       ENV{ID_MODEL_ID}=="0407",\
-       ENV{ID_VENDOR_ID}=="1050",\
-       ENV{ID_VENDOR}=="Yubico",\
-       RUN+="${pkgs.systemd}/bin/loginctl lock-sessions"
+    ACTION=="remove",\
+     ENV{ID_BUS}=="usb",\
+     ENV{ID_MODEL_ID}=="0407",\
+     ENV{ID_VENDOR_ID}=="1050",\
+     ENV{ID_VENDOR}=="Yubico",\
+     RUN+="${pkgs.systemd}/bin/loginctl lock-sessions"
   '';
 
   programs.hyprland = {
@@ -143,6 +144,7 @@
     #    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
     #    portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
   };
+  xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-hyprland];
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 

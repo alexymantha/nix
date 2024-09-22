@@ -19,9 +19,10 @@
       outputs.overlays.unstable-packages
       inputs.nur.overlay
     ];
-    config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-      "discord"
-    ];
+    config.allowUnfreePredicate = pkg:
+      builtins.elem (lib.getName pkg) [
+        "spotify"
+      ];
   };
 
   programs = {
@@ -40,12 +41,12 @@
     wezterm = {
       enable = true;
       extraConfig = ''
-      return {
-        font = wezterm.font("JetBrains Mono"),
-        font_size = 18.0,
-        color_scheme = "Catppuccin Macchiato",
-        hide_tab_bar_if_only_one_tab = true,
-      }
+        return {
+          font = wezterm.font("JetBrains Mono"),
+          font_size = 18.0,
+          color_scheme = "Catppuccin Macchiato",
+          hide_tab_bar_if_only_one_tab = true,
+        }
       '';
     };
   };
@@ -71,7 +72,6 @@
       };
     };
   };
-  
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
@@ -80,12 +80,12 @@
     cargo
     chezmoi
     coreutils
-    discord
     unstable.go
     unstable.nodejs_22
     yubico-piv-tool
     ripgrep
     kitty
+    spotify
     # Java stuff
     temurin-bin-20
     jdt-language-server
@@ -101,12 +101,11 @@
   '';
 
   #home.activation.chezmoi = lib.hm.dag.entryAfter ["writeBoundary"] ''
-    # echo -e "\033[0;34mActivating chezmoi"
-   #  echo -e "\033[0;34m=================="
- #    ${pkgs.chezmoi}/bin/chezmoi apply --verbose
+  # echo -e "\033[0;34mActivating chezmoi"
+  #  echo -e "\033[0;34m=================="
+  #    ${pkgs.chezmoi}/bin/chezmoi apply --verbose
   #   echo -e "\033[0;34m=================="
-#   '';
-
+  #   '';
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   home.stateVersion = "23.05";
