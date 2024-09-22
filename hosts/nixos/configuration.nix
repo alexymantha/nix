@@ -78,7 +78,7 @@
 
   services.displayManager.sddm = {
     enable = true;
-    theme = "catppuccin-sddm";
+    theme = "catppuccin-macchiato";
     package = pkgs.kdePackages.sddm;
     wayland.enable = true;
   };
@@ -141,9 +141,10 @@
   services.seatd.enable = true;
   services.pcscd.enable = true; 
   security.pam.services = {
+    sddm.u2fAuth = true;
     login.u2fAuth = true;
     sudo.u2fAuth = true;
-    hyprlock = {};
+    hyprlock.u2fAuth = true;
   };
 
   services.udev.extraRules = ''
