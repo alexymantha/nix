@@ -9,6 +9,7 @@
   imports = [
     ./firefox.nix
     ./zsh.nix
+    ./hyprland.nix
   ];
 
   nixpkgs = {
@@ -71,15 +72,6 @@
     };
   };
   
-  wayland.windowManager.hyprland = {
-    enable = true;
-    xwayland.enable = true;
-    #package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-
-    settings = {
-      source = "~/.config/hypr/amantha.conf";
-    };
-  };
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
