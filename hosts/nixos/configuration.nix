@@ -14,18 +14,11 @@
   ];
 
   nixpkgs = {
-    # You can add overlays here
     overlays = [
-      # Add overlays your own flake exports (from overlays and pkgs dir):
       outputs.overlays.additions
       outputs.overlays.modifications
       outputs.overlays.unstable-packages
     ];
-    # Configure your nixpkgs instance
-    config = {
-      # Disable if you don't want unfree packages
-      allowUnfree = true;
-    };
   };
 
   nix = let
@@ -41,7 +34,6 @@
       substituters = ["https://hyprland.cachix.org"];
       trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
     };
-    # Opinionated: disable channels
     channel.enable = false;
 
     # Opinionated: make flake registry and nix path match flake inputs
@@ -67,11 +59,10 @@
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
-  # console = {
-  #   font = "Lat2-Terminus16";
-  #   keyMap = "us";
-  #   useXkbConfig = true; # use xkb.options in tty.
-  # };
+  console = {
+    keyMap = "ca";
+    useXkbConfig = true;
+  };
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -83,22 +74,13 @@
     wayland.enable = true;
   };
 
-  # Enable sound.
-  # hardware.pulseaudio.enable = true;
-  # OR
   services.pipewire = {
     enable = true;
     pulse.enable = true;
   };
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  services.libinput.enable = true;
-
-  security.polkit.enable = true;
-
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
-  # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.amantha = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
@@ -128,8 +110,6 @@
     python3
   ];
 
-  # This setups a SSH server. Very important if you're setting up a headless system.
-  # Feel free to remove if you don't need it.
   services.openssh = {
     enable = true;
     settings = {
@@ -140,6 +120,7 @@
   };
   services.seatd.enable = true;
   services.pcscd.enable = true; 
+  security.polkit.enable = true;
   security.pam.services = {
     sddm.u2fAuth = true;
     login.u2fAuth = true;
