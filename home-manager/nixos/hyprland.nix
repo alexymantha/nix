@@ -15,6 +15,27 @@
       source = "~/.config/hypr/amantha.conf";
     };
   };
+  programs.waybar.enable = true;
+  # From https://github.com/catppuccin/fuzzel/blob/main/themes/macchiato/red.ini
+  home.file.".config/fuzzel/themes/macchiato/red.ini".text = ''
+    [colors]
+    background=24273add
+    text=cad3f5ff
+    match=ed8796ff
+    selection=5b6078ff
+    selection-match=ed8796ff
+    selection-text=cad3f5ff
+    border=b7bdf8ff
+  '';
+  programs.fuzzel = {
+    enable = true;
+    settings = {
+      main = {
+        include = "${config.xdg.configHome}/fuzzel/themes/macchiato/red.ini";
+        dpi-aware = true;
+      };
+    };
+  };
   programs.hyprlock.enable = true;
   services.hypridle = {
     enable = true;

@@ -9,4 +9,12 @@
       "discord"
     ];
   };
+
+  system.defaults = {
+    dock = {
+      persistent-apps = [
+        "/Applications/Discord.App"
+      ];
+    };
+  };
 }

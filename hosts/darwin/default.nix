@@ -45,8 +45,9 @@
       persistent-apps = [
         "/Applications/Firefox.App"
         "/Applications/WezTerm.App"
-        "/Applications/Discord.App"
       ];
     };
   };
+
+  system.stateVersion = 5;
 }
