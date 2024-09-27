@@ -57,6 +57,7 @@
     cargo
     chezmoi
     coreutils
+    devenv
     unstable.go
     unstable.nodejs_22
     yubico-piv-tool
