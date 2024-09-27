@@ -138,6 +138,7 @@
           ublock-origin
           bitwarden
           vimium
+          refined-github
         ];
       };
     };

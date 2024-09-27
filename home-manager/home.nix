@@ -59,6 +59,7 @@
     coreutils
     devenv
     unstable.go
+    ginkgo # Use direnv for projects that need it?
     unstable.nodejs_22
     yubico-piv-tool
     ripgrep
