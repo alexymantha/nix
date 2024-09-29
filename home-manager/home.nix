@@ -32,7 +32,6 @@
     };
     home-manager.enable = true;
     git.enable = true;
-    direnv.enable = true;
     zellij = {
       enable = true;
       enableZshIntegration = true;
@@ -71,6 +70,12 @@
         font = "JetBrainsMono Nerd Font:size=24";
       };
     };
+  };
+
+  programs.direnv = {
+    enable = true;
+    nix-direnv = true;
+    silent = true;
   };
 
   # Nicely reload system units when changing configs
