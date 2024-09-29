@@ -16,7 +16,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     nur.url = "github:nix-community/NUR";
-    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+    # hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
   };
 
   outputs = {
@@ -76,14 +76,8 @@
       };
     };
 
-      hydraJobs = {
-        amantha-nixos = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            { nixpkgs.overlays = [nur.overlay]; }
-            ./hosts/nixos/configuration.nix
-          ];
-        }.config.system.build.toplevel;
-      };
+    hydraJobs = {
+      amantha-nixos = self.nixosConfigurations.amantha-nixos.config.system.build.toplevel;
+    };
   };
 }
