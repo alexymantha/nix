@@ -75,9 +75,5 @@
         ];
       };
     };
-
-    hydraJobs = {
-      amantha-nixos = self.nixosConfigurations.amantha-nixos.config.system.build.toplevel;
-    };
   };
 }

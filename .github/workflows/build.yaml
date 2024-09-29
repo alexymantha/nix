@@ -3,8 +3,14 @@ on:
   pull_request:
   push:
 jobs:
-  tests:
+  build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        derivation:
+          - nixosConfigurations.amantha-nixos
+          - darwinConfigurations.amantha-air
+          - darwinConfigurations.amantha-mbp
     steps:
     - uses: actions/checkout@v4
     - uses: cachix/install-nix-action@v25
@@ -16,4 +22,4 @@ jobs:
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
     - name: amantha-nixos
-      run: nix build .#nixosConfigurations.amantha-nixos.config.system.build.toplevel
+      run: nix build .${{ matrix.derivation }}.config.system.build.toplevel

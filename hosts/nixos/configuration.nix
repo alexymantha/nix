@@ -132,7 +132,7 @@
   systemd.targets.multi-user.wants = ["warp-svc.service"];
 
   # TODO: Remove this after IFT-3201
-  # virtualisation.vmware.host.enable = true;
+  virtualisation.vmware.host.enable = true;
 
   services.openssh = {
     enable = true;
