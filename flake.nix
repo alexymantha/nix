@@ -77,25 +77,7 @@
     };
 
     hydraJobs = {
-      # Build NixOS configurations
-      nixos = nixpkgs.lib.mapAttrs' (name: config: nixpkgs.lib.nameValuePair "nixos-${name}" config.config.system.build.toplevel) self.nixosConfigurations;
-
-      # Build Darwin configurations
-      darwin = nixpkgs.lib.mapAttrs' (name: config: nixpkgs.lib.nameValuePair "darwin-${name}" config.system.build.toplevel) self.darwinConfigurations;
-
-      # Add a simple package build job for each system
-      packages = forAllSystems (system: {
-        hello = nixpkgs.legacyPackages.${system}.hello;
-      });
-
-      # Add a simple check job for each system
-      checks = forAllSystems (system: {
-        simple-test = nixpkgs.legacyPackages.${system}.runCommand "simple-test" {} ''
-        echo "Running simple test"
-        ${nixpkgs.legacyPackages.${system}.hello}/bin/hello
-        touch $out
-        '';
-      });
+      amantha-nixos = self.nixosConfigurations.amantha-nixos.config.system.build.toplevel;
     };
   };
 }
