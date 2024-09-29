@@ -76,8 +76,14 @@
       };
     };
 
-    hydraJobs = {
-      amantha-nixos = self.nixosConfigurations.amantha-nixos.config.system.build.toplevel;
-    };
+      hydraJobs = {
+        amantha-nixos = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            { nixpkgs.overlays = [nur.overlay]; }
+            ./hosts/nixos/configuration.nix
+          ];
+        }.config.system.build.toplevel;
+      };
   };
 }
