@@ -22,6 +22,7 @@
     config.allowUnfreePredicate = pkg:
       builtins.elem (lib.getName pkg) [
         "vmware-workstation"
+        "cloudflare-warp"
       ];
   };
 
