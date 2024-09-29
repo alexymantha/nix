@@ -120,6 +120,7 @@
     wl-clipboard
     slurp
     grim
+    cloudflare-warp
   ];
 
   # TODO: Remove this after IFT-3201
