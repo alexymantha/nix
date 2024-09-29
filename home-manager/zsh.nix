@@ -29,6 +29,7 @@
       --color=marker:#f4dbd6,fg+:#cad3f5,prompt:#c6a0f6,hl+:#ed8796"
 
       # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+      source ~/.zsh/themes/powerlevel10k/powerlevel10k.zsh-theme
       [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
       # Autostart zellij

@@ -19,6 +19,10 @@
       outputs.overlays.modifications
       outputs.overlays.unstable-packages
     ];
+    config.allowUnfreePredicate = pkg:
+      builtins.elem (lib.getName pkg) [
+        "vmware-workstation"
+      ];
   };
 
   nix = let
@@ -91,6 +95,7 @@
     packages = with pkgs; [
       firefox
       tree
+      dolphin
     ];
   };
 
@@ -116,6 +121,9 @@
     slurp
     grim
   ];
+
+  # TODO: Remove this after IFT-3201
+  virtualisation.vmware.host.enable = true;
 
   services.openssh = {
     enable = true;

@@ -40,6 +40,7 @@
       enable = true;
       extraConfig = ''
         return {
+          enable_wayland = false;
           font = wezterm.font("JetBrains Mono"),
           font_size = 24.0,
           color_scheme = "Catppuccin Macchiato",
@@ -85,6 +86,7 @@
     cargo
     chezmoi
     coreutils
+    kitty
     devenv
     unstable.go
     ginkgo # Use direnv for projects that need it?
@@ -108,13 +110,6 @@
   home.file.".config/Yubico/u2f_keys".text = ''
     amantha:BoQ5kI6GuB5JPTi678Jp37AgtxstZq4jTzKHbFvYzDNH+R3IqchopN0ItO0bVbxQItaxD0p7vl7n0Op0fWjGrw==,kHhDd0dvFTpum6cTw/k/mDf5lWj8+aoz+YAKBqADGZsuYSDs6zvVRONGP2egM8b35wULUOzQvUTCMLr4pOeafQ==,es256,+presence
   '';
-
-  #home.activation.chezmoi = lib.hm.dag.entryAfter ["writeBoundary"] ''
-  # echo -e "\033[0;34mActivating chezmoi"
-  #  echo -e "\033[0;34m=================="
-  #    ${pkgs.chezmoi}/bin/chezmoi apply --verbose
-  #   echo -e "\033[0;34m=================="
-  #   '';
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   home.stateVersion = "23.05";
