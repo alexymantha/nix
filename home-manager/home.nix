@@ -21,6 +21,7 @@
     config.allowUnfreePredicate = pkg:
       builtins.elem (lib.getName pkg) [
         "spotify"
+        "cloudflare-warp"
       ];
   };
 
@@ -49,7 +50,6 @@
       '';
     };
   };
-
 
   programs.direnv = {
     enable = true;

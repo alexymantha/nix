@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   programs.firefox = {
     enable = true;
     package = null; # Installed externally, homebrew on MacOS

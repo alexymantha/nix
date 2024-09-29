@@ -81,5 +81,11 @@
         ];
       };
     };
+    hydraJobs = {
+      inherit
+        (self)
+        packages
+        ;
+    };
   };
 }

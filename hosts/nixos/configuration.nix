@@ -1,4 +1,4 @@
-# This is your system's configuration file.
+# Thi:wa is your system's configuration file.
 # Use this to configure your system environment (it replaces /etc/nixos/configuration.nix)
 {
   inputs,
@@ -56,6 +56,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.initrd.kernelModules = ["amdgpu"];
+  boot.binfmt.emulatedSystems = ["aarch64-linux"];
 
   networking.hostName = "amantha-nixos"; # Define your hostname.
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
@@ -123,6 +124,9 @@
     grim
     cloudflare-warp
   ];
+
+  systemd.packages = [pkgs.cloudflare-warp]; # for warp-cli
+  systemd.targets.multi-user.wants = ["warp-svc.service"];
 
   # TODO: Remove this after IFT-3201
   virtualisation.vmware.host.enable = true;

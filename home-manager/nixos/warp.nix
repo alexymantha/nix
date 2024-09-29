@@ -6,9 +6,4 @@
   pkgs,
   ...
 }: {
-  imports = [
-    ./hyprland.nix
-
-    ../home.nix
-  ];
 }
