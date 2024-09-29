@@ -10,9 +10,11 @@
 
       substituters = [
         "https://devenv.cachix.org"
+        "https://alexymantha.cachix.org"
       ];
       trusted-public-keys = [
         "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
+        "alexymantha.cachix.org-1:yUrFTN9X9HjjMhMrHSV+iDY0r+ZRdVUPisI6Io4PrOc="
       ];
     };
   };
