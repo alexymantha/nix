@@ -22,4 +22,4 @@ jobs:
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
     - name: amantha-nixos
-      run: nix build .${{ matrix.derivation }}.config.system.build.toplevel
+      run: nix build .#${{ matrix.derivation }}.config.system.build.toplevel
