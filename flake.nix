@@ -39,6 +39,19 @@
     formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
     overlays = import ./overlays {inherit inputs;};
 
+    checks = forAllSystems (system: {
+      test = nixpkgs.legacyPackages.${system}.runCommand "test" {} ''
+        echo "Running test"
+        ${nixpkgs.legacyPackages.${system}.hello}/bin/hello
+        touch $out
+        '';
+    });
+
+    hydraJobs = {
+      build = self.packages;
+      checks = self.checks;
+    };
+
     # NixOS configuration entrypoint
     # Available through 'nixos-rebuild --flake .#your-hostname'
     nixosConfigurations = {
