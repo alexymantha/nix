@@ -39,19 +39,6 @@
     formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
     overlays = import ./overlays {inherit inputs;};
 
-    checks = forAllSystems (system: {
-      test = nixpkgs.legacyPackages.${system}.runCommand "test" {} ''
-        echo "Running test"
-        ${nixpkgs.legacyPackages.${system}.hello}/bin/hello
-        touch $out
-        '';
-    });
-
-    hydraJobs = {
-      build = self.packages;
-      checks = self.checks;
-    };
-
     # NixOS configuration entrypoint
     # Available through 'nixos-rebuild --flake .#your-hostname'
     nixosConfigurations = {
@@ -60,12 +47,6 @@
         modules = [
           {nixpkgs.overlays = [nur.overlay];}
           # > Our main nixos configuration file <
-          ./hosts/nixos/configuration.nix
-        ];
-      };
-      manthadev-hydra = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs;};
-        modules = [
           ./hosts/nixos/configuration.nix
         ];
       };
@@ -93,6 +74,28 @@
           ./hosts/darwin/amantha-mbp/overrides.nix
         ];
       };
+    };
+
+    hydraJobs = {
+      # Build NixOS configurations
+      nixos = nixpkgs.lib.mapAttrs' (name: config: nixpkgs.lib.nameValuePair "nixos-${name}" config.config.system.build.toplevel) self.nixosConfigurations;
+
+      # Build Darwin configurations
+      darwin = nixpkgs.lib.mapAttrs' (name: config: nixpkgs.lib.nameValuePair "darwin-${name}" config.system.build.toplevel) self.darwinConfigurations;
+
+      # Add a simple package build job for each system
+      packages = forAllSystems (system: {
+        hello = nixpkgs.legacyPackages.${system}.hello;
+      });
+
+      # Add a simple check job for each system
+      checks = forAllSystems (system: {
+        simple-test = nixpkgs.legacyPackages.${system}.runCommand "simple-test" {} ''
+        echo "Running simple test"
+        ${nixpkgs.legacyPackages.${system}.hello}/bin/hello
+        touch $out
+        '';
+      });
     };
   };
 }
