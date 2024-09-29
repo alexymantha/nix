@@ -105,6 +105,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     clang
+    cachix
     vesktop
     git
     usbutils
