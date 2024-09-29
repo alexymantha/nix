@@ -33,9 +33,11 @@
       main = {
         include = "${config.xdg.configHome}/fuzzel/themes/macchiato/red.ini";
         dpi-aware = true;
+        font = "JetBrainsMono Nerd Font:size=24";
       };
     };
   };
+
   programs.hyprlock.enable = true;
   services.hypridle = {
     enable = true;

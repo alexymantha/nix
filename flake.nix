@@ -31,6 +31,7 @@
     inherit (self) outputs;
     systems = [
       "x86_64-linux"
+      "aarch64-linux"
       "aarch64-darwin"
     ];
     forAllSystems = nixpkgs.lib.genAttrs systems;
@@ -46,6 +47,12 @@
         modules = [
           {nixpkgs.overlays = [nur.overlay];}
           # > Our main nixos configuration file <
+          ./hosts/nixos/configuration.nix
+        ];
+      };
+      manthadev-hydra = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs outputs;};
+        modules = [
           ./hosts/nixos/configuration.nix
         ];
       };

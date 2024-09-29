@@ -10,6 +10,7 @@
     ];
   };
 
+  nix.linux-builder.enable = true;
   system.defaults = {
     dock = {
       persistent-apps = [
