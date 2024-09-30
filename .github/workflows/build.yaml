@@ -22,7 +22,7 @@ jobs:
     - name: amantha-nixos
       run: nix build .#nixosConfigurations.${{ matrix.host }}.config.system.build.toplevel
   
-  build-mac:
+  build-darwin:
     runs-on: macos-latest
     strategy:
       matrix:
