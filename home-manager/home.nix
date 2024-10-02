@@ -9,6 +9,7 @@
   imports = [
     ./firefox.nix
     ./zsh.nix
+    ./neovim.nix
   ];
 
   nixpkgs = {
@@ -26,11 +27,6 @@
   };
 
   programs = {
-    neovim = {
-      enable = true;
-      package = pkgs.unstable.neovim-unwrapped;
-      defaultEditor = true;
-    };
     home-manager.enable = true;
     git.enable = true;
     zellij = {
