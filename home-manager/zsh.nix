@@ -9,6 +9,7 @@
   programs.zsh = {
     enable = true;
     history = {
+      ignoreAllDups = true;
       ignoreDups = true;
       ignoreSpace = true;
       save = 50000;
@@ -32,6 +33,10 @@
       source ~/.zsh/themes/powerlevel10k/powerlevel10k.zsh-theme
       [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+      source ~/.zsh/lib/fzf-history.zsh
+      source ~/.zsh/lib/keybinds.zsh
+      source ~/.zsh/lib/clipboard.zsh
+
       # Autostart zellij
       eval "$(zellij setup --generate-auto-start zsh)"
     '';
@@ -45,8 +50,6 @@
       }
     ];
     shellAliases = {
-      vim = "nvim";
-      vi = "nvim";
       # Kubernetes stuff;
       k = "kubectl";
       kns = "kubens";
@@ -54,8 +57,13 @@
       dev = "cd \"$HOME/dev/$(ls \"$HOME/dev\" | fzf)\"";
     };
   };
-  # home.file.".zsh/themes/catppuccin_macchiato-zsh-syntax-highlighting.zsh".source = builtins.fetchurl {
-  #   url = "https://raw.githubusercontent.com/catppuccin/zsh-syntax-highlighting/refs/heads/main/themes/catppuccin_macchiato-zsh-syntax-highlighting.zsh";
-  #   sha256 = "038hf207y90gcj7q8j8mn27fhhhniivgpfbcvlydvj7knkhw08ld";
-  # };
+  home.file.".zsh/themes/catppuccin_macchiato-zsh-syntax-highlighting.zsh".source = builtins.fetchurl {
+    url = "https://raw.githubusercontent.com/catppuccin/zsh-syntax-highlighting/refs/heads/main/themes/catppuccin_macchiato-zsh-syntax-highlighting.zsh";
+    sha256 = "038hf207y90gcj7q8j8mn27fhhhniivgpfbcvlydvj7knkhw08ld";
+  };
+
+  home.file.".zsh/lib" = {
+    source = ./configs/zsh/lib;
+    recursive = true;
+  };
 }
