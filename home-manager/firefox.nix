@@ -74,8 +74,9 @@
 
           # Fingerprinting
           "privacy.fingerprintingProtection" = true;
-          "privacy.resistFingerprinting" = true;
-          "privacy.resistFingerprinting.pbmode" = true;
+          # Turned off for now, breaks a bunch of things
+          # "privacy.resistFingerprinting" = tru;
+          # "privacy.resistFingerprinting.pbmode" = true;
 
           "privacy.firstparty.isolate" = true;
 

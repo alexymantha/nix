@@ -23,6 +23,7 @@
       builtins.elem (lib.getName pkg) [
         "spotify"
         "cloudflare-warp"
+        "obsidian"
       ];
   };
 
@@ -64,6 +65,7 @@
     dnsutils
     fd
     fzf
+    obsidian
     unstable.go
     ginkgo # Use direnv for projects that need it?
     unstable.nodejs_22
