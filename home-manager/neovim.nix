@@ -26,6 +26,7 @@
       dockerfile-language-server-nodejs
       helm-ls
       zls
+      nodePackages.typescript-language-server
     ];
   };
 

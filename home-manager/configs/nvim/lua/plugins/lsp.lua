@@ -31,6 +31,8 @@ return {
 			lspconfig.terraformls.setup({ capabilities = capabilities })
 			lspconfig.dockerls.setup({ capabilities = capabilities })
 			lspconfig.zls.setup({ capabilities = capabilities })
+			lspconfig.ts_ls.setup({ capabilities = capabilities })
+			lspconfig.templ.setup({ capabilities = capabilities })
 
 			lspconfig.yamlls.setup({
 				capabilities = capabilities,
