@@ -78,6 +78,7 @@
     # Java stuff
     temurin-bin-20
     jdt-language-server
+    zig
   ];
 
   home.sessionVariables = {

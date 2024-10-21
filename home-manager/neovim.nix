@@ -25,6 +25,7 @@
       terraform-ls
       dockerfile-language-server-nodejs
       helm-ls
+      zls
     ];
   };
 

@@ -30,6 +30,7 @@ return {
 			lspconfig.jsonls.setup({ capabilities = capabilities })
 			lspconfig.terraformls.setup({ capabilities = capabilities })
 			lspconfig.dockerls.setup({ capabilities = capabilities })
+			lspconfig.zls.setup({ capabilities = capabilities })
 
 			lspconfig.yamlls.setup({
 				capabilities = capabilities,
