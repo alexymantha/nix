@@ -50,11 +50,10 @@
       }
     ];
     shellAliases = {
-      # Kubernetes stuff;
-      k = "kubectl";
-      kns = "kubens";
-      kcx = "kubectx";
       dev = "cd \"$HOME/dev/$(ls \"$HOME/dev\" | fzf)\"";
+      k = "kubectl";
+      kcx = "kubectx";
+      kns = "kubens";
     };
   };
   home.file.".zsh/themes/catppuccin_macchiato-zsh-syntax-highlighting.zsh".source = builtins.fetchurl {

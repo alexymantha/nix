@@ -8,22 +8,22 @@
 }: {
   imports = [
     ./firefox.nix
-    ./zsh.nix
     ./neovim.nix
+    ./zsh.nix
   ];
 
   nixpkgs = {
     overlays = [
+      inputs.nur.overlay
       outputs.overlays.additions
       outputs.overlays.modifications
       outputs.overlays.unstable-packages
-      inputs.nur.overlay
     ];
     config.allowUnfreePredicate = pkg:
       builtins.elem (lib.getName pkg) [
-        "spotify"
         "cloudflare-warp"
         "obsidian"
+        "spotify"
       ];
   };
 
@@ -38,10 +38,10 @@
       enable = true;
       extraConfig = ''
         return {
+          color_scheme = "Catppuccin Macchiato",
           enable_wayland = false;
           font = wezterm.font("JetBrains Mono"),
           font_size = 24.0,
-          color_scheme = "Catppuccin Macchiato",
           hide_tab_bar_if_only_one_tab = true,
         }
       '';
@@ -57,33 +57,34 @@
   systemd.user.startServices = "sd-switch";
 
   home.packages = with pkgs; [
+    # Dev tools
     cargo
-    chezmoi
     coreutils
-    kitty
     devenv
-    dnsutils
+    unstable.go
+    unstable.nodejs_22
+    zig
+    # Utils
     fd
     fzf
-    obsidian
-    unstable.go
-    ginkgo # Use direnv for projects that need it?
-    unstable.nodejs_22
-    yubico-piv-tool
     ripgrep
+    yubico-piv-tool
+    # Apps
+    obsidian
     spotify
-    # K8s stuff
+    # Networking
+    dnsutils
+    # Kubernetes
     kubectl
     kubernetes-helm
-    # Java stuff
+    # Java
     temurin-bin-20
     jdt-language-server
-    zig
   ];
 
   home.sessionVariables = {
-    YUBICO_PATH = "${pkgs.yubico-piv-tool}/lib";
     JDTLS_PATH = "${pkgs.jdt-language-server}/share";
+    YUBICO_PATH = "${pkgs.yubico-piv-tool}/lib";
   };
 
   home.file.".config/Yubico/u2f_keys".text = ''

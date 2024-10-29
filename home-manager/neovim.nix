@@ -13,18 +13,18 @@
     vimAlias = true;
     defaultEditor = true;
     extraPackages = with pkgs; [
+      dockerfile-language-server-nodejs
       gopls
       gotools
-      typescript
-      pyright
+      helm-ls
       lua-language-server
+      pyright
       rust-analyzer
-      yaml-language-server
+      terraform-ls
+      typescript
       # Needed for the JSON ls
       vscode-langservers-extracted
-      terraform-ls
-      dockerfile-language-server-nodejs
-      helm-ls
+      yaml-language-server
       zls
       nodePackages.typescript-language-server
     ];

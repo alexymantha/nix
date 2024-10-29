@@ -36,6 +36,7 @@
       # Workaround for https://github.com/NixOS/nix/issues/9574
       nix-path = config.nix.nixPath;
 
+      extra
       substituters = [
         "https://hyprland.cachix.org"
         "https://devenv.cachix.org"

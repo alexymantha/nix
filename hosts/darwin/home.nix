@@ -13,13 +13,4 @@
       home = "/Users/amantha";
     };
   };
-
-  home-manager = {
-    backupFileExtension = "backup";
-    extraSpecialArgs = {inherit inputs outputs;};
-    users = {
-      # Import your home-manager configuration
-      amantha = import ../../home-manager/home.nix;
-    };
-  };
 }
