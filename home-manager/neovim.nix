@@ -27,6 +27,7 @@
       yaml-language-server
       zls
       nodePackages.typescript-language-server
+      unstable.harper # Spellcheck
     ];
   };
 

@@ -114,6 +114,7 @@
     usbutils
     fzf
     jq
+    yq
     unzip
     python3
     # Wayland stuff

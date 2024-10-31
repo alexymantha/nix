@@ -24,6 +24,7 @@
         "cloudflare-warp"
         "obsidian"
         "spotify"
+        "vault"
       ];
   };
 
@@ -57,6 +58,10 @@
   systemd.user.startServices = "sd-switch";
 
   home.packages = with pkgs; [
+    # Work
+    awscli2
+    vault
+    gh
     # Dev tools
     cargo
     coreutils
@@ -67,6 +72,12 @@
     # Utils
     fd
     fzf
+    yq
+    obsidian
+    unstable.go
+    ginkgo # Use direnv for projects that need it?
+    unstable.nodejs_22
+    yubico-piv-tool
     ripgrep
     yubico-piv-tool
     # Apps
@@ -76,6 +87,7 @@
     dnsutils
     # Kubernetes
     kubectl
+    kubectx
     kubernetes-helm
     # Java
     temurin-bin-20

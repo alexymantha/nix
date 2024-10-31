@@ -24,15 +24,25 @@ return {
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			local lspconfig = require("lspconfig")
 
+			lspconfig.dockerls.setup({ capabilities = capabilities })
 			lspconfig.gopls.setup({ capabilities = capabilities })
+			lspconfig.jsonls.setup({ capabilities = capabilities })
 			lspconfig.pyright.setup({ capabilities = capabilities })
 			lspconfig.rust_analyzer.setup({ capabilities = capabilities })
-			lspconfig.jsonls.setup({ capabilities = capabilities })
-			lspconfig.terraformls.setup({ capabilities = capabilities })
-			lspconfig.dockerls.setup({ capabilities = capabilities })
-			lspconfig.zls.setup({ capabilities = capabilities })
-			lspconfig.ts_ls.setup({ capabilities = capabilities })
 			lspconfig.templ.setup({ capabilities = capabilities })
+			lspconfig.terraformls.setup({ capabilities = capabilities })
+			lspconfig.ts_ls.setup({ capabilities = capabilities })
+			lspconfig.zls.setup({ capabilities = capabilities })
+
+			lspconfig.harper_ls.setup {
+				settings = {
+					["harper-ls"] = {
+						codeActions = {
+							forceStable = true
+						}
+					}
+				},
+			}
 
 			lspconfig.yamlls.setup({
 				capabilities = capabilities,

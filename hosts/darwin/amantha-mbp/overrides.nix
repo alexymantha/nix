@@ -1,6 +1,7 @@
 {
   inputs,
   outputs,
+  pkgs,
   ...
 }: {
   security.pki.certificateFiles = ["/etc/ssl/certs/all_trusted_certs.pem"];
@@ -12,4 +13,8 @@
       amantha = import ../../../home-manager/hosts/amantha-mbp.nix;
     };
   };
+
+  environment.systemPackages = with pkgs; [
+    docker
+  ];
 }
