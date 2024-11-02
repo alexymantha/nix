@@ -58,10 +58,6 @@
   systemd.user.startServices = "sd-switch";
 
   home.packages = with pkgs; [
-    # Work
-    awscli2
-    vault
-    gh
     # Dev tools
     cargo
     coreutils
