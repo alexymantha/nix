@@ -110,6 +110,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    agenix.packages.${system}.default
     cachix
     clang
     fzf
@@ -129,13 +130,9 @@
       loginBackground = true;
     })
     cloudflare-warp
-<<<<<<< HEAD
-    agenix.packages.${system}.default
-=======
     grim
     slurp
     wl-clipboard
->>>>>>> 7113dbf (wip)
   ];
 
   systemd.packages = [pkgs.cloudflare-warp]; # for warp-cli
