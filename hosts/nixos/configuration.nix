@@ -110,16 +110,17 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    clang
     cachix
-    vesktop
-    git
-    usbutils
+    clang
     fzf
+    git
+    gnumake
     jq
-    yq
-    unzip
     python3
+    unzip
+    usbutils
+    vesktop
+    yq
     # Wayland stuff
     (catppuccin-sddm.override {
       flavor = "macchiato";
@@ -127,11 +128,14 @@
       fontSize = "12";
       loginBackground = true;
     })
-    wl-clipboard
-    slurp
-    grim
     cloudflare-warp
+<<<<<<< HEAD
     agenix.packages.${system}.default
+=======
+    grim
+    slurp
+    wl-clipboard
+>>>>>>> 7113dbf (wip)
   ];
 
   systemd.packages = [pkgs.cloudflare-warp]; # for warp-cli

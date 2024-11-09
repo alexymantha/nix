@@ -19,7 +19,7 @@
     extraSpecialArgs = {inherit inputs outputs;};
     users = {
       # Import your home-manager configuration
-      amantha = import ../../home-manager/nixos/home.nix;
+      amantha = import ../../home-manager/hosts/amantha-nixos.nix;
     };
   };
 }
