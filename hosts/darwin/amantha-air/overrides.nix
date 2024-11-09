@@ -3,6 +3,12 @@
   outputs,
   ...
 }: {
+  nix = {
+    linux-builder.enable = true;
+
+    settings.trusted-users = [ "@admin" ];
+  };
+
   homebrew = {
     casks = [
       "cloudflare-warp"

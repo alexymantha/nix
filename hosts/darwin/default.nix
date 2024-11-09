@@ -1,6 +1,7 @@
-{pkgs, ...}: {
+{pkgs, inputs, system, ...}: {
   imports = [
     ./home.nix
+    inputs.agenix.darwinModules.default
   ];
 
   nix = {
@@ -63,6 +64,10 @@
       ];
     };
   };
+
+  environment.systemPackages = with pkgs; [
+    inputs.agenix.packages.${pkgs.system}.default
+  ];
 
   system.stateVersion = 5;
 }

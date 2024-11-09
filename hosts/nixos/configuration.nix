@@ -6,6 +6,7 @@
   lib,
   config,
   pkgs,
+  agenix,
   ...
 }: {
   imports = [
@@ -130,6 +131,7 @@
     slurp
     grim
     cloudflare-warp
+    agenix.packages.${system}.default
   ];
 
   systemd.packages = [pkgs.cloudflare-warp]; # for warp-cli

@@ -76,6 +76,7 @@
     yubico-piv-tool
     ripgrep
     yubico-piv-tool
+    nixos-anywhere
     # Apps
     obsidian
     spotify
