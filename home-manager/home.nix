@@ -25,6 +25,7 @@
         "obsidian"
         "spotify"
         "vault"
+        "jetbrains.idea-community-bin"
       ];
   };
 
@@ -89,6 +90,7 @@
     # Java
     temurin-bin-20
     jdt-language-server
+    jetbrains.idea-community-bin
   ];
 
   home.sessionVariables = {
