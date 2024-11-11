@@ -6,8 +6,12 @@
   ];
 
   home.packages = with pkgs; [
+    # Work
     awscli2
-    docker
     azure-cli
+    docker
+    gh
+    kustomize
+    vault
   ];
 }
