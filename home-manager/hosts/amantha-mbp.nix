@@ -13,5 +13,6 @@
     gh
     kustomize
     vault
+    gnupg
   ];
 }
