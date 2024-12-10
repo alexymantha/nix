@@ -76,6 +76,7 @@
     unstable.nodejs_22
     yubico-piv-tool
     ripgrep
+    rsync
     yubico-piv-tool
     nixos-anywhere
     # Apps

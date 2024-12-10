@@ -67,6 +67,7 @@
 
   environment.systemPackages = with pkgs; [
     inputs.agenix.packages.${pkgs.system}.default
+    rsync
   ];
 
   system.stateVersion = 5;

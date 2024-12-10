@@ -24,6 +24,8 @@
     };
   };
 
+  services.tailscale.enable = true;
+
   home-manager = {
     backupFileExtension = "backup";
     extraSpecialArgs = {inherit inputs outputs;};
