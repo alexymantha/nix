@@ -88,10 +88,6 @@
     kubectl
     kubectx
     kubernetes-helm
-    # Java
-    temurin-bin-20
-    jdt-language-server
-    jetbrains.idea-community-bin
   ];
 
   home.sessionVariables = {
