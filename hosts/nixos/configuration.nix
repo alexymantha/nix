@@ -179,7 +179,6 @@
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   hardware.opengl.enable = true;
-  hardware.opengl.driSupport = true;
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "24.05";
