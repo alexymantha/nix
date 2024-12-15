@@ -1,7 +1,7 @@
 {pkgs, inputs, system, ...}: {
   imports = [
     ./home.nix
-    inputs.agenix.darwinModules.default
+    inputs.agenix.nixosModules.default
   ];
 
   nix = {

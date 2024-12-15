@@ -6,7 +6,6 @@
   lib,
   config,
   pkgs,
-  agenix,
   ...
 }: {
   imports = [
@@ -110,7 +109,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    agenix.packages.${system}.default
+    inputs.agenix.packages.${pkgs.system}.default
     cachix
     clang
     fzf
@@ -178,7 +177,7 @@
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
-  hardware.opengl.enable = true;
+  hardware.graphics.enable = true;
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "24.05";
