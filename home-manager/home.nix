@@ -35,6 +35,16 @@
     zellij = {
       enable = true;
       enableZshIntegration = true;
+      settings = {
+        theme = "catppuccin-macchiato";
+        default_mode = "locked";
+        default_layout = "compact";
+        ui = {
+          pane_frames = {
+            hide_session_name = true;
+          };
+        };
+      };
     };
     wezterm = {
       enable = true;

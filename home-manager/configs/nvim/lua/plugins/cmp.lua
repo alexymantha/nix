@@ -71,11 +71,17 @@ return {
                     end, { "i", "s" }),
                     ['<CR>'] = cmp.mapping(function (fallback)
                         if cmp.visible() then
-                            if luasnip.expandable() then
+                            if cmp.get_active_entry() == nil then
+                                cmp.close()
+                                fallback()
+                            elseif luasnip.expandable() then
                                 luasnip.expand()
+
                             else
+                                vim.cmd("let &undolevels = &undolevels")
                                 cmp.confirm({
                                     select = false,
+                                    behavior = cmp.ConfirmBehavior.Replace
                                 })
                             end
                         else

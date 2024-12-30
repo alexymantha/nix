@@ -28,6 +28,8 @@
       zls
       nodePackages.typescript-language-server
       unstable.harper # Spellcheck
+      htmx-lsp
+      tailwindcss-language-server
     ];
   };
 

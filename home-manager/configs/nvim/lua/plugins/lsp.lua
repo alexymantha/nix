@@ -26,6 +26,8 @@ return {
 
 			lspconfig.dockerls.setup({ capabilities = capabilities })
 			lspconfig.gopls.setup({ capabilities = capabilities })
+			lspconfig.html.setup({ capabilities = capabilities, filetypes = { "html", "templ" } })
+			lspconfig.htmx.setup({ capabilities = capabilities, filetypes = { "html", "templ" } })
 			lspconfig.jsonls.setup({ capabilities = capabilities })
 			lspconfig.pyright.setup({ capabilities = capabilities })
 			lspconfig.rust_analyzer.setup({ capabilities = capabilities })
@@ -33,6 +35,18 @@ return {
 			lspconfig.terraformls.setup({ capabilities = capabilities })
 			lspconfig.ts_ls.setup({ capabilities = capabilities })
 			lspconfig.zls.setup({ capabilities = capabilities })
+
+			lspconfig.tailwindcss.setup({
+				capabilities = capabilities,
+				filetypes = { "templ", "astro", "javascript", "typescript", "react" },
+				settings = {
+					tailwindCSS = {
+						includeLanguages = {
+							templ = "html",
+						},
+					},
+				},
+			})
 
 			lspconfig.harper_ls.setup {
 				settings = {
@@ -139,7 +153,8 @@ return {
 					vim.keymap.set("n", "<Leader>rn", vim.lsp.buf.rename, opts)
 					vim.keymap.set({ "n", "v" }, "<Leader>ca", vim.lsp.buf.code_action, opts)
 					vim.keymap.set("n", "<Leader>bf", function()
-						format(vim.api.nvim_get_current_buf(), true)
+						vim.lsp.buf.format()
+						-- format(vim.api.nvim_get_current_buf(), true)
 					end, opts)
 
 					if client.supports_method("textDocument/formatting") then
@@ -174,6 +189,7 @@ return {
 					additional_vim_regex_highlighting = false,
 				},
 				indent = {
+					disable = { 'yaml', 'templ' },
 					enable = true,
 				},
 			})
