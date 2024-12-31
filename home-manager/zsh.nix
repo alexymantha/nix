@@ -16,8 +16,11 @@
       size = 50000;
     };
     initExtraFirst = ''
+      # Autostart zellij
+      eval "$(zellij setup --generate-auto-start zsh)"
+
       ### SSH Agent
-      source ~/.scripts/yubikey
+      # source ~/.scripts/yubikey
 
       # Move this to history.append once available in current version
       setopt APPEND_HISTORY
@@ -30,30 +33,27 @@
       --color=marker:#f4dbd6,fg+:#cad3f5,prompt:#c6a0f6,hl+:#ed8796"
 
       # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-      source ~/.zsh/themes/powerlevel10k/powerlevel10k.zsh-theme
-      [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+      source $HOME/.zsh/themes/powerlevel10k/powerlevel10k.zsh-theme
+      [[ ! -f $HOME/.p10k.zsh ]] || source $HOME/.p10k.zsh
 
-      source ~/.zsh/lib/fzf-history.zsh
-      source ~/.zsh/lib/keybinds.zsh
-      source ~/.zsh/lib/clipboard.zsh
-
-      # Autostart zellij
-      eval "$(zellij setup --generate-auto-start zsh)"
+      source $HOME/.zsh/lib/fzf-history.zsh
+      source $HOME/.zsh/lib/keybinds.zsh
+      source $HOME/.zsh/lib/clipboard.zsh
     '';
     syntaxHighlighting.enable = true;
     autosuggestion.enable = true;
     plugins = [
-      {
-        name = "vi-mode";
-        src = pkgs.zsh-vi-mode;
-        file = "share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
-      }
+      # {
+      #   name = "vi-mode";
+      #   src = pkgs.zsh-vi-mode;
+      #   file = "share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
+      # }
     ];
     shellAliases = {
       dev = "cd \"$HOME/dev/$(ls \"$HOME/dev\" | fzf)\"";
       k = "kubectl";
-      kcx = "kubectx";
-      kns = "kubens";
+      kcx = "kubectx && zellij pipe 'zjstatus::rerun::command_kubectx'";
+      kns = "kubens && zellij pipe 'zjstatus::rerun::command_kubens'";
     };
   };
   home.file.".zsh/themes/catppuccin_macchiato-zsh-syntax-highlighting.zsh".source = builtins.fetchurl {

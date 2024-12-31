@@ -21,6 +21,8 @@
 
     nur.url = "github:nix-community/NUR";
     # hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+
+    zjstatus.url = "github:dj95/zjstatus";
   };
 
   outputs = {
@@ -30,6 +32,7 @@
     home-manager,
     darwin,
     nur,
+    zjstatus,
     ...
   } @ inputs: let
     inherit (self) outputs;

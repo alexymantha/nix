@@ -10,6 +10,7 @@
     ./firefox.nix
     ./neovim.nix
     ./zsh.nix
+    ./zellij.nix
   ];
 
   nixpkgs = {
@@ -32,20 +33,6 @@
   programs = {
     home-manager.enable = true;
     git.enable = true;
-    zellij = {
-      enable = true;
-      enableZshIntegration = true;
-      settings = {
-        theme = "catppuccin-macchiato";
-        default_mode = "locked";
-        default_layout = "compact";
-        ui = {
-          pane_frames = {
-            hide_session_name = true;
-          };
-        };
-      };
-    };
     wezterm = {
       enable = true;
       extraConfig = ''
@@ -101,7 +88,6 @@
   ];
 
   home.sessionVariables = {
-    JDTLS_PATH = "${pkgs.jdt-language-server}/share";
     YUBICO_PATH = "${pkgs.yubico-piv-tool}/lib";
   };
 

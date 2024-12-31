@@ -35,6 +35,7 @@ return {
 			lspconfig.terraformls.setup({ capabilities = capabilities })
 			lspconfig.ts_ls.setup({ capabilities = capabilities })
 			lspconfig.zls.setup({ capabilities = capabilities })
+			lspconfig.nil_ls.setup({ capabilities = capabilities })
 
 			lspconfig.tailwindcss.setup({
 				capabilities = capabilities,

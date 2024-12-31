@@ -1,7 +1,6 @@
 # Source: https://github.com/joshskidmore/zsh-fzf-history-search/blob/master/zsh-fzf-history-search.zsh
 # do nothing if fzf is not installed
 (( ! $+commands[fzf] )) && return
-echo "setting up"
 
 # Bind for fzf history search
 (( ! ${+ZSH_FZF_HISTORY_SEARCH_BIND} )) &&

@@ -1,6 +1,8 @@
-# This file defines overlays
+
 {inputs, ...}: {
-  additions = final: _prev: {};
+  additions = final: _prev: {
+      zjstatus = inputs.zjstatus.packages.${final.system}.default;
+  };
 
   # This one contains whatever you want to overlay
   # You can change versions, add patches, set compilation flags, anything really.

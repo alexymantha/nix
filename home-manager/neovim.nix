@@ -30,6 +30,7 @@
       unstable.harper # Spellcheck
       htmx-lsp
       tailwindcss-language-server
+      nil # Nix language server
     ];
   };
 
