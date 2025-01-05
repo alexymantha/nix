@@ -21,7 +21,6 @@
     ];
     config.allowUnfreePredicate = pkg:
       builtins.elem (lib.getName pkg) [
-        "vmware-workstation"
         "cloudflare-warp"
       ];
   };
@@ -109,7 +108,6 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    inputs.agenix.packages.${pkgs.system}.default
     cachix
     clang
     fzf
@@ -136,9 +134,6 @@
 
   systemd.packages = [pkgs.cloudflare-warp]; # for warp-cli
   systemd.targets.multi-user.wants = ["warp-svc.service"];
-
-  # TODO: Remove this after IFT-3201
-  virtualisation.vmware.host.enable = true;
 
   services.openssh = {
     enable = true;
@@ -167,13 +162,6 @@
      RUN+="${pkgs.systemd}/bin/loginctl lock-sessions"
   '';
 
-  programs.hyprland = {
-    enable = true;
-    # Use flake when it is fixed upstream.
-    #    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-    #    portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
-  };
-  xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-hyprland];
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 

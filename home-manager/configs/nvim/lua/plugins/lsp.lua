@@ -49,15 +49,15 @@ return {
 				},
 			})
 
-			lspconfig.harper_ls.setup {
-				settings = {
-					["harper-ls"] = {
-						codeActions = {
-							forceStable = true
-						}
-					}
-				},
-			}
+			-- lspconfig.harper_ls.setup {
+			-- 	settings = {
+			-- 		["harper-ls"] = {
+			-- 			codeActions = {
+			-- 				forceStable = true
+			-- 			}
+			-- 		}
+			-- 	},
+			-- }
 
 			lspconfig.yamlls.setup({
 				capabilities = capabilities,

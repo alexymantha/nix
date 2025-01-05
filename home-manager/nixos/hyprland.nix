@@ -6,6 +6,12 @@
   pkgs,
   ...
 }: {
+  programs.hyprland = {
+    enable = true;
+     package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+     portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+  };
+  xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-hyprland];
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;

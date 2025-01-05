@@ -20,6 +20,7 @@
       outputs.overlays.modifications
       outputs.overlays.unstable-packages
     ];
+    config.allowUnfree = true;
     config.allowUnfreePredicate = pkg:
       builtins.elem (lib.getName pkg) [
         "cloudflare-warp"
