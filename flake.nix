@@ -19,7 +19,6 @@
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
 
-    hyprland.url = "github:hyprwm/Hyprland/v0.46.2-b";
     nur.url = "github:nix-community/NUR";
     zjstatus.url = "github:dj95/zjstatus";
   };

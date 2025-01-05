@@ -162,6 +162,8 @@
      RUN+="${pkgs.systemd}/bin/loginctl lock-sessions"
   '';
 
+  programs.hyprland.enable = true;
+  xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-hyprland];
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
