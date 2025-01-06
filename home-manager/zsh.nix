@@ -20,7 +20,7 @@
       eval "$(zellij setup --generate-auto-start zsh)"
 
       ### SSH Agent
-      # source ~/.scripts/yubikey
+      source ~/.scripts/yubikey
 
       # Move this to history.append once available in current version
       setopt APPEND_HISTORY
@@ -42,13 +42,6 @@
     '';
     syntaxHighlighting.enable = true;
     autosuggestion.enable = true;
-    plugins = [
-      # {
-      #   name = "vi-mode";
-      #   src = pkgs.zsh-vi-mode;
-      #   file = "share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
-      # }
-    ];
     shellAliases = {
       dev = "cd \"$HOME/dev/$(ls \"$HOME/dev\" | fzf)\"";
       k = "kubectl";

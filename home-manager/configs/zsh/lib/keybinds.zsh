@@ -17,7 +17,6 @@ fi
 
 # Start typing + [Up-Arrow] - fuzzy find history forward
 if [[ -n "${terminfo[kcuu1]}" ]]; then
-  echo "fuzzy"
   autoload -U up-line-or-beginning-search
   zle -N up-line-or-beginning-search
 

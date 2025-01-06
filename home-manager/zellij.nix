@@ -234,7 +234,7 @@ keybinds clear-defaults=true {
     text = ''
 layout {
     pane size=1 borderless=true {
-        plugin location="file:/nix/store/0fh1fn1n05388zxl30h6afwlnhx3ls52-zjstatus-0.19.1/bin/zjstatus.wasm" {
+        plugin location="file:${pkgs.zjstatus}/bin/zjstatus.wasm" {
           hide_frame_for_single_pane "false"
 
           format_left  "#[bg=$black]{tabs}"
