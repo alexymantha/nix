@@ -10,17 +10,6 @@ return {
 			{ "<Leader>fd", ":Telescope diagnostics<CR>" },
 		},
 		config = function()
-			local format = function(bufnr, async)
-				async = async or false
-				vim.lsp.buf.format({
-					filter = function(c)
-						return c.name == "null-ls"
-					end,
-					bufnr = bufnr,
-					async = async,
-				})
-			end
-
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			local lspconfig = require("lspconfig")
 
@@ -75,7 +64,7 @@ return {
 						validate = false,
 						schemas = {
 							["file:///Users/amantha/.datree/crdSchemas/cluster.open-cluster-management.io/placement_v1beta1.json"] =
-								"**/placements/**/*.yaml",
+							"**/placements/**/*.yaml",
 							["kubernetes"] = "/*.yaml",
 						},
 					},
@@ -155,17 +144,13 @@ return {
 					vim.keymap.set({ "n", "v" }, "<Leader>ca", vim.lsp.buf.code_action, opts)
 					vim.keymap.set("n", "<Leader>bf", function()
 						vim.lsp.buf.format()
-						-- format(vim.api.nvim_get_current_buf(), true)
 					end, opts)
 
 					if client.supports_method("textDocument/formatting") then
-						local augroup = vim.api.nvim_create_augroup("UserLspFormat", { clear = true })
-						vim.api.nvim_clear_autocmds({ group = augroup, buffer = ev.buf })
 						vim.api.nvim_create_autocmd("BufWritePre", {
-							group = augroup,
 							buffer = ev.buf,
 							callback = function()
-								-- format(ev.buf)
+								vim.lsp.buf.format({ bufnr = ev.buf, id = client.id })
 							end,
 						})
 					end
@@ -204,20 +189,6 @@ return {
 				filetype = "gotmpl",
 				used_by = { "gohtmltmpl", "gotexttmpl", "gotmpl" },
 			}
-		end,
-	},
-	{
-		"nvimtools/none-ls.nvim",
-		config = function()
-			local none_ls = require("null-ls")
-
-			none_ls.setup({
-				sources = {
-					-- none_ls.builtins.formatting.prettier,
-					none_ls.builtins.formatting.stylua,
-					none_ls.builtins.formatting.goimports,
-				},
-			})
 		end,
 	},
 	{ "towolf/vim-helm", ft = "helm" }, -- Helm not working properly with treesitter so using a custom plugin
@@ -323,7 +294,7 @@ return {
 		config = function()
 			require("go").setup()
 		end,
-		event = {"CmdlineEnter"},
-		ft = {"go", 'gomod'},
+		event = { "CmdlineEnter" },
+		ft = { "go", 'gomod' },
 	}
 }

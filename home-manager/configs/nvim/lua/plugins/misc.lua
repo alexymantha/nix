@@ -10,7 +10,7 @@ return {
 	{
 		"nvim-lualine/lualine.nvim",
 		opts = {
-			options = { theme = "palenight" },
+			options = { theme = "catppuccin" },
 			sections = {
 				lualine_x = {
 					"encoding",
@@ -21,29 +21,14 @@ return {
 		},
 		dependencies = {},
 	},
-	{ "nvim-lua/plenary.nvim",       lazy = true },
-	{ "nvim-tree/nvim-web-devicons", lazy = true },
 	"tpope/vim-sensible",
 	"tpope/vim-surround",
 	"tpope/vim-endwise",
 	"tpope/vim-sleuth",
 	"tpope/vim-commentary",
-	{ "windwp/nvim-autopairs", opts = {} },
-	{
-		"kdheepak/lazygit.nvim",
-		cmd = "LazyGit",
-		keys = { {
-			"<Leader>gg",
-			function()
-				require("lazygit").lazygit()
-			end,
-		} },
-	},
 	{
 		"j-hui/fidget.nvim",
-		opts = {
-			-- options
-		},
+		opts = {},
 	},
 	{
 		"folke/zen-mode.nvim",

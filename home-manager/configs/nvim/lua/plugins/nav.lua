@@ -3,15 +3,9 @@ return {
 		"stevearc/oil.nvim",
 		lazy = false,
 		keys = {
-			{
-				"<C-p>",
-				function()
-					require("oil").open()
-				end,
-			},
+			{ "<C-p>", function() require("oil").open() end },
 		},
 		opts = {},
-		-- Optional dependencies
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 	},
 	{
@@ -55,6 +49,20 @@ return {
 	},
 	{
 		"nvim-telescope/telescope.nvim",
+		dependencies = {
+			'nvim-lua/plenary.nvim',
+			{ 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' }
+		},
+
+		config = function()
+			require("telescope").setup {
+				extensions = {
+					fzf = {}
+				}
+			}
+
+			require("telescope").load_extension("fzf")
+		end,
 		cmd = "Telescope",
 		keys = {
 			{
@@ -75,28 +83,16 @@ return {
 					end
 				end,
 			},
+			{ "<Leader>pf", require("telescope.builtin").find_files },
+			{ "<Leader>fg", require("telescope.builtin").live_grep },
+			{ "<Leader>fb", require("telescope.builtin").buffers },
+			{ "<Leader>fh", require("telescope.builtin").help_tags },
 			{
-				"<Leader>pf",
+				"<Leader>en",
 				function()
-					require("telescope.builtin").find_files()
-				end,
-			},
-			{
-				"<Leader>fg",
-				function()
-					require("telescope.builtin").live_grep()
-				end,
-			},
-			{
-				"<Leader>fb",
-				function()
-					require("telescope.builtin").buffers()
-				end,
-			},
-			{
-				"<Leader>fh",
-				function()
-					require("telescope.builtin").help_tags()
+					require("telescope.builtin").find_files {
+						cwd = vim.fn.expand "~" .. "/nix"
+					}
 				end,
 			},
 		},

@@ -1,13 +1,13 @@
 return {
     "epwalsh/obsidian.nvim",
-    version = "*",  -- recommended, use latest release instead of latest commit
+    version = "*", -- recommended, use latest release instead of latest commit
     lazy = true,
 
     keys = {
-      { "<leader>ot", "<cmd>ObsidianToday<cr>" },
-      { "<leader>oo", "<cmd>ObsidianToday<cr>" },
-      { "<leader>on", "<cmd>ObsidianNew<cr>" },
-      { "<leader>fo", "<cmd>ObsidianSearch<cr>" },
+        { "<leader>ot", "<cmd>ObsidianToday<cr>" },
+        { "<leader>oo", "<cmd>ObsidianToday<cr>" },
+        { "<leader>on", "<cmd>ObsidianNew<cr>" },
+        { "<leader>fo", "<cmd>ObsidianSearch<cr>" },
     },
     -- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
     -- event = {
