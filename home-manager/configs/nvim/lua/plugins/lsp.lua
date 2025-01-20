@@ -13,18 +13,19 @@ return {
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			local lspconfig = require("lspconfig")
 
+			lspconfig.buf_ls.setup({ capabilities = capabilities })
 			lspconfig.dockerls.setup({ capabilities = capabilities })
 			lspconfig.gopls.setup({ capabilities = capabilities })
 			lspconfig.html.setup({ capabilities = capabilities, filetypes = { "html", "templ" } })
 			lspconfig.htmx.setup({ capabilities = capabilities, filetypes = { "html", "templ" } })
 			lspconfig.jsonls.setup({ capabilities = capabilities })
+			lspconfig.nil_ls.setup({ capabilities = capabilities })
 			lspconfig.pyright.setup({ capabilities = capabilities })
 			lspconfig.rust_analyzer.setup({ capabilities = capabilities })
 			lspconfig.templ.setup({ capabilities = capabilities })
 			lspconfig.terraformls.setup({ capabilities = capabilities })
 			lspconfig.ts_ls.setup({ capabilities = capabilities })
 			lspconfig.zls.setup({ capabilities = capabilities })
-			lspconfig.nil_ls.setup({ capabilities = capabilities })
 
 			lspconfig.tailwindcss.setup({
 				capabilities = capabilities,
@@ -115,6 +116,7 @@ return {
 					'--log=verbose',
 					'--compile-commands-dir=.',
 				},
+				filetypes = { "c", "cpp", "objc", "objcpp", "cuda" }
 			})
 
 			vim.api.nvim_create_autocmd("LspAttach", {

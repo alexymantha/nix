@@ -26,11 +26,12 @@
       vscode-langservers-extracted
       yaml-language-server
       zls
-      nodePackages.typescript-language-server
+      typescript-language-server
       unstable.harper # Spellcheck
       htmx-lsp
       tailwindcss-language-server
       nil # Nix language server
+      buf # Protobuf language server
     ];
   };
 
