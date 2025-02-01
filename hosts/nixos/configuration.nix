@@ -62,8 +62,30 @@
   boot.initrd.kernelModules = ["amdgpu"];
   boot.binfmt.emulatedSystems = ["aarch64-linux"];
 
-  networking.hostName = "amantha-nixos"; # Define your hostname.
-  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
+  networking = {
+    # Disable DHCP because we want to force a static IP on the management network
+    useDHCP = false;
+    dhcpcd.enable = false;
+    nameservers = [
+      "192.168.2.1"
+    ];
+    defaultGateway = "192.168.2.1";
+    vlans.management = {
+      id = 20;
+      interface = "enp16s0";
+    };
+    interfaces.management.ipv4.addresses = [
+      { address = "192.168.2.9"; prefixLength = 24; }
+    ];
+    # interfaces.enp16s0 = {
+    #   ipv4.addresses = [ {
+    #     address = "192.168.2.9";
+    #     prefixLength = 24;
+    #   } ];
+    # };
+    hostName = "amantha-nixos";
+    networkmanager.enable = false; # Easiest to use and most distros use this by default.
+  };
 
   # Set your time zone.
   time.timeZone = "America/Montreal";
