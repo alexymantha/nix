@@ -25,7 +25,14 @@ return {
 			lspconfig.templ.setup({ capabilities = capabilities })
 			lspconfig.terraformls.setup({ capabilities = capabilities })
 			lspconfig.ts_ls.setup({ capabilities = capabilities })
-			lspconfig.zls.setup({ capabilities = capabilities })
+			lspconfig.zls.setup({
+				capabilities = capabilities,
+				settings = {
+					zls = {
+						enable_build_on_save = true,
+					}
+				}
+			})
 
 			lspconfig.tailwindcss.setup({
 				capabilities = capabilities,

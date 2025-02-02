@@ -64,6 +64,7 @@
     unstable.go
     unstable.nodejs_22
     zig
+    zls
     # Utils
     fd
     fzf

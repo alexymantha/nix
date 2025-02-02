@@ -20,6 +20,8 @@
     agenix.inputs.nixpkgs.follows = "nixpkgs";
 
     nur.url = "github:nix-community/NUR";
+    zig.url = "github:mitchellh/zig-overlay";
+    zls.url = "github:zigtools/zls";
     zjstatus.url = "github:dj95/zjstatus";
   };
 
@@ -30,6 +32,8 @@
     home-manager,
     darwin,
     nur,
+    zig,
+    zls,
     zjstatus,
     ...
   } @ inputs: let
