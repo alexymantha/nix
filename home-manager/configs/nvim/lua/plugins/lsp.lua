@@ -24,7 +24,6 @@ return {
 			lspconfig.rust_analyzer.setup({ capabilities = capabilities })
 			lspconfig.templ.setup({ capabilities = capabilities })
 			lspconfig.terraformls.setup({ capabilities = capabilities })
-			lspconfig.ts_ls.setup({ capabilities = capabilities })
 			lspconfig.zls.setup({
 				capabilities = capabilities,
 				settings = {
@@ -32,6 +31,24 @@ return {
 						enable_build_on_save = true,
 					}
 				}
+			})
+			lspconfig.volar.setup {}
+			lspconfig.ts_ls.setup({
+				capabilities = capabilities,
+				init_options = {
+					plugins = {
+						{
+							name = "@vue/typescript-plugin",
+							location = "/usr/local/lib/node_modules/@vue/typescript-plugin",
+							languages = { "javascript", "typescript", "vue" },
+						},
+					},
+				},
+				filetypes = {
+					"javascript",
+					"typescript",
+					"vue",
+				},
 			})
 
 			lspconfig.tailwindcss.setup({
