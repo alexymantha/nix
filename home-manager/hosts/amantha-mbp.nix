@@ -9,6 +9,7 @@
     # Work
     awscli2
     azure-cli
+    terraform
     docker
     gh
     kustomize
