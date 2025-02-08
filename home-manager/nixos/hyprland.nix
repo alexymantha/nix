@@ -10,6 +10,10 @@
     enable = true;
     xwayland.enable = true;
 
+    # Will use the package from the NixOS module
+    package = pkgs.unstable.hyprland;
+    # portalPackage = null;
+
     settings = {
       source = "~/.config/hypr/amantha.conf";
     };

@@ -55,6 +55,7 @@
       amantha-nixos = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
+          {nix.channel.enable = false;}
           {nixpkgs.overlays = [nur.overlays.default];}
           # > Our main nixos configuration file <
           ./hosts/nixos/configuration.nix
@@ -69,6 +70,7 @@
         specialArgs = {inherit inputs outputs;};
         system = "aarch64-darwin";
         modules = [
+          {nix.channel.enable = false;}
           {nixpkgs.overlays = [nur.overlays.default];}
           ./hosts/darwin/default.nix
           ./hosts/darwin/amantha-air/overrides.nix
@@ -79,6 +81,7 @@
         specialArgs = {inherit inputs outputs;};
         system = "aarch64-darwin";
         modules = [
+          {nix.channel.enable = false;}
           {nixpkgs.overlays = [nur.overlays.default];}
           ./hosts/darwin/default.nix
           ./hosts/darwin/amantha-mbp/overrides.nix

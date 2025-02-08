@@ -38,13 +38,11 @@
       trusted-users = [ "root" "amantha" ];
 
       substituters = [
-        "https://hyprland.cachix.org"
         "https://devenv.cachix.org"
         "https://alexymantha.cachix.org"
       ];
       
       trusted-public-keys = [
-        "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
         "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
         "alexymantha.cachix.org-1:yUrFTN9X9HjjMhMrHSV+iDY0r+ZRdVUPisI6Io4PrOc="
       ];
@@ -185,7 +183,9 @@
   '';
 
   programs.hyprland.enable = true;
-  xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-hyprland];
+  programs.hyprland.package = pkgs.unstable.hyprland;
+  programs.hyprland.portalPackage = pkgs.unstable.xdg-desktop-portal-hyprland;
+  xdg.portal.extraPortals = [pkgs.unstable.xdg-desktop-portal-hyprland];
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
