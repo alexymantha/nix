@@ -89,7 +89,7 @@
   time.timeZone = "America/Montreal";
 
   fonts.packages = with pkgs; [
-    (nerdfonts.override {fonts = ["JetBrainsMono"];})
+    nerdfonts.jetbrains-mono
   ];
 
   # Select internationalisation properties.
