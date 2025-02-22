@@ -70,9 +70,6 @@
     fzf
     yq
     obsidian
-    unstable.go
-    ginkgo # Use direnv for projects that need it?
-    unstable.nodejs_22
     yubico-piv-tool
     ripgrep
     rsync
@@ -81,6 +78,7 @@
     # Apps
     obsidian
     spotify
+    ghostty
     # Networking
     dnsutils
     # Kubernetes

@@ -20,7 +20,7 @@
     agenix.inputs.nixpkgs.follows = "nixpkgs";
 
     nur.url = "github:nix-community/NUR";
-    zig.url = "github:mitchellh/zig-overlay";
+    zig.url = "github:alexymantha/zig-overlay";
     zls.url = "github:zigtools/zls";
     zjstatus.url = "github:dj95/zjstatus";
   };

@@ -2,7 +2,7 @@
 {inputs, ...}: {
   additions = final: _prev: {
       zjstatus = inputs.zjstatus.packages.${final.system}.default;
-      zig = inputs.zig.packages.${final.system}.master;
+      zig = inputs.zig.packages.${final.system}.master-2024-12-30;
       zls = inputs.zls.packages.${final.system}.default;
   };
 
