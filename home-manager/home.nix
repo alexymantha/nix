@@ -78,7 +78,6 @@
     # Apps
     obsidian
     spotify
-    ghostty
     # Networking
     dnsutils
     # Kubernetes

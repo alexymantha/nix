@@ -8,7 +8,7 @@
     # Also see the 'unstable-packages' overlay at 'overlays/default.nix'.
 
     # Nix Darwin
-    darwin.url = "github:lnl7/nix-darwin/nix-darwin-24.11";
+    darwin.url = "github:lnl7/nix-darwin/master";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
 
     # Home manager
