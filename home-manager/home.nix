@@ -68,7 +68,7 @@
     # Utils
     fd
     fzf
-    yq
+    yq-go
     obsidian
     yubico-piv-tool
     ripgrep
