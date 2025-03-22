@@ -8,6 +8,7 @@
 }: {
   imports = [
     ./firefox.nix
+    ./git.nix
     ./neovim.nix
     ./zsh.nix
     ./zellij.nix

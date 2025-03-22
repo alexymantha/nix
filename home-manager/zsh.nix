@@ -26,10 +26,6 @@
       setopt APPEND_HISTORY
     '';
     initExtra = ''
-      function get_signing_key() {
-        ssh-add -L | grep "Digital Signature" | awk '$0="key::"$0'
-      }
-
       source "$HOME/.zsh/catppuccin_macchiato-zsh-syntax-highlighting.zsh"
       export FZF_DEFAULT_OPTS=" \
       --color=bg+:#363a4f,bg:#24273a,spinner:#f4dbd6,hl:#ed8796 \
@@ -53,10 +49,17 @@
       kns = "kubens && zellij pipe 'zjstatus::rerun::command_kubens'";
     };
   };
+
   home.file.".zsh/themes/catppuccin_macchiato-zsh-syntax-highlighting.zsh".source = builtins.fetchurl {
     url = "https://raw.githubusercontent.com/catppuccin/zsh-syntax-highlighting/refs/heads/main/themes/catppuccin_macchiato-zsh-syntax-highlighting.zsh";
     sha256 = "038hf207y90gcj7q8j8mn27fhhhniivgpfbcvlydvj7knkhw08ld";
   };
+
+  home.packages = [
+    (pkgs.writeShellScriptBin "get_signing_key" ''
+      ssh-add -L | grep "Digital Signature" | awk '$0="key::"$0'
+    '')
+  ];
 
   home.file.".zsh/lib" = {
     source = ./configs/zsh/lib;
