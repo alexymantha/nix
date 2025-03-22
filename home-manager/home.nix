@@ -80,6 +80,7 @@
     spotify
     # Networking
     dnsutils
+    openssl
     # Kubernetes
     kubectl
     kubectx

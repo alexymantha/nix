@@ -1,5 +1,3 @@
-# Thi:wa is your system's configuration file.
-# Use this to configure your system environment (it replaces /etc/nixos/configuration.nix)
 {
   inputs,
   outputs,
@@ -118,6 +116,11 @@
   users.users.amantha = {
     isNormalUser = true;
     extraGroups = ["wheel"];
+    openssh.authorizedKeys.keys = [
+      "ecdsa-sha2-nistp384 AAAAE2VjZHNhLXNoYTItbmlzdHAzODQAAAAIbmlzdHAzODQAAABhBBuACml/oi+pUzaNFQeOW+8+wWegqljXARwKFpGwnjHj3Q/YIraseXnVsSyEZ8VMR2OGyVA2pAFIIs54j5kHSWzOKbQBEF2PdEob/n6igHaLu2Df88KNar7s1HbZD6wStg== Public key for PIV Authentication" # Yubikey 5c nano
+      "ecdsa-sha2-nistp384 AAAAE2VjZHNhLXNoYTItbmlzdHAzODQAAAAIbmlzdHAzODQAAABhBPdrGKtUJmJrp9Qbb17e79Vxh0Rq2DneIr2mB23KDpfZobVaa5xazVz7fD82c1egczAcVKl8BD3ap0AiHcKG+o9AXFTmQVWnv5neH5rNUVRB0PdKVRPS6p+9gj1Svyvskg== Public key for PIV Authentication" # Yubikey 5c nfc
+    ];
+
     packages = with pkgs; [
       firefox
       tree
@@ -128,6 +131,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    inputs.agenix.packages.${pkgs.system}.default
     cachix
     clang
     fzf
@@ -155,6 +159,7 @@
   systemd.packages = [pkgs.cloudflare-warp]; # for warp-cli
   systemd.targets.multi-user.wants = ["warp-svc.service"];
 
+  services.tailscale.enable = true;
   services.openssh = {
     enable = true;
     settings = {
@@ -191,6 +196,11 @@
 
   hardware.graphics.enable = true;
   hardware.keyboard.qmk.enable = true;
+
+  virtualisation.docker.rootless = {
+    enable = true;
+    setSocketVariable = true;
+  };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "24.05";
