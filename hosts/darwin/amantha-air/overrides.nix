@@ -6,7 +6,7 @@
   nix = {
     linux-builder.enable = true;
 
-    settings.trusted-users = [ "@admin" ];
+    settings.trusted-users = ["@admin"];
   };
 
   homebrew = {

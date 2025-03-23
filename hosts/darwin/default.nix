@@ -1,4 +1,9 @@
-{pkgs, inputs, system, ...}: {
+{
+  pkgs,
+  inputs,
+  system,
+  ...
+}: {
   imports = [
     ./home.nix
     inputs.agenix.nixosModules.default
@@ -10,7 +15,7 @@
     settings = {
       experimental-features = "nix-command flakes";
 
-      trusted-users = [ "root" "amantha" ];
+      trusted-users = ["root" "amantha"];
 
       substituters = [
         "https://alexymantha.cachix.org"

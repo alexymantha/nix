@@ -1,8 +1,8 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "tygo";
   version = "0.2.17";
@@ -28,6 +28,6 @@ buildGoModule rec {
     description = "Generate Typescript types from Golang source code ";
     homepage = "https://github.com/gzuidhof/tygo";
     license = licenses.mit;
-    maintainers = with maintainers; [ alexymantha ];
+    maintainers = with maintainers; [alexymantha];
   };
 }

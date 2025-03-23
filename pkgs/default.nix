@@ -1,3 +1,3 @@
 pkgs: {
-  tygo = pkgs.callPackage ./tygo { };
+  tygo = pkgs.callPackage ./tygo {};
 }

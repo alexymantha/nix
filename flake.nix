@@ -14,14 +14,17 @@
     # Home manager
     home-manager.url = "github:nix-community/home-manager/release-24.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-     
+
     # Agenix
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
 
+    idle-inhibitor.url = "github:alexymantha/idle-inhibitor";
+    idle-inhibitor.inputs.nixpkgs.follows = "nixpkgs";
+
     nur.url = "github:nix-community/NUR";
     zig.url = "github:alexymantha/zig-overlay";
-    zls.url = "github:zigtools/zls";
+    zls.url = "github:zigtools/zls?ref=7485feeeda45d1ad09422ae83af73307ab9e6c9e";
     zjstatus.url = "github:dj95/zjstatus";
   };
 
@@ -31,6 +34,7 @@
     nixpkgs-unstable,
     home-manager,
     darwin,
+    idle-inhibitor,
     nur,
     zig,
     zls,

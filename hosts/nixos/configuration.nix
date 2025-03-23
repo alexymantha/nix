@@ -9,6 +9,7 @@
   imports = [
     ./hardware-configuration.nix
     ./home.nix
+    inputs.idle-inhibitor.nixosModules.default
   ];
 
   nixpkgs = {
@@ -33,13 +34,13 @@
       # Workaround for https://github.com/NixOS/nix/issues/9574
       nix-path = config.nix.nixPath;
 
-      trusted-users = [ "root" "amantha" ];
+      trusted-users = ["root" "amantha"];
 
       substituters = [
         "https://devenv.cachix.org"
         "https://alexymantha.cachix.org"
       ];
-      
+
       trusted-public-keys = [
         "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
         "alexymantha.cachix.org-1:yUrFTN9X9HjjMhMrHSV+iDY0r+ZRdVUPisI6Io4PrOc="
@@ -71,7 +72,10 @@
       interface = "enp16s0";
     };
     interfaces.management.ipv4.addresses = [
-      { address = "192.168.2.9"; prefixLength = 24; }
+      {
+        address = "192.168.2.9";
+        prefixLength = 24;
+      }
     ];
     # interfaces.enp16s0 = {
     #   ipv4.addresses = [ {
@@ -124,7 +128,7 @@
     packages = with pkgs; [
       firefox
       tree
-      dolphin
+      kdePackages.dolphin
     ];
   };
 
@@ -132,6 +136,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     inputs.agenix.packages.${pkgs.system}.default
+    # inputs.idle-inhibitor.packages.${pkgs.system}.default
     cachix
     clang
     fzf

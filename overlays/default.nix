@@ -1,9 +1,8 @@
-
 {inputs, ...}: {
   additions = final: _prev: {
-      zjstatus = inputs.zjstatus.packages.${final.system}.default;
-      zig = inputs.zig.packages.${final.system}.master-2024-12-30;
-      zls = inputs.zls.packages.${final.system}.default;
+    zjstatus = inputs.zjstatus.packages.${final.system}.default;
+    zig = inputs.zig.packages.${final.system}.master-2024-12-30;
+    zls = inputs.zls.packages.${final.system}.default;
   };
 
   # This one contains whatever you want to overlay
@@ -13,7 +12,7 @@
     # zig = (prev.zig.override {
     #   llvmPackages = prev.llvmPackages_19;
     # }).overrideAttrs (oldAttrs: {
-    #     version = "0.14.0-dev.3026+c225b780e"; 
+    #     version = "0.14.0-dev.3026+c225b780e";
     #     src = prev.fetchFromGitHub {
     #       owner = "ziglang";
     #       repo = "zig";
