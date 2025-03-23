@@ -1,0 +1,41 @@
+layout {
+    pane size=1 borderless=true {
+        plugin location="file:${pkgs.zjstatus}/bin/zjstatus.wasm" {
+          hide_frame_for_single_pane "false"
+
+          format_left  "#[bg=$black]{tabs}"
+          format_right "{command_kubectx}::{command_kubens}"
+          format_space "#[bg=$black]"
+
+          tab_normal               "#[fg=$black,bg=$cyan] #[fg=$black,bg=$cyan,bold]{name} {fullscreen_indicator}{sync_indicator}{floating_indicator}#[fg=$cyan,bg=$black]"
+          tab_active               "#[fg=$black,bg=$green] #[fg=$black,bg=$green,bold]{name} {fullscreen_indicator}{sync_indicator}{floating_indicator}#[fg=$green,bg=$black]"
+          tab_fullscreen_indicator "□ "
+          tab_sync_indicator       "  "
+          tab_floating_indicator   "󰉈 "
+
+          command_kubectx_command  "kubectx -c"
+          command_kubectx_format   "#[fg=$fg,bg=$black] {stdout}"
+          command_kubectx_interval "30"
+
+          command_kubens_command  "kubens -c"
+          command_kubens_format   "#[fg=$fg,bg=$black]{stdout} "
+          command_kubens_interval "30"
+
+          color_bg "#5b6078" // Surface2
+          color_fg "#cad3f5" // Text
+          color_red "#ed8796"
+          color_green "#a6da95"
+          color_blue "#8aadf4"
+          color_yellow "#eed49f"
+          color_magenta "#f5bde6" // Pink
+          color_orange "#f5a97f" // Peach
+          color_cyan "#91d7e3" // Sky
+          color_black "#1e2030" // Mantle
+          color_white "#cad3f5" // Text
+        }
+    }
+    pane
+    pane size=1 borderless=true {
+        plugin location="status-bar"
+    }
+}
