@@ -9,7 +9,6 @@
   imports = [
     ./hardware-configuration.nix
     ./home.nix
-    inputs.idle-inhibitor.nixosModules.default
   ];
 
   nixpkgs = {
@@ -136,7 +135,6 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     inputs.agenix.packages.${pkgs.system}.default
-    # inputs.idle-inhibitor.packages.${pkgs.system}.default
     cachix
     clang
     fzf
