@@ -1,6 +1,6 @@
 layout {
     pane size=1 borderless=true {
-        plugin location="file:${pkgs.zjstatus}/bin/zjstatus.wasm" {
+        plugin location="file:ZJSTATUS_PATH/bin/zjstatus.wasm" {
           hide_frame_for_single_pane "false"
 
           format_left  "#[bg=$black]{tabs}"
