@@ -102,7 +102,7 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
-  services.idle-inhibitor.enable = true;
+  # services.idle-inhibitor.enable = true;
 
   services.displayManager.sddm = {
     enable = true;
