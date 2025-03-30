@@ -6,7 +6,7 @@
 }: {
   imports = [
     ./home.nix
-    ../yubikey.nix
+    ./yubikey.nix
     inputs.agenix.nixosModules.default
   ];
 

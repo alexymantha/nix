@@ -39,7 +39,7 @@ config,
       "-X main.Version=${version}"
     ];
   };
-  homeDir = config.home.homeDirectory;
+  homeDir = "/Users/${config.users.users.amantha.name}";
 in {
   environment.systemPackages = [ yubikey-agent ];
   # systemd.packages = [ yubikey-agent ];
@@ -66,11 +66,10 @@ in {
   # Ensure the directory exists
   system.activationScripts.preActivation.text = ''
     mkdir -p "${homeDir}/.yubikey-agent"
+    chown amantha:staff "${homeDir}/.yubikey-agent"
   '';
 
   environment.extraInit = ''
-      if [ -z "$SSH_AUTH_SOCK" -a -n "$XDG_RUNTIME_DIR" ]; then
-        export SSH_AUTH_SOCK="${homeDir}/.yubikey-agent/yubikey-agent.sock"
-      fi
+      export SSH_AUTH_SOCK="${homeDir}/.yubikey-agent/yubikey-agent.sock"
   '';
 }
