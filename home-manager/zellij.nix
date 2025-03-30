@@ -9,8 +9,9 @@
   };
 
   home.file.".config/zellij/layouts/default.kdl" = {
-    text = builtins.replaceStrings 
-      ["ZJSTATUS_PATH"] 
+    text =
+      builtins.replaceStrings
+      ["ZJSTATUS_PATH"]
       ["${pkgs.zjstatus}"]
       (builtins.readFile ./default.kdl);
   };

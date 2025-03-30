@@ -47,9 +47,17 @@
       autohide-time-modifier = 0.01;
       persistent-apps = [
         "/Applications/Firefox.App"
-        "/Applications/WezTerm.App"
+        "/Applications/Ghostty.App"
       ];
     };
+  };
+
+  homebrew = {
+    enable = true;
+
+    taps = [];
+    brews = [];
+    casks = ["ghostty"];
   };
 
   environment.systemPackages = with pkgs; [

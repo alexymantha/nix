@@ -6,9 +6,11 @@
   pkgs,
   ...
 }: {
+  # programs.fish.enable = true;
   programs.zsh = {
     enable = true;
     history = {
+      append = true;
       ignoreAllDups = true;
       ignoreDups = true;
       ignoreSpace = true;
@@ -16,8 +18,12 @@
       size = 50000;
     };
     initExtraFirst = ''
-      # Autostart zellij
-      eval "$(zellij setup --generate-auto-start zsh)"
+      if [[ -o interactive ]]; then
+        if [[ "$TERM" == "xterm-ghostty" ]]; then
+          # Autostart zellij only if in an interactive ghostty shell
+          eval "$(zellij setup --generate-auto-start zsh)"
+        fi
+      fi
 
       # Move this to history.append once available in current version
       setopt APPEND_HISTORY

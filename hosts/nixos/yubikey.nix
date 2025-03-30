@@ -1,11 +1,11 @@
 {
-inputs,
-outputs,
-pkgs,
-lib,
-config,
-...
-}: let 
+  inputs,
+  outputs,
+  pkgs,
+  lib,
+  config,
+  ...
+}: let
   yubikey-agent = pkgs.buildGoModule rec {
     pname = "yubikey-agent";
     version = "0.2.0";
@@ -23,15 +23,15 @@ config,
       lib.optional pkgs.stdenv.hostPlatform.isLinux (lib.getDev pkgs.pcsclite)
       ++ lib.optional pkgs.stdenv.hostPlatform.isDarwin (pkgs.darwin.apple_sdk.frameworks.PCSC);
 
-    nativeBuildInputs = lib.optionals pkgs.stdenv.hostPlatform.isLinux [ pkgs.pkg-config ];
+    nativeBuildInputs = lib.optionals pkgs.stdenv.hostPlatform.isLinux [pkgs.pkg-config];
 
     postPatch = lib.optionalString pkgs.stdenv.hostPlatform.isLinux ''
-    substituteInPlace main.go --replace 'notify-send' ${pkgs.libnotify}/bin/notify-send
+      substituteInPlace main.go --replace 'notify-send' ${pkgs.libnotify}/bin/notify-send
     '';
 
     doCheck = false;
 
-    subPackages = [ "." ];
+    subPackages = ["."];
 
     ldflags = [
       "-s"
@@ -41,10 +41,10 @@ config,
   };
   homeDir = "/Users/${config.users.users.amantha.name}";
 in {
-  environment.systemPackages = [ yubikey-agent ];
+  environment.systemPackages = [yubikey-agent];
   # systemd.packages = [ yubikey-agent ];
 
-   launchd.user.agents.yubikey-agent = {
+  launchd.user.agents.yubikey-agent = {
     serviceConfig = {
       Label = "io.filippo.yubikey-agent";
       ProgramArguments = [
@@ -70,6 +70,6 @@ in {
   '';
 
   environment.extraInit = ''
-      export SSH_AUTH_SOCK="${homeDir}/.yubikey-agent/yubikey-agent.sock"
+    export SSH_AUTH_SOCK="${homeDir}/.yubikey-agent/yubikey-agent.sock"
   '';
 }

@@ -93,7 +93,7 @@
   fonts.packages = with pkgs; [
     # In unstable
     # nerd-fonts.jetbrains-mono
-    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+    (nerdfonts.override {fonts = ["JetBrainsMono"];})
   ];
 
   # Select internationalisation properties.
@@ -118,7 +118,6 @@
     enable = true;
     pulse.enable = true;
   };
-
 
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;

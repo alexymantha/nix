@@ -1,7 +1,7 @@
 {
-config,
-pkgs,
-...
+  config,
+  pkgs,
+  ...
 }: {
   wayland.windowManager.hyprland = {
     enable = true;
@@ -184,7 +184,6 @@ pkgs,
         "maxsize 1 1, class:^(xwaylandvideobridge)$"
         "noblur, class:^(xwaylandvideobridge)$"
       ];
-
     };
   };
 
@@ -251,13 +250,13 @@ pkgs,
   systemd.user.services.hyprpolkitagent = {
     Unit = {
       Description = "Hyprland PolicyKit Agent";
-      After = [ "graphical-session-pre.target" ];
-      PartOf = [ "graphical-session.target" ];
+      After = ["graphical-session-pre.target"];
+      PartOf = ["graphical-session.target"];
     };
 
-    Install = { WantedBy = [ "graphical-session.target" ]; };
+    Install = {WantedBy = ["graphical-session.target"];};
 
-    Service = { ExecStart = "${pkgs.hyprpolkitagent}/libexec/hyprpolkitagent"; };
+    Service = {ExecStart = "${pkgs.hyprpolkitagent}/libexec/hyprpolkitagent";};
   };
 
   home.file.".config/hypr/images/cat-line.png".source = ./cat-line.png;

@@ -35,25 +35,21 @@
   programs = {
     home-manager.enable = true;
     git.enable = true;
-    # ghostty = {
-    #   enable = true;
-    #   settings = {
-    #     theme = "catppuccin-macchiato";
-    #     font_size = 18;
-    #   };
-    # };
-    wezterm = {
+    ghostty = {
       enable = true;
-      extraConfig = ''
-        return {
-          color_scheme = "Catppuccin Macchiato",
-          enable_wayland = false;
-          font = wezterm.font("JetBrains Mono"),
-          font_size = 24.0,
-          hide_tab_bar_if_only_one_tab = true,
-          front_end = "WebGpu",
-        }
-      '';
+      package = pkgs.emptyDirectory;
+      settings = {
+        theme = "catppuccin-macchiato";
+        font-size = 18;
+        keybind = [
+          "cmd+t=unbind"
+          "cmd+n=unbind"
+          "cmd+c=unbind"
+          "cmd+w=unbind"
+          "cmd+opt+left=unbind"
+          "cmd+opt+right=unbind"
+        ];
+      };
     };
   };
 
