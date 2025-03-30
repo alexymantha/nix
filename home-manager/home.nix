@@ -34,6 +34,13 @@
   programs = {
     home-manager.enable = true;
     git.enable = true;
+    ghostty = {
+      enable = true;
+      settings = {
+        theme = "catppuccin-macchiato";
+        font_size = 18;
+      };
+    };
     wezterm = {
       enable = true;
       extraConfig = ''
