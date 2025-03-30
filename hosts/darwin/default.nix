@@ -6,7 +6,7 @@
 }: {
   imports = [
     ./home.nix
-    ../common.nix
+    ../yubikey.nix
     inputs.agenix.nixosModules.default
   ];
 
@@ -33,7 +33,6 @@
   programs.zsh.enable = true;
   programs.zsh.promptInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
 
-  services.yubikey-agent.enable = true;
   security.pam.enableSudoTouchIdAuth = true;
   # security.pam.services.sudo_local.touchIdAuth = true;
   system.defaults = {

@@ -9,7 +9,6 @@
   imports = [
     ./hardware-configuration.nix
     ./home.nix
-    ../common.nix
   ];
 
   nixpkgs = {
