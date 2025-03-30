@@ -9,13 +9,6 @@
     settings.trusted-users = ["@admin"];
   };
 
-  homebrew = {
-    casks = [
-      "cloudflare-warp"
-      "discord"
-    ];
-  };
-
   system.defaults = {
     dock = {
       persistent-apps = [

@@ -32,24 +32,6 @@
 
   programs.zsh.enable = true;
   programs.zsh.promptInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
-  homebrew = {
-    enable = true;
-    onActivation = {
-      autoUpdate = true;
-      upgrade = true;
-    };
-    taps = [
-      "joallard/cf-keylayout"
-    ];
-    casks = [
-      "cf-keylayout"
-      "firefox"
-      "gimp"
-      "obs"
-      "slack"
-      "vlc"
-    ];
-  };
 
   services.yubikey-agent.enable = true;
   security.pam.enableSudoTouchIdAuth = true;

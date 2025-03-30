@@ -142,11 +142,9 @@
   environment.systemPackages = with pkgs; [
     inputs.agenix.packages.${pkgs.system}.default
     cachix
-    clang
     fzf
     git
     gnumake
-    jq
     python3
     unzip
     usbutils

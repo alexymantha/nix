@@ -28,6 +28,7 @@
         "obsidian"
         "spotify"
         "vault"
+        "slack"
       ];
   };
 
@@ -86,6 +87,7 @@
     # Apps
     obsidian
     spotify
+    slack
     # Networking
     dnsutils
     openssl
