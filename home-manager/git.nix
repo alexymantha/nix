@@ -4,7 +4,7 @@
   ...
 }: let
   getSigningKey = pkgs.writeShellScriptBin "get_signing_key" ''
-    ssh-add -L | grep "Digital Signature" | awk '$0="key::"$0'
+    ssh-add -L | grep "9c" | awk '$0="key::"$0'
   '';
 in {
   programs.git = {

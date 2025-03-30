@@ -7,7 +7,7 @@
   ...
 }: {
   imports = [
-    ./hyprland.nix
+    ./hyprland/hyprland.nix
 
     ../home.nix
   ];

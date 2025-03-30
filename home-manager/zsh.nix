@@ -19,9 +19,6 @@
       # Autostart zellij
       eval "$(zellij setup --generate-auto-start zsh)"
 
-      ### SSH Agent
-      # source ~/.scripts/yubikey
-
       # Move this to history.append once available in current version
       setopt APPEND_HISTORY
     '';
@@ -54,12 +51,6 @@
     url = "https://raw.githubusercontent.com/catppuccin/zsh-syntax-highlighting/refs/heads/main/themes/catppuccin_macchiato-zsh-syntax-highlighting.zsh";
     sha256 = "038hf207y90gcj7q8j8mn27fhhhniivgpfbcvlydvj7knkhw08ld";
   };
-
-  home.packages = [
-    (pkgs.writeShellScriptBin "get_signing_key" ''
-      ssh-add -L | grep "Digital Signature" | awk '$0="key::"$0'
-    '')
-  ];
 
   home.file.".zsh/lib" = {
     source = ./configs/zsh/lib;

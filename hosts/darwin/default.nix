@@ -6,6 +6,7 @@
 }: {
   imports = [
     ./home.nix
+    ../common.nix
     inputs.agenix.nixosModules.default
   ];
 
@@ -50,6 +51,7 @@
     ];
   };
 
+  services.yubikey-agent.enable = true;
   security.pam.enableSudoTouchIdAuth = true;
   # security.pam.services.sudo_local.touchIdAuth = true;
   system.defaults = {

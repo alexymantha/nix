@@ -9,6 +9,7 @@
   imports = [
     ./hardware-configuration.nix
     ./home.nix
+    ../common.nix
   ];
 
   nixpkgs = {
@@ -90,7 +91,9 @@
   time.timeZone = "America/Montreal";
 
   fonts.packages = with pkgs; [
-    nerd-fonts.jetbrains-mono
+    # In unstable
+    # nerd-fonts.jetbrains-mono
+    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
   ];
 
   # Select internationalisation properties.
@@ -115,6 +118,7 @@
     enable = true;
     pulse.enable = true;
   };
+
 
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
@@ -193,9 +197,9 @@
   '';
 
   programs.hyprland.enable = true;
-  programs.hyprland.package = pkgs.unstable.hyprland;
-  programs.hyprland.portalPackage = pkgs.unstable.xdg-desktop-portal-hyprland;
-  xdg.portal.extraPortals = [pkgs.unstable.xdg-desktop-portal-hyprland];
+  programs.hyprland.package = pkgs.hyprland;
+  programs.hyprland.portalPackage = pkgs.xdg-desktop-portal-hyprland;
+  xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-hyprland];
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
