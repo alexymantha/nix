@@ -58,6 +58,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.initrd.kernelModules = ["amdgpu"];
   boot.binfmt.emulatedSystems = ["aarch64-linux"];
+  boot.kernelPackages = pkgs.unstable.linuxKernel.packages.linux_6_14;
 
   networking = {
     # Disable DHCP because we want to force a static IP on the management network
@@ -206,6 +207,15 @@
   virtualisation.docker.rootless = {
     enable = true;
     setSocketVariable = true;
+  };
+
+  hardware.opengl = {
+    enable = true;
+    
+    # Use the latest AMD drivers
+    extraPackages = with pkgs; [
+      unstable.amdvlk
+    ];
   };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion

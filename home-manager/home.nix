@@ -17,6 +17,7 @@
   nixpkgs = {
     overlays = [
       inputs.nur.overlays.default
+      inputs.rust-overlay.overlays.default
       outputs.overlays.additions
       outputs.overlays.modifications
       outputs.overlays.unstable-packages
@@ -37,7 +38,7 @@
     git.enable = true;
     ghostty = {
       enable = true;
-      package = pkgs.emptyDirectory;
+      package = if pkgs.stdenv.isDarwin then pkgs.emptyDirectory else pkgs.ghostty;
       settings = {
         theme = "catppuccin-macchiato";
         font-size = 18;

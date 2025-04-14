@@ -23,18 +23,24 @@
     zig.url = "github:alexymantha/zig-overlay";
     zls.url = "github:zigtools/zls?ref=0.14.0";
     zjstatus.url = "github:dj95/zjstatus";
+    flake-utils.url = "github:numtide/flake-utils";
+    rust-overlay.url = "github:oxalica/rust-overlay";
+    rust-overlay.inputs.nixpkgs.follows = "nixpkgs";
+    crane.url = "github:ipetkov/crane";
   };
 
   outputs = {
     self,
+    crane,
+    darwin,
+    home-manager,
     nixpkgs,
     nixpkgs-unstable,
-    home-manager,
-    darwin,
     nur,
+    rust-overlay,
     zig,
-    zls,
     zjstatus,
+    zls,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -56,7 +62,10 @@
         specialArgs = {inherit inputs outputs;};
         modules = [
           {nix.channel.enable = false;}
-          {nixpkgs.overlays = [nur.overlays.default];}
+          {nixpkgs.overlays = [
+              nur.overlays.default
+              rust-overlay.overlays.default
+            ];}
           # > Our main nixos configuration file <
           ./hosts/nixos/configuration.nix
         ];
@@ -71,7 +80,10 @@
         system = "aarch64-darwin";
         modules = [
           {nix.channel.enable = false;}
-          {nixpkgs.overlays = [nur.overlays.default];}
+          {nixpkgs.overlays = [
+              nur.overlays.default
+              rust-overlay.overlays.default
+            ];}
           ./hosts/darwin/default.nix
           ./hosts/darwin/amantha-air/overrides.nix
         ];
@@ -82,7 +94,10 @@
         system = "aarch64-darwin";
         modules = [
           {nix.channel.enable = false;}
-          {nixpkgs.overlays = [nur.overlays.default];}
+          {nixpkgs.overlays = [
+              nur.overlays.default
+              rust-overlay.overlays.default
+            ];}
           ./hosts/darwin/default.nix
           ./hosts/darwin/amantha-mbp/overrides.nix
         ];

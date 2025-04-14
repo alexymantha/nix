@@ -1,11 +1,12 @@
 {
-  inputs,
-  outputs,
-  pkgs,
-  lib,
-  config,
-  ...
-}: let
+inputs,
+outputs,
+pkgs,
+lib,
+config,
+darwin,
+...
+}: let 
   yubikey-agent = pkgs.buildGoModule rec {
     pname = "yubikey-agent";
     version = "0.2.0";
@@ -21,17 +22,17 @@
 
     buildInputs =
       lib.optional pkgs.stdenv.hostPlatform.isLinux (lib.getDev pkgs.pcsclite)
-      ++ lib.optional pkgs.stdenv.hostPlatform.isDarwin (pkgs.darwin.apple_sdk.frameworks.PCSC);
+      ++ lib.optional pkgs.stdenv.hostPlatform.isDarwin (darwin.apple_sdk.frameworks.PCSC);
 
-    nativeBuildInputs = lib.optionals pkgs.stdenv.hostPlatform.isLinux [pkgs.pkg-config];
+    nativeBuildInputs = lib.optionals pkgs.stdenv.hostPlatform.isLinux [ pkgs.pkg-config ];
 
     postPatch = lib.optionalString pkgs.stdenv.hostPlatform.isLinux ''
-      substituteInPlace main.go --replace 'notify-send' ${pkgs.libnotify}/bin/notify-send
+    substituteInPlace main.go --replace 'notify-send' ${pkgs.libnotify}/bin/notify-send
     '';
 
     doCheck = false;
 
-    subPackages = ["."];
+    subPackages = [ "." ];
 
     ldflags = [
       "-s"
@@ -39,37 +40,41 @@
       "-X main.Version=${version}"
     ];
   };
-  homeDir = "/Users/${config.users.users.amantha.name}";
 in {
-  environment.systemPackages = [yubikey-agent];
-  # systemd.packages = [ yubikey-agent ];
+  environment.systemPackages = [ yubikey-agent ];
+  systemd.packages = [ yubikey-agent ];
 
-  launchd.user.agents.yubikey-agent = {
+  systemd.user.services.yubikey-agent = lib.mkForce {
+    description = "Seamless ssh-agent for YubiKeys";
+    documentation = [ "https://filippo.io/yubikey-agent" ];
+    wantedBy = [ "default.target" ];
+    path = [ pkgs.pinentry ];
+
     serviceConfig = {
-      Label = "io.filippo.yubikey-agent";
-      ProgramArguments = [
-        "${yubikey-agent}/bin/yubikey-agent"
-        "-l"
-        "${homeDir}/.yubikey-agent/yubikey-agent.sock"
-        "-slots"
-        "0x9a,0x9c,0x95"
-      ];
-      RunAtLoad = true;
-      KeepAlive = true;
-      StandardOutPath = "${homeDir}/Library/Logs/yubikey-agent.log";
-      StandardErrorPath = "${homeDir}/Library/Logs/yubikey-agent-error.log";
-      # Create the runtime directory
-      WorkingDirectory = "${homeDir}/.yubikey-agent";
+      ExecStart = "${yubikey-agent}/bin/yubikey-agent -l %t/yubikey-agent/yubikey-agent.sock -slots 0x9a,0x9c,0x95";
+      ExecReload = "/bin/kill -HUP $MAINPID";
+      IPAddressDeny = "any";
+      RestrictAddressFamilies = "AF_UNIX";
+      RestrictNamespaces = "yes";
+      RestrictRealtime = "yes";
+      RestrictSUIDSGID = "yes";
+      LockPersonality = "yes";
+      SystemCallFilter = "@system-service ~@privileged @resources";
+      SystemCallErrorNumber = "EPERM";
+      SystemCallArchitectures = "native";
+      NoNewPrivileges = "yes";
+      KeyringMode = "private";
+      UMask = "0177";
+      RuntimeDirectory = "yubikey-agent";
     };
   };
 
-  # Ensure the directory exists
-  system.activationScripts.preActivation.text = ''
-    mkdir -p "${homeDir}/.yubikey-agent"
-    chown amantha:staff "${homeDir}/.yubikey-agent"
-  '';
+  # Yubikey-agent expects pcsd to be running in order to function.
+  services.pcscd.enable = true;
 
   environment.extraInit = ''
-    export SSH_AUTH_SOCK="${homeDir}/.yubikey-agent/yubikey-agent.sock"
+      if [ -z "$SSH_AUTH_SOCK" -a -n "$XDG_RUNTIME_DIR" ]; then
+        export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/yubikey-agent/yubikey-agent.sock"
+      fi
   '';
 }

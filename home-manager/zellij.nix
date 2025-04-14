@@ -4,6 +4,10 @@
     enableZshIntegration = true;
   };
 
+  home.packages = with pkgs; [
+    # zellij-sessionizer
+  ];
+
   home.file.".config/zellij/config.kdl" = {
     source = ./zellij.kdl;
   };
