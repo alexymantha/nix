@@ -18,5 +18,6 @@
     kustomize
     vault
     gnupg
+    kyverno
   ];
 }

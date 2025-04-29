@@ -8,15 +8,15 @@
 }: let
   yubikey-agent = pkgs.buildGoModule rec {
     pname = "yubikey-agent";
-    version = "0.2.0";
+    version = "tes-pin-policy";
 
     vendorHash = "sha256-IGnaeOZhrUeysYNcjPVADE1UyEgqVPD2G0qOCtl4zSM=";
 
     src = pkgs.fetchFromGitHub {
       owner = "alexymantha";
       repo = "yubikey-agent";
-      rev = "v${version}";
-      hash = "sha256-SYG/za3vNFq7IVQffUWxHVrmqwrXKjp07xRg5GtmyAM=";
+      rev = "${version}";
+      hash = "sha256-8SGATG8uAY2ehLe7YoZJxQQ7R1nfS88HOaIfW6UL8pE=";
     };
 
     buildInputs =
@@ -52,7 +52,7 @@ in {
         "-l"
         "${homeDir}/.yubikey-agent/yubikey-agent.sock"
         "-slots"
-        "0x9a,0x9c,0x95"
+        "0x95"
       ];
       RunAtLoad = true;
       KeepAlive = true;
