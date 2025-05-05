@@ -64,6 +64,7 @@
 
   home.packages = with pkgs; [
     # Dev tools
+    rustc
     cargo
     coreutils
     devenv
