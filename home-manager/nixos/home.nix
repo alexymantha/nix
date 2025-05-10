@@ -16,5 +16,6 @@
     vulkan-headers
     vulkan-loader
     vulkan-tools
+    unstable.godot_4
   ];
 }

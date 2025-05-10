@@ -68,6 +68,7 @@
     cargo
     coreutils
     devenv
+    gcc
     unstable.go
     unstable.nodejs_22
     zig
