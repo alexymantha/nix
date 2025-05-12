@@ -42,7 +42,6 @@
   homeDir = "/Users/${config.users.users.amantha.name}";
 in {
   environment.systemPackages = [yubikey-agent];
-  # systemd.packages = [ yubikey-agent ];
 
   launchd.user.agents.yubikey-agent = {
     serviceConfig = {
