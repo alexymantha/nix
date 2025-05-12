@@ -53,7 +53,6 @@
   in {
     formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
     overlays = import ./overlays {inherit inputs;};
-    packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
 
     # NixOS configuration entrypoint
     # Available through 'nixos-rebuild --flake .#your-hostname'
