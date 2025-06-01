@@ -30,11 +30,12 @@
     };
   };
 
+  programs.fish.enable = true;
   programs.zsh.enable = true;
   programs.zsh.promptInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
 
-  security.pam.enableSudoTouchIdAuth = true;
-  # security.pam.services.sudo_local.touchIdAuth = true;
+  security.pam.services.sudo_local.touchIdAuth = true;
+  system.primaryUser = "amantha";
   system.defaults = {
     NSGlobalDomain = {
       InitialKeyRepeat = 15;

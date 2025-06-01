@@ -9,6 +9,7 @@
 in {
   programs.git = {
     enable = true;
+    delta.enable = true; # Prettier diff viewer
     userName = "Alexy Mantha";
     userEmail = "alexy@mantha.dev";
     extraConfig = {

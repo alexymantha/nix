@@ -6,7 +6,6 @@
   pkgs,
   ...
 }: {
-  # programs.fish.enable = true;
   programs.zsh = {
     enable = true;
     history = {
@@ -50,6 +49,15 @@
       k = "kubectl";
       kcx = "kubectx && zellij pipe 'zjstatus::rerun::command_kubectx'";
       kns = "kubens && zellij pipe 'zjstatus::rerun::command_kubens'";
+      # Keeping gnu versions for a while to get used to the new versions
+      cat = "bat";
+      gnucat = "command cat";
+      grep = "rg";
+      gnugrep = "command grep";
+      ls = "eza --icons --group-directories-first --color=always --long --git --header --no-permissions";
+      gnuls = "command ls";
+      find = "fd";
+      gnufind = "command find";
     };
   };
 

@@ -10,6 +10,7 @@
     ./firefox.nix
     ./git.nix
     ./neovim.nix
+    ./fish.nix
     ./zsh.nix
     ./zellij.nix
   ];
@@ -75,11 +76,13 @@
     zls
     # Utils
     fd
+    bat
+    ripgrep
+    eza
+    delta
+    zoxide
     fzf
     yq-go
-    obsidian
-    yubico-piv-tool
-    ripgrep
     rsync
     yubico-piv-tool
     nixos-anywhere
