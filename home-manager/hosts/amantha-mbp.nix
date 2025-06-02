@@ -12,6 +12,7 @@
     # Work
     awscli2
     azure-cli
+    unstable.opentofu
     terraform
     docker
     gh
