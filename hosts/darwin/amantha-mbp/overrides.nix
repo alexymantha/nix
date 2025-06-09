@@ -4,6 +4,7 @@
   pkgs,
   ...
 }: {
+  nix.settings.ssl-cert-file = "/etc/ssl/certs/all_trusted_certs.pem";
   security.pki.certificateFiles = ["/etc/ssl/certs/all_trusted_certs.pem"];
 
   home-manager = {
