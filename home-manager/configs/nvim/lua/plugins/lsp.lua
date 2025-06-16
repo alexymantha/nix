@@ -63,16 +63,6 @@ return {
 				},
 			})
 
-			-- lspconfig.harper_ls.setup {
-			-- 	settings = {
-			-- 		["harper-ls"] = {
-			-- 			codeActions = {
-			-- 				forceStable = true
-			-- 			}
-			-- 		}
-			-- 	},
-			-- }
-
 			lspconfig.yamlls.setup({
 				capabilities = capabilities,
 				on_attach = function(client, _)
@@ -261,17 +251,17 @@ return {
 		},
 		opts = {},
 	},
-	{
-		"ray-x/go.nvim",
-		dependencies = {
-			"ray-x/guihua.lua",
-			"neovim/nvim-lspconfig",
-			"nvim-treesitter/nvim-treesitter",
-		},
-		config = function()
-			require("go").setup()
-		end,
-		event = { "CmdlineEnter" },
-		ft = { "go", 'gomod' },
-	}
+	-- {
+	-- 	"ray-x/go.nvim",
+	-- 	dependencies = {
+	-- 		"ray-x/guihua.lua",
+	-- 		"neovim/nvim-lspconfig",
+	-- 		"nvim-treesitter/nvim-treesitter",
+	-- 	},
+	-- 	config = function()
+	-- 		require("go").setup()
+	-- 	end,
+	-- 	event = { "CmdlineEnter" },
+	-- 	ft = { "go", 'gomod' },
+	-- }
 }
