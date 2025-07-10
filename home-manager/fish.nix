@@ -58,6 +58,7 @@ in
   };
   programs.fish = {
     enable = true;
+    interactiveShellInit = "set -U fish_greeting";
     shellAliases = {
       dev = "cd \"$HOME/dev/$(command ls \"$HOME/dev\" | fzf)\"";
       k = "kubectl";
