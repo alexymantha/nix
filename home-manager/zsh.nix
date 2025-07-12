@@ -45,7 +45,7 @@
     syntaxHighlighting.enable = true;
     autosuggestion.enable = true;
     shellAliases = {
-      dev = "cd \"$HOME/dev/$(ls \"$HOME/dev\" | fzf)\"";
+      dev = "cd \"$HOME/dev/$(command ls \"$HOME/dev\" | fzf)\"";
       k = "kubectl";
       kcx = "kubectx && zellij pipe 'zjstatus::rerun::command_kubectx'";
       kns = "kubens && zellij pipe 'zjstatus::rerun::command_kubens'";

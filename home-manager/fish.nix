@@ -20,6 +20,36 @@ in
     enable = true;
     enableFishIntegration = true;
     settings = catppuccin-macchiato // {
+      format = lib.concatStrings [
+          "$username"
+          "$hostname"
+          "$localip"
+          "$shlvl"
+          "$directory"
+          "$git_branch"
+          "$git_commit"
+          "$git_state"
+          "$git_metrics"
+          "$git_status"
+          "$custom"
+          "$sudo"
+          "$cmd_duration"
+          "$line_break"
+          "$jobs"
+          "$battery"
+          "$time"
+          "$status"
+          "$os"
+          "$container"
+          "$netns"
+          "$shell"
+          "$character"
+      ];
+      git_status = {
+        ahead = "⇡\${count}";
+        diverged = "⇕⇡\${ahead_count}⇣\${behind_count}";
+        behind = "⇣\${count}";
+      };
       add_newline = false;
       scan_timeout = 10;
       line_break.disabled = true;
@@ -29,7 +59,7 @@ in
   programs.fish = {
     enable = true;
     shellAliases = {
-      dev = "cd \"$HOME/dev/$(ls \"$HOME/dev\" | fzf)\"";
+      dev = "cd \"$HOME/dev/$(command ls \"$HOME/dev\" | fzf)\"";
       k = "kubectl";
       kcx = "kubectx && zellij pipe 'zjstatus::rerun::command_kubectx'";
       kns = "kubens && zellij pipe 'zjstatus::rerun::command_kubens'";
