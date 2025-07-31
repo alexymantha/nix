@@ -1,6 +1,7 @@
 {
   inputs,
   outputs,
+  pkgs,
   ...
 }: {
   imports = [
@@ -11,6 +12,7 @@
     amantha = {
       name = "amantha";
       home = "/home/amantha";
+      shell = pkgs.fish;
     };
   };
 

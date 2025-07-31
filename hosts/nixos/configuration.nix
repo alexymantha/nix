@@ -92,9 +92,7 @@
   time.timeZone = "America/Montreal";
 
   fonts.packages = with pkgs; [
-    # In unstable
-    # nerd-fonts.jetbrains-mono
-    (nerdfonts.override {fonts = ["JetBrainsMono"];})
+    nerd-fonts.jetbrains-mono
   ];
 
   # Select internationalisation properties.
@@ -120,6 +118,7 @@
     pulse.enable = true;
   };
 
+  programs.fish.enable = true;
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
   users.users.amantha = {

@@ -17,5 +17,6 @@
     vulkan-loader
     vulkan-tools
     unstable.godot_4
+    unityhub
   ];
 }

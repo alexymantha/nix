@@ -14,7 +14,7 @@ in {
     userEmail = "alexy@mantha.dev";
     extraConfig = {
       commit = {
-        gpgsign = true;
+        gpgsign = false;
         template = "${config.home.homeDirectory}/.gitmessage";
       };
       gpg = {
