@@ -51,7 +51,7 @@ in {
         "-l"
         "${homeDir}/.yubikey-agent/yubikey-agent.sock"
         "-slots"
-        "0x95"
+        "0x9a"
       ];
       RunAtLoad = true;
       KeepAlive = true;
