@@ -27,6 +27,14 @@ vim.keymap.set("v", "<Leader>P", '"+P', { noremap = true })
 vim.keymap.set("n", "<Leader>p", '"+p', { noremap = true })
 vim.keymap.set("n", "<Leader>P", '"+P', { noremap = true })
 
+-- LSP
+vim.keymap.set("n", "[e", vim.diagnostic.open_float)
+vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
+vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
+vim.keymap.set("n", "[q", vim.diagnostic.setloclist)
+vim.keymap.set("n", "<Leader>fd", ":Telescope diagnostics<CR>")
+
+
 vim.keymap.set("v", "p", '"0p', { noremap = true })
 
 vim.keymap.set("i", "<C-C>", "<ESC>", { noremap = true })
