@@ -42,16 +42,6 @@ return {
 						tailwindCSS = { includeLanguages = { templ = "html" } },
 					},
 				},
-				ts_ls = {
-					init_options = {
-						plugins = { {
-							name = "@vue/typescript-plugin",
-							location = "/usr/local/lib/node_modules/@vue/typescript-plugin",
-							languages = { "javascript", "typescript", "vue" },
-						} },
-					},
-					filetypes = { "javascript", "typescript", "vue" },
-				},
 				yamlls = {
 					on_attach = function(client, _)
 						if client.name == "yamlls" and vim.bo.filetype == "helm" then
@@ -78,7 +68,7 @@ return {
 			-- Simple servers that don't need configuration
 			local simple_servers = {
 				'buf_ls', 'dockerls', 'gopls', 'jsonls', 'nil_ls',
-				'pyright', 'rust_analyzer', 'templ', 'terraformls', 'vue_ls'
+				'pyright', 'rust_analyzer', 'templ', 'terraformls'
 			}
 
 			-- Configure servers with custom settings
@@ -93,6 +83,30 @@ return {
 			for _, server in ipairs(simple_servers) do
 				vim.lsp.enable(server)
 			end
+
+
+			-- Vue config
+			-- Vue requires a specific setup with plugins for different servers
+			vim.lsp.config('vtsls', {
+				settings = {
+					vtsls = {
+						tsserver = {
+							globalPlugins = {
+								{
+									name = '@vue/typescript-plugin',
+									location =
+									"/Users/amantha/dev/temabex-nuxt/node_modules/@vue/language-server",
+									languages = { 'vue' },
+									configNamespace = 'typescript',
+								},
+							},
+						},
+					},
+				},
+				filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+			})
+			vim.lsp.config('vue_ls', {})
+			vim.lsp.enable({ 'vtsls', 'vue_ls' })
 
 			vim.api.nvim_create_autocmd("LspAttach", {
 				group = vim.api.nvim_create_augroup("UserLspConfig", {}),
