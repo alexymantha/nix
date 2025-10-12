@@ -1,137 +1,112 @@
 return {
 	{
 		"neovim/nvim-lspconfig",
-		lazy = false,
-		keys = {
-			{ "[e",         vim.diagnostic.open_float },
-			{ "[d",         vim.diagnostic.goto_prev },
-			{ "]d",         vim.diagnostic.goto_next },
-			{ "[q",         vim.diagnostic.setloclist },
-			{ "<Leader>fd", ":Telescope diagnostics<CR>" },
-		},
+		event = { "BufReadPre", "BufNewFile" },
 		config = function()
-			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			local lspconfig = require("lspconfig")
-
-			lspconfig.buf_ls.setup({ capabilities = capabilities })
-			lspconfig.dockerls.setup({ capabilities = capabilities })
-			lspconfig.gopls.setup({ capabilities = capabilities })
-			lspconfig.html.setup({ capabilities = capabilities, filetypes = { "html", "templ" } })
-			lspconfig.htmx.setup({ capabilities = capabilities, filetypes = { "html", "templ" } })
-			lspconfig.jsonls.setup({ capabilities = capabilities })
-			lspconfig.nil_ls.setup({ capabilities = capabilities })
-			lspconfig.pyright.setup({ capabilities = capabilities })
-			lspconfig.rust_analyzer.setup({ capabilities = capabilities })
-			lspconfig.templ.setup({ capabilities = capabilities })
-			lspconfig.terraformls.setup({ capabilities = capabilities })
-			lspconfig.zls.setup({
-				capabilities = capabilities,
-				settings = {
-					zls = {
-						enable_build_on_save = true,
-					}
-				}
-			})
-			lspconfig.volar.setup {}
-			lspconfig.ts_ls.setup({
-				capabilities = capabilities,
-				init_options = {
-					plugins = {
-						{
-							name = "@vue/typescript-plugin",
-							location = "/usr/local/lib/node_modules/@vue/typescript-plugin",
-							languages = { "javascript", "typescript", "vue" },
+			local server_configs = {
+				clangd = {
+					cmd = {
+						'clangd', '--background-index', '--clang-tidy',
+						'--log=verbose', '--compile-commands-dir=.',
+					},
+					filetypes = { "c", "cpp", "objc", "objcpp", "cuda" }
+				},
+				dartls = {
+					settings = {
+						dart = {
+							analysisExcludedFolders = { ".dart_tool/**", "**/.pub-cache/**", "**/.bin/**" }
 						},
 					},
 				},
-				filetypes = {
-					"javascript",
-					"typescript",
-					"vue",
-				},
-			})
-
-			lspconfig.tailwindcss.setup({
-				capabilities = capabilities,
-				filetypes = { "templ", "astro", "javascript", "typescript", "react" },
-				settings = {
-					tailwindCSS = {
-						includeLanguages = {
-							templ = "html",
+				helm_ls = {
+					settings = {
+						["helm-ls"] = {
+							yamlls = {
+								path = "yaml-language-server",
+								config = { schemas = { ["kubernetes"] = "/*.yaml" } },
+							},
 						},
 					},
 				},
-			})
-
-			lspconfig.yamlls.setup({
-				capabilities = capabilities,
-				on_attach = function(client, _)
-					if client.name == "yamlls" and vim.bo.filetype == "helm" then
-						vim.lsp.stop_client(client.id)
-					end
-				end,
-				settings = {
-					schemaStore = {
-						url = "https://www.schemastore.org/api/json/catalog.json",
-						enable = false,
+				html = { filetypes = { "html", "templ" } },
+				htmx = { filetypes = { "html", "templ" } },
+				lua_ls = {
+					settings = {
+						Lua = { diagnostics = { globals = { "vim" } } },
 					},
-					yaml = {
-						validate = false,
-						schemas = {
-							["file:///Users/amantha/.datree/crdSchemas/cluster.open-cluster-management.io/placement_v1beta1.json"] =
-							"**/placements/**/*.yaml",
-							["kubernetes"] = "/*.yaml",
+				},
+				tailwindcss = {
+					filetypes = { "templ", "astro", "javascript", "typescript", "react" },
+					settings = {
+						tailwindCSS = { includeLanguages = { templ = "html" } },
+					},
+				},
+				yamlls = {
+					on_attach = function(client, _)
+						if client.name == "yamlls" and vim.bo.filetype == "helm" then
+							vim.lsp.stop_client(client.id)
+						end
+					end,
+					settings = {
+						schemaStore = { url = "https://www.schemastore.org/api/json/catalog.json", enable = false },
+						yaml = {
+							validate = false,
+							schemas = {
+								["file:///Users/amantha/.datree/crdSchemas/cluster.open-cluster-management.io/placement_v1beta1.json"] =
+								"**/placements/**/*.yaml",
+								["kubernetes"] = "/*.yaml",
+							},
 						},
 					},
 				},
-			})
+				zls = {
+					settings = { zls = { enable_build_on_save = true } }
+				},
+			}
 
-			lspconfig.helm_ls.setup({
+			-- Simple servers that don't need configuration
+			local simple_servers = {
+				'buf_ls', 'dockerls', 'gopls', 'jsonls', 'nil_ls',
+				'pyright', 'rust_analyzer', 'templ', 'terraformls'
+			}
+
+			-- Configure servers with custom settings
+			for server, config in pairs(server_configs) do
+				vim.lsp.config(server, config)
+			end
+
+			-- Auto-enable all servers
+			for server, _ in pairs(server_configs) do
+				vim.lsp.enable(server)
+			end
+			for _, server in ipairs(simple_servers) do
+				vim.lsp.enable(server)
+			end
+
+
+			-- Vue config
+			-- Vue requires a specific setup with plugins for different servers
+			vim.lsp.config('vtsls', {
 				settings = {
-					["helm-ls"] = {
-						yamlls = {
-							path = "yaml-language-server",
-							config = {
-								schemas = {
-									["kubernetes"] = "/*.yaml",
+					vtsls = {
+						tsserver = {
+							globalPlugins = {
+								{
+									name = '@vue/typescript-plugin',
+									location =
+									"/Users/amantha/dev/temabex-nuxt/node_modules/@vue/language-server",
+									languages = { 'vue' },
+									configNamespace = 'typescript',
 								},
 							},
 						},
 					},
 				},
+				filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
 			})
-
-			lspconfig.lua_ls.setup({
-				capabilities = capabilities,
-				settings = {
-					Lua = {
-						diagnostics = {
-							globals = { "vim" },
-						},
-					},
-				},
-			})
-
-			require("lspconfig").dartls.setup({
-				capabilities = capabilities,
-				settings = {
-					dart = {
-						analysisExcludedFolders = { ".dart_tool/**", "**/.pub-cache/**", "**/.bin/**" }
-					},
-				},
-			})
-
-			require("lspconfig").clangd.setup({
-				capabilities = capabilities,
-				cmd = {
-					'clangd',
-					'--background-index',
-					'--clang-tidy',
-					'--log=verbose',
-					'--compile-commands-dir=.',
-				},
-				filetypes = { "c", "cpp", "objc", "objcpp", "cuda" }
-			})
+			vim.lsp.config('vue_ls', {})
+			vim.lsp.enable({ 'vtsls', 'vue_ls' })
 
 			vim.api.nvim_create_autocmd("LspAttach", {
 				group = vim.api.nvim_create_augroup("UserLspConfig", {}),
@@ -196,15 +171,21 @@ return {
 				},
 			})
 
-			local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-			parser_config.gotmpl = {
-				install_info = {
-					url = "https://github.com/ngalaiko/tree-sitter-go-template",
-					files = { "src/parser.c" },
-				},
-				filetype = "gotmpl",
-				used_by = { "gohtmltmpl", "gotexttmpl", "gotmpl" },
-			}
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = "gotmpl",
+				once = true,
+				callback = function()
+					local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+					parser_config.gotmpl = {
+						install_info = {
+							url = "https://github.com/ngalaiko/tree-sitter-go-template",
+							files = { "src/parser.c" },
+						},
+						filetype = "gotmpl",
+						used_by = { "gohtmltmpl", "gotexttmpl", "gotmpl" },
+					}
+				end,
+			})
 		end,
 	},
 	{ "towolf/vim-helm", ft = "helm" }, -- Helm not working properly with treesitter so using a custom plugin
@@ -251,17 +232,4 @@ return {
 		},
 		opts = {},
 	},
-	-- {
-	-- 	"ray-x/go.nvim",
-	-- 	dependencies = {
-	-- 		"ray-x/guihua.lua",
-	-- 		"neovim/nvim-lspconfig",
-	-- 		"nvim-treesitter/nvim-treesitter",
-	-- 	},
-	-- 	config = function()
-	-- 		require("go").setup()
-	-- 	end,
-	-- 	event = { "CmdlineEnter" },
-	-- 	ft = { "go", 'gomod' },
-	-- }
 }
