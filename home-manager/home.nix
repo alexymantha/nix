@@ -2,7 +2,6 @@
   inputs,
   outputs,
   lib,
-  config,
   pkgs,
   ...
 }: {
@@ -11,7 +10,6 @@
     ./git.nix
     ./neovim.nix
     ./fish.nix
-    ./zsh.nix
     ./zellij.nix
   ];
 
@@ -90,6 +88,7 @@
     obsidian
     spotify
     slack
+    brave
     # Networking
     dnsutils
     openssl

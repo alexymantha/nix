@@ -138,10 +138,30 @@ return {
 					end, opts)
 
 					if client.supports_method("textDocument/formatting") then
+						local buf_group = vim.api.nvim_create_augroup(
+							"LspFormatting_" .. ev.buf,
+							{ clear = true }
+						)
+
 						vim.api.nvim_create_autocmd("BufWritePre", {
 							buffer = ev.buf,
+							group = buf_group,
 							callback = function()
-								vim.lsp.buf.format({ bufnr = ev.buf, id = client.id })
+								vim.lsp.buf.format({
+									bufnr = ev.buf,
+									timeout_ms = 3000,
+									filter = function(c)
+										-- Disable html formatting if templ is available
+										if c.name == "html" then
+											local templ_clients = vim.lsp.get_clients({
+												bufnr = ev.buf,
+												name = "templ",
+											})
+											return #templ_clients == 0
+										end
+										return true
+									end,
+								})
 							end,
 						})
 					end

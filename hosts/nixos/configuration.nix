@@ -10,6 +10,8 @@
     ./hardware-configuration.nix
     ./home.nix
     ./yubikey.nix
+    ./uwsm.nix
+    ./seamless-login.nix
   ];
 
   nixpkgs = {
@@ -58,7 +60,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.initrd.kernelModules = ["amdgpu"];
   boot.binfmt.emulatedSystems = ["aarch64-linux"];
-  boot.kernelPackages = pkgs.unstable.linuxKernel.packages.linux_6_14;
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_17;
 
   networking = {
     # Disable DHCP because we want to force a static IP on the management network
@@ -104,35 +106,20 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
-  # services.idle-inhibitor.enable = true;
-
-  services.displayManager.sddm = {
-    enable = true;
-    theme = "catppuccin-macchiato";
-    package = pkgs.kdePackages.sddm;
-    wayland.enable = true;
-  };
-
   services.pipewire = {
     enable = true;
     pulse.enable = true;
+    wireplumber.enable = true;
   };
 
   programs.fish.enable = true;
-  programs.zsh.enable = true;
-  users.defaultUserShell = pkgs.zsh;
+  users.defaultUserShell = pkgs.fish;
   users.users.amantha = {
     isNormalUser = true;
     extraGroups = ["wheel"];
     openssh.authorizedKeys.keys = [
       "ecdsa-sha2-nistp384 AAAAE2VjZHNhLXNoYTItbmlzdHAzODQAAAAIbmlzdHAzODQAAABhBBuACml/oi+pUzaNFQeOW+8+wWegqljXARwKFpGwnjHj3Q/YIraseXnVsSyEZ8VMR2OGyVA2pAFIIs54j5kHSWzOKbQBEF2PdEob/n6igHaLu2Df88KNar7s1HbZD6wStg== Public key for PIV Authentication" # Yubikey 5c nano
       "ecdsa-sha2-nistp384 AAAAE2VjZHNhLXNoYTItbmlzdHAzODQAAAAIbmlzdHAzODQAAABhBPdrGKtUJmJrp9Qbb17e79Vxh0Rq2DneIr2mB23KDpfZobVaa5xazVz7fD82c1egczAcVKl8BD3ap0AiHcKG+o9AXFTmQVWnv5neH5rNUVRB0PdKVRPS6p+9gj1Svyvskg== Public key for PIV Authentication" # Yubikey 5c nfc
-    ];
-
-    packages = with pkgs; [
-      firefox
-      tree
-      kdePackages.dolphin
     ];
   };
 
@@ -148,18 +135,13 @@
     unzip
     usbutils
     vesktop
+    jq
     yq
-    # Wayland stuff
-    (catppuccin-sddm.override {
-      flavor = "macchiato";
-      font = "JetBrainsMono Nerd Font";
-      fontSize = "12";
-      loginBackground = true;
-    })
     cloudflare-warp
     grim
     slurp
     wl-clipboard
+    brightnessctl
   ];
 
   systemd.packages = [pkgs.cloudflare-warp]; # for warp-cli
@@ -194,6 +176,7 @@
   '';
 
   programs.hyprland.enable = true;
+  programs.hyprland.withUWSM = true;
   programs.hyprland.package = pkgs.hyprland;
   programs.hyprland.portalPackage = pkgs.xdg-desktop-portal-hyprland;
   xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-hyprland];
@@ -206,15 +189,6 @@
   virtualisation.docker.rootless = {
     enable = true;
     setSocketVariable = true;
-  };
-
-  hardware.opengl = {
-    enable = true;
-    
-    # Use the latest AMD drivers
-    extraPackages = with pkgs; [
-      unstable.amdvlk
-    ];
   };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
