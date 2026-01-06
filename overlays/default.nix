@@ -1,16 +1,10 @@
-{ inputs, ... }:
-let
-  zellij-sessionizer = import ./zellij-sessionizer.nix { inherit inputs; };
-in
+{inputs, ...}: 
 {
-  additions =
-    final: prev:
-    {
-      zjstatus = inputs.zjstatus.packages.${final.system}.default;
-      zig = inputs.zig.packages.${final.system}.master-2024-12-30;
-      zls = inputs.zls.packages.${final.system}.default;
-    }
-    // (zellij-sessionizer.additions final prev);
+  additions = final: prev: {
+    zjstatus = inputs.zjstatus.packages.${final.system}.default;
+    zig = inputs.zig.packages.${final.system}.master-2024-12-30;
+    zls = inputs.zls.packages.${final.system}.default;
+  };
 
   # This one contains whatever you want to overlay
   # You can change versions, add patches, set compilation flags, anything really.

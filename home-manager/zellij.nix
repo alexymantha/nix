@@ -1,11 +1,11 @@
-{pkgs, ...}: {
+{pkgs, inputs, ...}: {
   programs.zellij = {
     enable = true;
     enableZshIntegration = true;
   };
 
-  home.packages = with pkgs; [
-    # zellij-sessionizer
+  home.packages = [
+      inputs.zellij-switch
   ];
 
   home.file.".config/zellij/config.kdl" = {

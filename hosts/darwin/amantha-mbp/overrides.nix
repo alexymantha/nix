@@ -15,6 +15,15 @@
     };
   };
 
+  homebrew = {
+    enable = true;
+
+    taps = [];
+    brews = [
+      "openjdk"
+    ];
+  };
+
   environment.systemPackages = with pkgs; [
     docker
     colima

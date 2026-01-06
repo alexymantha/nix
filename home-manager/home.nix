@@ -18,6 +18,7 @@
     overlays = [
       inputs.nur.overlays.default
       inputs.rust-overlay.overlays.default
+      inputs.zellij-switch.overlays.default
       outputs.overlays.additions
       outputs.overlays.modifications
       outputs.overlays.unstable-packages
@@ -74,6 +75,7 @@
     unstable.nodejs_22
     zig
     zls
+    python3
     # Utils
     fd
     bat

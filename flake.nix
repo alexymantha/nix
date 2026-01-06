@@ -27,6 +27,7 @@
     rust-overlay.url = "github:oxalica/rust-overlay";
     rust-overlay.inputs.nixpkgs.follows = "nixpkgs";
     crane.url = "github:ipetkov/crane";
+    zellij-switch.url = "github:mostafaqanbaryan/zellij-switch";
   };
 
   outputs = {
@@ -40,6 +41,7 @@
     rust-overlay,
     zig,
     zjstatus,
+    zellij-switch,
     zls,
     ...
   } @ inputs: let
@@ -64,6 +66,7 @@
           {nixpkgs.overlays = [
               nur.overlays.default
               rust-overlay.overlays.default
+              zellij-switch.overlays.default
             ];}
           # > Our main nixos configuration file <
           ./hosts/nixos/configuration.nix
@@ -82,6 +85,7 @@
           {nixpkgs.overlays = [
               nur.overlays.default
               rust-overlay.overlays.default
+              zellij-switch.overlays.default
             ];}
           ./hosts/darwin/default.nix
           ./hosts/darwin/amantha-air/overrides.nix
@@ -96,6 +100,7 @@
           {nixpkgs.overlays = [
               nur.overlays.default
               rust-overlay.overlays.default
+              zellij-switch.overlays.default
             ];}
           ./hosts/darwin/default.nix
           ./hosts/darwin/amantha-mbp/overrides.nix
