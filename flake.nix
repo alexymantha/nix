@@ -79,7 +79,7 @@
       # Personal laptop
       amantha-air = darwin.lib.darwinSystem {
         specialArgs = {inherit inputs outputs;};
-        stdenv.hostPlatform.system = "aarch64-darwin";
+        system = "aarch64-darwin";
         modules = [
           {nix.channel.enable = false;}
           {nixpkgs.overlays = [
@@ -94,7 +94,7 @@
       # Work laptop
       amantha-mbp = darwin.lib.darwinSystem {
         specialArgs = {inherit inputs outputs;};
-        stdenv.hostPlatform.system = "aarch64-darwin";
+        system = "aarch64-darwin";
         modules = [
           {nix.channel.enable = false;}
           {nixpkgs.overlays = [

@@ -20,8 +20,7 @@
     };
 
     buildInputs =
-      lib.optional pkgs.stdenv.hostPlatform.isLinux (lib.getDev pkgs.pcsclite)
-      ++ lib.optional pkgs.stdenv.hostPlatform.isDarwin (pkgs.darwin.apple_sdk.frameworks.PCSC);
+      lib.optional pkgs.stdenv.hostPlatform.isLinux (lib.getDev pkgs.pcsclite);
 
     nativeBuildInputs = lib.optionals pkgs.stdenv.hostPlatform.isLinux [pkgs.pkg-config];
 
