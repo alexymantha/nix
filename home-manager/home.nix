@@ -4,7 +4,8 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   imports = [
     ./firefox.nix
     ./git.nix
@@ -22,7 +23,8 @@
       outputs.overlays.unstable-packages
     ];
     config.allowUnfree = true;
-    config.allowUnfreePredicate = pkg:
+    config.allowUnfreePredicate =
+      pkg:
       builtins.elem (lib.getName pkg) [
         "cloudflare-warp"
         "obsidian"
@@ -39,7 +41,7 @@
       enable = true;
       package = if pkgs.stdenv.isDarwin then pkgs.emptyDirectory else pkgs.ghostty;
       settings = {
-        theme = "catppuccin-macchiato";
+        theme = "Catppuccin Macchiato";
         font-size = 18;
         keybind = [
           "cmd+t=unbind"

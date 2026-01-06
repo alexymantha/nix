@@ -21,5 +21,6 @@
     pamixer
     playerctl
     unstable.wiremix
+    bambu-studio
   ];
 }

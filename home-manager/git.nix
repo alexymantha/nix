@@ -7,12 +7,16 @@
     ssh-add -L | grep "9c" | awk '$0="key::"$0'
   '';
 in {
+  programs.delta.enable = true; # Prettier diff viewer
+  programs.delta.enableGitIntegration = true;
+
   programs.git = {
     enable = true;
-    delta.enable = true; # Prettier diff viewer
-    userName = "Alexy Mantha";
-    userEmail = "alexy@mantha.dev";
-    extraConfig = {
+    settings = {
+      user = {
+        name = "Alexy Mantha";
+        email = "alexy@mantha.dev";
+      };
       commit = {
         gpgsign = false;
         template = "${config.home.homeDirectory}/.gitmessage";

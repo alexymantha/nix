@@ -1,12 +1,13 @@
 {
-inputs,
-outputs,
-pkgs,
-lib,
-config,
-darwin,
-...
-}: let 
+  inputs,
+  outputs,
+  pkgs,
+  lib,
+  config,
+  darwin,
+  ...
+}:
+let
   yubikey-agent = pkgs.buildGoModule rec {
     pname = "yubikey-agent";
     version = "0.2.0";
@@ -27,7 +28,7 @@ darwin,
     nativeBuildInputs = lib.optionals pkgs.stdenv.hostPlatform.isLinux [ pkgs.pkg-config ];
 
     postPatch = lib.optionalString pkgs.stdenv.hostPlatform.isLinux ''
-    substituteInPlace main.go --replace 'notify-send' ${pkgs.libnotify}/bin/notify-send
+      substituteInPlace main.go --replace 'notify-send' ${pkgs.libnotify}/bin/notify-send
     '';
 
     doCheck = false;
@@ -40,7 +41,8 @@ darwin,
       "-X main.Version=${version}"
     ];
   };
-in {
+in
+{
   environment.systemPackages = [ yubikey-agent ];
   systemd.packages = [ yubikey-agent ];
 
@@ -48,7 +50,7 @@ in {
     description = "Seamless ssh-agent for YubiKeys";
     documentation = [ "https://filippo.io/yubikey-agent" ];
     wantedBy = [ "default.target" ];
-    path = [ pkgs.pinentry ];
+    path = [ pkgs.pinentry-all ];
 
     serviceConfig = {
       ExecStart = "${yubikey-agent}/bin/yubikey-agent -l %t/yubikey-agent/yubikey-agent.sock -slots 0x9a,0x9c,0x95";
@@ -73,8 +75,8 @@ in {
   services.pcscd.enable = true;
 
   environment.extraInit = ''
-      if [ -z "$SSH_AUTH_SOCK" -a -n "$XDG_RUNTIME_DIR" ]; then
-        export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/yubikey-agent/yubikey-agent.sock"
-      fi
+    if [ -z "$SSH_AUTH_SOCK" -a -n "$XDG_RUNTIME_DIR" ]; then
+      export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/yubikey-agent/yubikey-agent.sock"
+    fi
   '';
 }

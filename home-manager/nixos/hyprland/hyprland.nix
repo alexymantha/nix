@@ -2,8 +2,9 @@
   config,
   pkgs,
   ...
-}: {
-  imports = [ 
+}:
+{
+  imports = [
     ./autostart.nix
     ./envs.nix
     ./hypridle.nix
@@ -14,9 +15,10 @@
     ./swayosd.nix
     ./walker/walker.nix
     ./waybar/waybar.nix
- ];
+  ];
 
   home.packages = with pkgs; [
+    hypridle
     hyprpicker
     hyprshot
     hyprsunset
@@ -41,7 +43,7 @@
       "$terminal" = "uwsm app -- ghostty";
       "$menu" = "uwsm app -- walker";
 
-      bind= [
+      bind = [
         "$mainMod, Return, exec, $terminal"
         "$mainMod, B, exec, $browser"
         "$mainMod SHIFT, B, exec, $browser --private"

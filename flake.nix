@@ -3,16 +3,16 @@
 
   inputs = {
     # Nixpkgs
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     # Also see the 'unstable-packages' overlay at 'overlays/default.nix'.
 
     # Nix Darwin
-    darwin.url = "github:lnl7/nix-darwin/nix-darwin-25.05";
+    darwin.url = "github:lnl7/nix-darwin/nix-darwin-25.11";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
 
     # Home manager
-    home-manager.url = "github:nix-community/home-manager/master";
+    home-manager.url = "github:nix-community/home-manager/release-25.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     # Agenix
@@ -76,7 +76,7 @@
       # Personal laptop
       amantha-air = darwin.lib.darwinSystem {
         specialArgs = {inherit inputs outputs;};
-        system = "aarch64-darwin";
+        stdenv.hostPlatform.system = "aarch64-darwin";
         modules = [
           {nix.channel.enable = false;}
           {nixpkgs.overlays = [
@@ -90,7 +90,7 @@
       # Work laptop
       amantha-mbp = darwin.lib.darwinSystem {
         specialArgs = {inherit inputs outputs;};
-        system = "aarch64-darwin";
+        stdenv.hostPlatform.system = "aarch64-darwin";
         modules = [
           {nix.channel.enable = false;}
           {nixpkgs.overlays = [

@@ -13,7 +13,7 @@
     vimAlias = true;
     defaultEditor = true;
     extraPackages = with pkgs; [
-      dockerfile-language-server-nodejs
+      dockerfile-language-server
       gopls
       gotools
       helm-ls

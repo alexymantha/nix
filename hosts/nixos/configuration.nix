@@ -60,7 +60,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.initrd.kernelModules = ["amdgpu"];
   boot.binfmt.emulatedSystems = ["aarch64-linux"];
-  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_17;
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_18;
 
   networking = {
     # Disable DHCP because we want to force a static IP on the management network
@@ -147,7 +147,7 @@
   systemd.packages = [pkgs.cloudflare-warp]; # for warp-cli
   systemd.targets.multi-user.wants = ["warp-svc.service"];
 
-  services.tailscale.enable = true;
+  services.netbird.enable = true;
   services.openssh = {
     enable = true;
     settings = {
