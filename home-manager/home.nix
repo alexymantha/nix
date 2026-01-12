@@ -17,7 +17,6 @@
   nixpkgs = {
     overlays = [
       inputs.nur.overlays.default
-      inputs.rust-overlay.overlays.default
       inputs.zellij-switch.overlays.default
       outputs.overlays.additions
       outputs.overlays.modifications
@@ -42,13 +41,14 @@
       enable = true;
       package = if pkgs.stdenv.isDarwin then pkgs.emptyDirectory else pkgs.ghostty;
       settings = {
-        theme = "Catppuccin Macchiato";
+        theme = "Ayu";
         font-size = 18;
         keybind = [
           "cmd+t=unbind"
           "cmd+n=unbind"
           "cmd+c=unbind"
           "cmd+w=unbind"
+          "ctrl+d=unbind"
           "cmd+opt+left=unbind"
           "cmd+opt+right=unbind"
         ];
@@ -66,15 +66,10 @@
 
   home.packages = with pkgs; [
     # Dev tools
-    rustc
-    cargo
     coreutils
-    devenv
     gcc
     unstable.go
     unstable.nodejs_22
-    zig
-    zls
     python3
     # Utils
     fd
@@ -89,7 +84,6 @@
     yubico-piv-tool
     nixos-anywhere
     # Apps
-    obsidian
     spotify
     slack
     brave

@@ -1,16 +1,16 @@
 return {
 	{
-		"catppuccin/nvim",
+		"Shatur/neovim-ayu",
 		lazy = false,
 		priority = 1000,
 		config = function()
-			vim.cmd([[colorscheme catppuccin-macchiato]])
+			require('ayu').colorscheme()
 		end,
 	},
 	{
 		"nvim-lualine/lualine.nvim",
 		opts = {
-			options = { theme = "catppuccin" },
+			options = { theme = "ayu" },
 			sections = {
 				lualine_x = {
 					"encoding",

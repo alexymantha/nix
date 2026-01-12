@@ -68,7 +68,7 @@ return {
 			-- Simple servers that don't need configuration
 			local simple_servers = {
 				'buf_ls', 'dockerls', 'gopls', 'jsonls', 'nil_ls',
-				'pyright', 'rust_analyzer', 'templ', 'terraformls'
+				'pyright', 'rust_analyzer', 'templ', 'terraformls', 'ts_ls'
 			}
 
 			-- Configure servers with custom settings

@@ -4,7 +4,7 @@ ui {
   }
 }
 
-theme "catppuccin-macchiato"
+theme "ayu_dark"
 default_mode "locked"
 
 keybinds clear-defaults=true {
@@ -13,14 +13,6 @@ keybinds clear-defaults=true {
         bind "Alt 1" { GoToTab 1; }
         bind "Alt 2" { GoToTab 2; }
         bind "Alt 3" { GoToTab 3; }
-        bind "Ctrl f" { LaunchOrFocusPlugin "file:~/Downloads/zellij-sessionizer.wasm" {
-            floating true
-            move_to_focused_tab true
-            cwd "/"
-            root_dirs "/Users/amantha/dev"
-            session_layout "project"
-        }; SwitchToMode "locked";
-        }
     }
     pane {
         bind "left" { MoveFocus "left"; }

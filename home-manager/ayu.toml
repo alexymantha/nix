@@ -1,0 +1,28 @@
+### Copied from catpuccin
+[palettes.ayu]
+rosewater = "#F07178"  # syntax.markup (pinkish)
+flamingo = "#FF8F40"   # syntax.keyword (orange-red)
+pink = "#D2A6FF"       # syntax.constant (purple-pink)
+mauve = "#D2A6FF"      # syntax.constant (purple)
+red = "#D95757"        # common.error (red)
+maroon = "#F26D78"     # vcs.removed (dark red)
+peach = "#FFB454"      # syntax.func (orange)
+yellow = "#E6B450"     # common.accent.tint (yellow)
+green = "#AAD94C"      # syntax.string (green)
+teal = "#95E6CB"       # syntax.regexp (teal)
+sky = "#59C2FF"        # syntax.entity (light blue)
+sapphire = "#39BAE6"   # syntax.tag (blue)
+blue = "#73B8FF"       # vcs.modified (blue)
+lavender = "#D2A6FF"   # syntax.constant (light purple)
+text = "#BFBDB6"       # editor.fg (main text)
+subtext1 = "#99ADBF"   # syntax.comment (without alpha)
+subtext0 = "#6C7380"   # editor.gutter colors
+overlay2 = "#555E73"   # ui.fg
+overlay1 = "#475266"   # ui.selection colors
+overlay0 = "#475266"   # ui.selection colors
+surface2 = "#1B1F29"   # ui.line
+surface1 = "#161A24"   # editor.line
+surface0 = "#141821"   # ui.panel.bg
+base = "#10141C"       # editor.bg
+mantle = "#10141C"     # editor.bg (same as base)
+crust = "#0D1017"      # ui.bg

@@ -24,8 +24,6 @@
     zls.url = "github:zigtools/zls?ref=0.14.0";
     zjstatus.url = "github:dj95/zjstatus";
     flake-utils.url = "github:numtide/flake-utils";
-    rust-overlay.url = "github:oxalica/rust-overlay";
-    rust-overlay.inputs.nixpkgs.follows = "nixpkgs";
     crane.url = "github:ipetkov/crane";
     zellij-switch.url = "github:mostafaqanbaryan/zellij-switch";
   };
@@ -38,7 +36,6 @@
     nixpkgs,
     nixpkgs-unstable,
     nur,
-    rust-overlay,
     zig,
     zjstatus,
     zellij-switch,
@@ -65,7 +62,6 @@
           {nix.channel.enable = false;}
           {nixpkgs.overlays = [
               nur.overlays.default
-              rust-overlay.overlays.default
               zellij-switch.overlays.default
             ];}
           # > Our main nixos configuration file <
@@ -84,7 +80,6 @@
           {nix.channel.enable = false;}
           {nixpkgs.overlays = [
               nur.overlays.default
-              rust-overlay.overlays.default
               zellij-switch.overlays.default
             ];}
           ./hosts/darwin/default.nix
@@ -99,7 +94,6 @@
           {nix.channel.enable = false;}
           {nixpkgs.overlays = [
               nur.overlays.default
-              rust-overlay.overlays.default
               zellij-switch.overlays.default
             ];}
           ./hosts/darwin/default.nix

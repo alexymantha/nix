@@ -21,17 +21,17 @@ layout {
           command_kubens_format   "#[fg=$fg,bg=$black]{stdout} "
           command_kubens_interval "30"
 
-          color_bg "#5b6078" // Surface2
-          color_fg "#cad3f5" // Text
-          color_red "#ed8796"
-          color_green "#a6da95"
-          color_blue "#8aadf4"
-          color_yellow "#eed49f"
-          color_magenta "#f5bde6" // Pink
-          color_orange "#f5a97f" // Peach
-          color_cyan "#91d7e3" // Sky
-          color_black "#1e2030" // Mantle
-          color_white "#cad3f5" // Text
+            color_bg "#161A24"   // editor.line (current line highlight)
+            color_fg "#BFBDB6"   // editor.fg (main text)
+            color_red "#D95757"  // common.error
+            color_green "#AAD94C" // syntax.string
+            color_blue "#39BAE6" // syntax.tag
+            color_yellow "#E6B450" // common.accent.tint
+            color_magenta "#D2A6FF" // syntax.constant
+            color_orange "#FFB454" // syntax.func
+            color_cyan "#95E6CB" // syntax.regexp
+            color_black "#0D1017" // ui.bg (darkest background)
+            color_white "#BFBDB6" // editor.fg (main text, same as fg)
         }
     }
     pane

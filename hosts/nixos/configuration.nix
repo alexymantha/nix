@@ -5,7 +5,8 @@
   config,
   pkgs,
   ...
-}: {
+}:
+{
   imports = [
     ./hardware-configuration.nix
     ./home.nix
@@ -20,46 +21,52 @@
       outputs.overlays.modifications
       outputs.overlays.unstable-packages
     ];
-    config.allowUnfreePredicate = pkg:
+    config.allowUnfreePredicate =
+      pkg:
       builtins.elem (lib.getName pkg) [
         "cloudflare-warp"
       ];
   };
 
-  nix = let
-    flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
-  in {
-    settings = {
-      experimental-features = "nix-command flakes";
-      # Opinionated: disable global registry
-      flake-registry = "";
-      # Workaround for https://github.com/NixOS/nix/issues/9574
-      nix-path = config.nix.nixPath;
+  nix =
+    let
+      flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
+    in
+    {
+      settings = {
+        experimental-features = "nix-command flakes";
+        # Opinionated: disable global registry
+        flake-registry = "";
+        # Workaround for https://github.com/NixOS/nix/issues/9574
+        nix-path = config.nix.nixPath;
 
-      trusted-users = ["root" "amantha"];
+        trusted-users = [
+          "root"
+          "amantha"
+        ];
 
-      substituters = [
-        "https://devenv.cachix.org"
-        "https://alexymantha.cachix.org"
-      ];
+        substituters = [
+          "https://devenv.cachix.org"
+          "https://alexymantha.cachix.org"
+        ];
 
-      trusted-public-keys = [
-        "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
-        "alexymantha.cachix.org-1:yUrFTN9X9HjjMhMrHSV+iDY0r+ZRdVUPisI6Io4PrOc="
-      ];
+        trusted-public-keys = [
+          "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
+          "alexymantha.cachix.org-1:yUrFTN9X9HjjMhMrHSV+iDY0r+ZRdVUPisI6Io4PrOc="
+        ];
+      };
+      channel.enable = false;
+
+      # Opinionated: make flake registry and nix path match flake inputs
+      registry = lib.mapAttrs (_: flake: { inherit flake; }) flakeInputs;
+      nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
     };
-    channel.enable = false;
-
-    # Opinionated: make flake registry and nix path match flake inputs
-    registry = lib.mapAttrs (_: flake: {inherit flake;}) flakeInputs;
-    nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
-  };
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.initrd.kernelModules = ["amdgpu"];
-  boot.binfmt.emulatedSystems = ["aarch64-linux"];
+  boot.initrd.kernelModules = [ "amdgpu" ];
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_18;
 
   networking = {
@@ -116,7 +123,7 @@
   users.defaultUserShell = pkgs.fish;
   users.users.amantha = {
     isNormalUser = true;
-    extraGroups = ["wheel"];
+    extraGroups = [ "wheel" ];
     openssh.authorizedKeys.keys = [
       "ecdsa-sha2-nistp384 AAAAE2VjZHNhLXNoYTItbmlzdHAzODQAAAAIbmlzdHAzODQAAABhBBuACml/oi+pUzaNFQeOW+8+wWegqljXARwKFpGwnjHj3Q/YIraseXnVsSyEZ8VMR2OGyVA2pAFIIs54j5kHSWzOKbQBEF2PdEob/n6igHaLu2Df88KNar7s1HbZD6wStg== Public key for PIV Authentication" # Yubikey 5c nano
       "ecdsa-sha2-nistp384 AAAAE2VjZHNhLXNoYTItbmlzdHAzODQAAAAIbmlzdHAzODQAAABhBPdrGKtUJmJrp9Qbb17e79Vxh0Rq2DneIr2mB23KDpfZobVaa5xazVz7fD82c1egczAcVKl8BD3ap0AiHcKG+o9AXFTmQVWnv5neH5rNUVRB0PdKVRPS6p+9gj1Svyvskg== Public key for PIV Authentication" # Yubikey 5c nfc
@@ -126,7 +133,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    inputs.agenix.packages.${pkgs.system}.default
+    inputs.agenix.packages.${pkgs.stdenv.hostPlatform.system}.default
     cachix
     fzf
     git
@@ -144,8 +151,8 @@
     brightnessctl
   ];
 
-  systemd.packages = [pkgs.cloudflare-warp]; # for warp-cli
-  systemd.targets.multi-user.wants = ["warp-svc.service"];
+  systemd.packages = [ pkgs.cloudflare-warp ]; # for warp-cli
+  systemd.targets.multi-user.wants = [ "warp-svc.service" ];
 
   services.netbird.enable = true;
   services.openssh = {
@@ -179,7 +186,7 @@
   programs.hyprland.withUWSM = true;
   programs.hyprland.package = pkgs.hyprland;
   programs.hyprland.portalPackage = pkgs.xdg-desktop-portal-hyprland;
-  xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-hyprland];
+  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
