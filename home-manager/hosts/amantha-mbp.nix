@@ -21,7 +21,6 @@
     vault
     gnupg
     kyverno
-    unstable.opencode
   ];
 
   home.sessionVariables = {

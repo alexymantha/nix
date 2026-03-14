@@ -149,6 +149,7 @@
     slurp
     wl-clipboard
     brightnessctl
+    zellij-switch
   ];
 
   systemd.packages = [ pkgs.cloudflare-warp ]; # for warp-cli

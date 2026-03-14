@@ -94,6 +94,8 @@
     kubectl
     kubectx
     kubernetes-helm
+    # AI
+    unstable.opencode
   ];
 
   home.sessionVariables = {
