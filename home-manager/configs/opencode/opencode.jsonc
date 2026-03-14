@@ -1,0 +1,55 @@
+{
+    "$schema": "https://opencode.ai/config.json",
+    // Disable sharing: https://opencode.ai/docs/share#disabled
+    "share": "disabled",
+    // Choose your preferred theme
+    "theme": "kanagawa",
+    // Permission rules to prevent dangerous operations
+    "permission": {
+        "bash": {
+            // Require confirmation for destructive commands
+            "rm -rf *": "ask",
+            "rm -r *": "ask",
+            // Block sudo to prevent privilege escalation
+            "sudo *": "deny",
+            // Avoid applying something to the clusters
+            "kubectl *": "ask",
+        },
+        "edit": {
+            // Prevent accidental edits to sensitive files
+            "**/*.env*": "deny",
+            "**/*.key": "deny",
+            "**/*.secret": "deny",
+        },
+    },
+    // Custom modes for different workflows: https://opencode.ai/docs/agents/
+    "mode": {
+        // Planning mode: read-only
+        "plan": {
+            "model": "github-copilot/claude-opus-4.6",
+            "tools": {
+                "write": false,
+                "edit": false,
+                "bash": true,
+                "read": true,
+                "grep": true,
+                "glob": true,
+            },
+        },
+        // Build mode: full access for implementation
+        "build": {
+            "model": "github-copilot/claude-opus-4.6",
+        },
+    },
+    // Custom keybindings https://opencode.ai/docs/keybinds/
+    "keybinds": {},
+    // MCP (Model Context Protocol) servers
+    // Uncomment and configure as needed
+    "mcp": {},
+    // Custom AI providers (configure for the organization)
+    "provider": {},
+    // Plugins (optional)
+    "plugin": [
+        "@franlol/opencode-md-table-formatter@0.0.3"
+    ],
+}
