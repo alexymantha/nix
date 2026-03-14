@@ -22,6 +22,7 @@
     taps = [ ];
     brews = [
       "openjdk"
+      "maven"
     ];
   };
 
