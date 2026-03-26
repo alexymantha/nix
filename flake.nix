@@ -20,8 +20,6 @@
     agenix.inputs.nixpkgs.follows = "nixpkgs";
 
     nur.url = "github:nix-community/NUR";
-    zig.url = "github:alexymantha/zig-overlay";
-    zls.url = "github:zigtools/zls?ref=0.14.0";
     zjstatus.url = "github:dj95/zjstatus";
     flake-utils.url = "github:numtide/flake-utils";
     crane.url = "github:ipetkov/crane";
@@ -36,10 +34,8 @@
     nixpkgs,
     nixpkgs-unstable,
     nur,
-    zig,
     zjstatus,
     zellij-switch,
-    zls,
     ...
   } @ inputs: let
     inherit (self) outputs;

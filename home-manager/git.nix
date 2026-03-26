@@ -2,11 +2,13 @@
   config,
   pkgs,
   ...
-}: let
+}:
+let
   getSigningKey = pkgs.writeShellScriptBin "get_signing_key" ''
     ssh-add -L | grep "9c" | awk '$0="key::"$0'
   '';
-in {
+in
+{
   programs.delta.enable = true; # Prettier diff viewer
   programs.delta.enableGitIntegration = true;
 
@@ -32,6 +34,12 @@ in {
       };
     };
   };
+
+  home.file.".gitmessage".text = ''
+
+
+    Signed-off-by: Alexy Mantha <alexy@mantha.dev>
+  '';
 
   home.packages = [
     getSigningKey

@@ -25,7 +25,6 @@
       # Needed for the JSON ls
       vscode-langservers-extracted
       yaml-language-server
-      zls
       typescript-language-server
       unstable.harper # Spellcheck
       htmx-lsp

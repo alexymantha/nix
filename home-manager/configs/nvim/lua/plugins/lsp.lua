@@ -60,9 +60,6 @@ return {
 						},
 					},
 				},
-				zls = {
-					settings = { zls = { enable_build_on_save = true } }
-				},
 			}
 
 			-- Simple servers that don't need configuration
@@ -173,37 +170,18 @@ return {
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
 		config = function()
-			require("nvim-treesitter.configs").setup({
-				ensure_installed = { "c", "lua", "vim", "vimdoc", "query" },
-				sync_install = false,
+			require("nvim-treesitter").setup({
+				ensure_installed = {
+					"c", "lua", "vim", "vimdoc", "query",
+				},
 				auto_install = true,
-				highlight = {
-					enable = true,
-					-- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-					-- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-					-- Using this option may slow down your editor, and you may see some duplicate highlights.
-					-- Instead of true it can also be a list of languages
-					additional_vim_regex_highlighting = false,
-				},
-				indent = {
-					disable = { 'yaml', 'templ' },
-					enable = true,
-				},
 			})
 
+			-- Highlighting & indent are now built into Neovim.
+			-- Just enable them via the native API:
 			vim.api.nvim_create_autocmd("FileType", {
-				pattern = "gotmpl",
-				once = true,
 				callback = function()
-					local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-					parser_config.gotmpl = {
-						install_info = {
-							url = "https://github.com/ngalaiko/tree-sitter-go-template",
-							files = { "src/parser.c" },
-						},
-						filetype = "gotmpl",
-						used_by = { "gohtmltmpl", "gotexttmpl", "gotmpl" },
-					}
+					pcall(vim.treesitter.start)
 				end,
 			})
 		end,

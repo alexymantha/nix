@@ -1,8 +1,11 @@
 {
   config,
+  lib,
   pkgs,
   ...
 }:
+let
+in
 {
   imports = [
     ../darwin/common.nix
@@ -21,7 +24,14 @@
     vault
     gnupg
     kyverno
+    kubelogin-oidc
   ];
+
+  home.file.".gitmessage".text = lib.mkForce ''
+
+
+    Signed-off-by: Alexy Mantha <alexy.mantha@goto.com>
+  '';
 
   home.sessionVariables = {
     NODE_EXTRA_CA_CERTS = "/etc/ssl/certs/all_trusted_certs.pem";

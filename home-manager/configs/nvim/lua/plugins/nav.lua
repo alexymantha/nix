@@ -83,10 +83,10 @@ return {
 					end
 				end,
 			},
-			{ "<Leader>pf", require("telescope.builtin").find_files },
-			{ "<Leader>fg", require("telescope.builtin").live_grep },
-			{ "<Leader>fb", require("telescope.builtin").buffers },
-			{ "<Leader>fh", require("telescope.builtin").help_tags },
+			{ "<Leader>pf", function() require("telescope.builtin").find_files() end },
+			{ "<Leader>fg", function() require("telescope.builtin").live_grep() end },
+			{ "<Leader>fb", function() require("telescope.builtin").buffers() end },
+			{ "<Leader>fh", function() require("telescope.builtin").help_tags() end },
 			{
 				"<Leader>en",
 				function()
