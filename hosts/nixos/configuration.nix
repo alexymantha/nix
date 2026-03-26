@@ -21,11 +21,6 @@
       outputs.overlays.modifications
       outputs.overlays.unstable-packages
     ];
-    config.allowUnfreePredicate =
-      pkg:
-      builtins.elem (lib.getName pkg) [
-        "cloudflare-warp"
-      ];
   };
 
   nix =
@@ -144,16 +139,13 @@
     vesktop
     jq
     yq
-    cloudflare-warp
     grim
     slurp
     wl-clipboard
     brightnessctl
     zellij-switch
+    xdg-user-dirs
   ];
-
-  systemd.packages = [ pkgs.cloudflare-warp ]; # for warp-cli
-  systemd.targets.multi-user.wants = [ "warp-svc.service" ];
 
   services.netbird.enable = true;
   services.openssh = {
@@ -198,6 +190,9 @@
     enable = true;
     setSocketVariable = true;
   };
+
+  services.gnome.gnome-keyring.enable = true;
+  services.gnome.gcr-ssh-agent.enable = false;
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "24.05";

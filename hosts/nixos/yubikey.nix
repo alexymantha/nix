@@ -21,8 +21,7 @@ let
       hash = "sha256-SYG/za3vNFq7IVQffUWxHVrmqwrXKjp07xRg5GtmyAM=";
     };
 
-    buildInputs =
-      lib.optional pkgs.stdenv.hostPlatform.isLinux (lib.getDev pkgs.pcsclite);
+    buildInputs = lib.optional pkgs.stdenv.hostPlatform.isLinux (lib.getDev pkgs.pcsclite);
 
     nativeBuildInputs = lib.optionals pkgs.stdenv.hostPlatform.isLinux [ pkgs.pkg-config ];
 
@@ -74,8 +73,6 @@ in
   services.pcscd.enable = true;
 
   environment.extraInit = ''
-    if [ -z "$SSH_AUTH_SOCK" -a -n "$XDG_RUNTIME_DIR" ]; then
-      export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/yubikey-agent/yubikey-agent.sock"
-    fi
+    export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/yubikey-agent/yubikey-agent.sock"
   '';
 }
