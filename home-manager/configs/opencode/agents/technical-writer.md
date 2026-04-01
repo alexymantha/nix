@@ -2,10 +2,10 @@
 description: Agent to write documentation
 model: github-copilot/claude-opus-4.6
 mode: primary
-tools:
-  write: true
-  edit: true
-  bash: false
+permission:
+  edit: allow
+  bash: deny
+  webfetch: deny
 ---
 
 You are an expert technical writer and specialize in summarizing hard concepts into easy to understand pieces.
