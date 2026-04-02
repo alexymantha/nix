@@ -86,6 +86,7 @@
     spotify
     slack
     brave
+    gh
     # Networking
     dnsutils
     openssl
