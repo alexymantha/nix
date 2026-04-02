@@ -2,7 +2,8 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   imports = [
     ../darwin/common.nix
     ../home.nix
@@ -15,13 +16,22 @@
     pkgs.unstable.opentofu
     pkgs.terraform
     pkgs.docker
+    pkgs.gh
     pkgs.kustomize
     pkgs.vault
     pkgs.gnupg
     pkgs.kyverno
     pkgs.kubelogin-oidc
+    pkgs.unstable.colima
   ];
 
+  programs.git = {
+    settings = {
+      user = {
+        email = lib.mkForce "alexy.mantha@goto.com";
+      };
+    };
+  };
   home.file.".gitmessage".text = lib.mkForce ''
 
 
