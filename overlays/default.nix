@@ -1,6 +1,6 @@
 {inputs, ...}: {
   additions = final: prev: {
-    zjstatus = inputs.zjstatus.packages.${final.system}.default;
+    zjstatus = inputs.zjstatus.packages.${final.stdenv.hostPlatform.system}.default;
     omarchy-src = final.fetchFromGitHub {
       owner = "basecamp";
       repo = "omarchy";
@@ -18,7 +18,7 @@
   # be accessible through 'pkgs.unstable'
   unstable-packages = final: _prev: {
     unstable = import inputs.nixpkgs-unstable {
-      system = final.system;
+      system = final.stdenv.hostPlatform.system;
     };
   };
 }
