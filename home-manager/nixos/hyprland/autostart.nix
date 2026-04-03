@@ -1,11 +1,8 @@
-{
-  pkgs,
-  ...
-}: {
-  home.packages = with pkgs; [
-    swaybg
-    polkit_gnome
-  ]; 
+{pkgs, ...}: {
+  home.packages = [
+    pkgs.swaybg
+    pkgs.polkit_gnome
+  ];
   wayland.windowManager.hyprland.settings = {
     exec-once = [
       "uwsm app -- hypridle"

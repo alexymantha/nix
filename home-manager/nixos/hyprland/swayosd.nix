@@ -1,6 +1,4 @@
-{
-  ...
-}: {
+{...}: {
   services.swayosd.enable = true;
 
   home.file.".config/swayosd/config.toml".text = ''
@@ -42,5 +40,5 @@
     progress {
       background-color: @progress;
     }
-    '';
+  '';
 }

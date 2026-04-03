@@ -99,11 +99,11 @@ return {
                 vim.keymap.set("n", "<Leader>ac", ":PrtChatToggle<CR>")
                 vim.keymap.set("n", "<Leader>an", ":PrtChatNew<CR>", { desc = "Start new chat" })
                 vim.keymap.set("v", "<Leader>an", ":PrtChatNew<CR>", { desc = "Start new chat with selection" })
-                vim.keymap.set("v", "<Leader>ar", ":PrtChatRewrite")
-                vim.keymap.set("v", "<Leader>ap", ":PrtChatPrepend")
-                vim.keymap.set("v", "<Leader>ab", ":PrtChatAppend")
-                vim.keymap.set("n", "<C-CR>", ":PrtChatResponde<CR>")
-                vim.keymap.set("i", "<C-CR>", ":PrtChatResponde<CR>")
+                vim.keymap.set("v", "<Leader>ar", ":PrtChatRewrite<CR>")
+                vim.keymap.set("v", "<Leader>ap", ":PrtChatPrepend<CR>")
+                vim.keymap.set("v", "<Leader>ab", ":PrtChatAppend<CR>")
+                vim.keymap.set("n", "<C-CR>", ":PrtChatRespond<CR>")
+                vim.keymap.set("i", "<C-CR>", ":PrtChatRespond<CR>")
             end
         end,
     },

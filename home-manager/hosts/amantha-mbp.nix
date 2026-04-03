@@ -1,30 +1,25 @@
 {
-  config,
   lib,
   pkgs,
   ...
-}:
-let
-in
-{
+}: {
   imports = [
     ../darwin/common.nix
     ../home.nix
   ];
 
-  home.packages = with pkgs; [
+  home.packages = [
     # Work
-    awscli2
-    azure-cli
-    unstable.opentofu
-    terraform
-    docker
-    gh
-    kustomize
-    vault
-    gnupg
-    kyverno
-    kubelogin-oidc
+    pkgs.awscli2
+    pkgs.azure-cli
+    pkgs.unstable.opentofu
+    pkgs.terraform
+    pkgs.docker
+    pkgs.kustomize
+    pkgs.vault
+    pkgs.gnupg
+    pkgs.kyverno
+    pkgs.kubelogin-oidc
   ];
 
   home.file.".gitmessage".text = lib.mkForce ''

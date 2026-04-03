@@ -1,6 +1,4 @@
-{
-  ...
-}: {
+{...}: {
   wayland.windowManager.hyprland.systemd.enable = false;
   wayland.windowManager.hyprland.settings = {
     input = {
@@ -25,7 +23,7 @@
         natural_scroll = false;
       };
     };
-    
+
     windowrule = [
       "scrolltouchpad 0.2, class:com.mitchellh.ghostty"
     ];

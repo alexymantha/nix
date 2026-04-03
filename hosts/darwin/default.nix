@@ -1,10 +1,8 @@
 {
   pkgs,
   inputs,
-  system,
   ...
-}:
-{
+}: {
   imports = [
     ./home.nix
     ./yubikey.nix
@@ -13,7 +11,6 @@
 
   nix = {
     package = pkgs.nix;
-    channel.enable = false;
     settings = {
       experimental-features = "nix-command flakes";
 
@@ -73,14 +70,14 @@
   homebrew = {
     enable = true;
 
-    taps = [ ];
-    brews = [ ];
-    casks = [ "ghostty" ];
+    taps = [];
+    brews = [];
+    casks = ["ghostty"];
   };
 
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = [
     inputs.agenix.packages.${pkgs.stdenv.hostPlatform.system}.default
-    rsync
+    pkgs.rsync
   ];
 
   system.stateVersion = 5;

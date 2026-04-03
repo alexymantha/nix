@@ -1,13 +1,9 @@
-{
-  config,
-  pkgs,
-  ...
-}:
-{
+{pkgs, ...}: {
   imports = [
     ./autostart.nix
     ./envs.nix
     ./hypridle.nix
+    ./hyprlock.nix
     ./input.nix
     ./looknfeel.nix
     ./windows.nix
@@ -17,16 +13,16 @@
     ./waybar/waybar.nix
   ];
 
-  home.packages = with pkgs; [
-    hypridle
-    hyprpicker
-    hyprshot
-    hyprsunset
-    nautilus
-    blueberry
-    wl-clip-persist
-    wl-clipboard
-    wl-screenrec
+  home.packages = [
+    pkgs.hypridle
+    pkgs.hyprpicker
+    pkgs.hyprshot
+    pkgs.hyprsunset
+    pkgs.nautilus
+    pkgs.blueberry
+    pkgs.wl-clip-persist
+    pkgs.wl-clipboard
+    pkgs.wl-screenrec
   ];
   wayland.windowManager.hyprland = {
     enable = true;
@@ -116,18 +112,4 @@
       ];
     };
   };
-
-  # TODO: Use home-manager options when available
-  # It's currently only in unstable
-  # systemd.user.services.hyprpolkitagent = {
-  #   Unit = {
-  #     Description = "Hyprland PolicyKit Agent";
-  #     After = ["graphical-session-pre.target"];
-  #     PartOf = ["graphical-session.target"];
-  #   };
-
-  #   Install = {WantedBy = ["graphical-session.target"];};
-
-  #   Service = {ExecStart = "${pkgs.hyprpolkitagent}/libexec/hyprpolkitagent";};
-  # };
 }

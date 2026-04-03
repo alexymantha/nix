@@ -1,8 +1,6 @@
-{
-...
-}: {
+{...}: {
   services.walker.enable = true;
-  home.file.".config/walker/themes/default.toml"= {
+  home.file.".config/walker/themes/default.toml" = {
     source = ./default.toml;
     force = true;
   };

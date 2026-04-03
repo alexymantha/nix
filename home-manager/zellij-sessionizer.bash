@@ -151,7 +151,7 @@ fi
 session_name=$(basename "$selected_dir")
 
 # Change to session
-if [[ -v "$ZELLIJ" ]]; then
+if [[ -v ZELLIJ ]]; then
   # if we are in a zellij session
   zellij pipe --plugin "$ZELLIJ_SWITCH_PLUGIN" -- "--session $session_name --cwd $selected_dir"
 else

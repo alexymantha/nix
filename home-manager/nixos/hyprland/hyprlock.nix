@@ -1,7 +1,4 @@
-{
-  ...
-}:
-{
+{...}: {
   programs.hyprlock = {
     enable = true;
     settings = {
@@ -10,40 +7,44 @@
       outer_color = "rgba(205,214,244,1.0)";
       font_color = "rgba(205,214,244,1.0)";
       check_color = "rgba(68, 157, 171, 1.0)";
-      
-      background = [{
-        monitor = "";
-        color = "$color";
-        path = "~/.config/omarchy/current/background";
-        blur_passes = 3;
-      }];
+
+      background = [
+        {
+          monitor = "";
+          color = "$color";
+          path = "~/.config/omarchy/current/background";
+          blur_passes = 3;
+        }
+      ];
 
       animations = {
         enabled = false;
       };
 
-      input-field = [{
-        monitor = "";
-        size = "600, 100";
-        position = "0, 0";
-        halign = "center";
-        valign = "center";
+      input-field = [
+        {
+          monitor = "";
+          size = "600, 100";
+          position = "0, 0";
+          halign = "center";
+          valign = "center";
 
-        inner_color = "$inner_color";
-        outer_color = "$outer_color";
-        outline_thickness = 4;
+          inner_color = "$inner_color";
+          outer_color = "$outer_color";
+          outline_thickness = 4;
 
-        font_family = "JetBrainsMono Nerd Font";
-        font_color = "$font_color";
+          font_family = "JetBrainsMono Nerd Font";
+          font_color = "$font_color";
 
-        placeholder_text = "  Enter Password 󰈷 ";
-        check_color = "$check_color";
-        fail_text = "<i>$PAMFAIL ($ATTEMPTS)</i>";
+          placeholder_text = "  Enter Password 󰈷 ";
+          check_color = "$check_color";
+          fail_text = "<i>$PAMFAIL ($ATTEMPTS)</i>";
 
-        rounding = 0;
-        shadow_passes = 0;
-        fade_on_empty = false;
-      }];
+          rounding = 0;
+          shadow_passes = 0;
+          fade_on_empty = false;
+        }
+      ];
 
       auth = {
         "fingerprint:enabled" = true;

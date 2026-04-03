@@ -33,4 +33,4 @@ Output:
 Tools:
 - All documentation is displayed in Backstage and rendered by mkdocs. 
 - You can use the tools and formatting that are available with these systems. 
-- Some plugins are also installed.Make sure to validate they are available before using them. Make sure to validate they are available before using them.
+- Some plugins are also installed. Make sure to validate they are available before using them.

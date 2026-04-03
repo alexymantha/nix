@@ -1,13 +1,8 @@
 {
-  inputs,
-  outputs,
   pkgs,
   lib,
-  config,
-  darwin,
   ...
-}:
-let
+}: let
   yubikey-agent = pkgs.buildGoModule rec {
     pname = "yubikey-agent";
     version = "0.2.0";
@@ -23,7 +18,7 @@ let
 
     buildInputs = lib.optional pkgs.stdenv.hostPlatform.isLinux (lib.getDev pkgs.pcsclite);
 
-    nativeBuildInputs = lib.optionals pkgs.stdenv.hostPlatform.isLinux [ pkgs.pkg-config ];
+    nativeBuildInputs = lib.optionals pkgs.stdenv.hostPlatform.isLinux [pkgs.pkg-config];
 
     postPatch = lib.optionalString pkgs.stdenv.hostPlatform.isLinux ''
       substituteInPlace main.go --replace 'notify-send' ${pkgs.libnotify}/bin/notify-send
@@ -31,7 +26,7 @@ let
 
     doCheck = false;
 
-    subPackages = [ "." ];
+    subPackages = ["."];
 
     ldflags = [
       "-s"
@@ -39,16 +34,15 @@ let
       "-X main.Version=${version}"
     ];
   };
-in
-{
-  environment.systemPackages = [ yubikey-agent ];
-  systemd.packages = [ yubikey-agent ];
+in {
+  environment.systemPackages = [yubikey-agent];
+  systemd.packages = [yubikey-agent];
 
   systemd.user.services.yubikey-agent = lib.mkForce {
     description = "Seamless ssh-agent for YubiKeys";
-    documentation = [ "https://filippo.io/yubikey-agent" ];
-    wantedBy = [ "default.target" ];
-    path = [ pkgs.pinentry-all ];
+    documentation = ["https://filippo.io/yubikey-agent"];
+    wantedBy = ["default.target"];
+    path = [pkgs.pinentry-all];
 
     serviceConfig = {
       ExecStart = "${yubikey-agent}/bin/yubikey-agent -l %t/yubikey-agent/yubikey-agent.sock -slots 0x9a,0x9c,0x95";

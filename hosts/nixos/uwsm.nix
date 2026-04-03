@@ -1,6 +1,4 @@
-{
-  ...
-}: {
+{...}: {
   programs.uwsm.enable = true;
   programs.uwsm.waylandCompositors = {
     hyprland = {
@@ -9,5 +7,4 @@
       binPath = "/run/current-system/sw/bin/Hyprland";
     };
   };
-
 }

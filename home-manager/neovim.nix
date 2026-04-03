@@ -1,36 +1,29 @@
-{
-  inputs,
-  outputs,
-  lib,
-  config,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   programs.neovim = {
     enable = true;
     package = pkgs.unstable.neovim-unwrapped;
     viAlias = true;
     vimAlias = true;
     defaultEditor = true;
-    extraPackages = with pkgs; [
-      dockerfile-language-server
-      gopls
-      gotools
-      helm-ls
-      lua-language-server
-      pyright
-      rust-analyzer
-      terraform-ls
-      typescript
+    extraPackages = [
+      pkgs.dockerfile-language-server
+      pkgs.gopls
+      pkgs.gotools
+      pkgs.helm-ls
+      pkgs.lua-language-server
+      pkgs.pyright
+      pkgs.rust-analyzer
+      pkgs.terraform-ls
+      pkgs.typescript
       # Needed for the JSON ls
-      vscode-langservers-extracted
-      yaml-language-server
-      typescript-language-server
-      unstable.harper # Spellcheck
-      htmx-lsp
-      tailwindcss-language-server
-      nil # Nix language server
-      buf # Protobuf language server
+      pkgs.vscode-langservers-extracted
+      pkgs.yaml-language-server
+      pkgs.typescript-language-server
+      pkgs.unstable.harper # Spellcheck
+      pkgs.htmx-lsp
+      pkgs.tailwindcss-language-server
+      pkgs.nil # Nix language server
+      pkgs.buf # Protobuf language server
     ];
   };
 

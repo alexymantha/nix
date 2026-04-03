@@ -50,22 +50,20 @@ return {
 					end,
 					settings = {
 						schemaStore = { url = "https://www.schemastore.org/api/json/catalog.json", enable = false },
-						yaml = {
-							validate = false,
-							schemas = {
-								["file:///Users/amantha/.datree/crdSchemas/cluster.open-cluster-management.io/placement_v1beta1.json"] =
-								"**/placements/**/*.yaml",
-								["kubernetes"] = "/*.yaml",
-							},
-						},
+				yaml = {
+					validate = false,
+					schemas = {
+						["kubernetes"] = "/*.yaml",
+					},
+				},
 					},
 				},
 			}
 
 			-- Simple servers that don't need configuration
 			local simple_servers = {
-				'buf_ls', 'dockerls', 'gopls', 'jsonls', 'nil_ls',
-				'pyright', 'rust_analyzer', 'templ', 'terraformls', 'ts_ls'
+			'buf_ls', 'dockerls', 'gopls', 'jsonls', 'nil_ls',
+			'pyright', 'rust_analyzer', 'templ', 'terraformls'
 			}
 
 			-- Configure servers with custom settings
@@ -82,28 +80,13 @@ return {
 			end
 
 
-			-- Vue config
-			-- Vue requires a specific setup with plugins for different servers
-			vim.lsp.config('vtsls', {
-				settings = {
-					vtsls = {
-						tsserver = {
-							globalPlugins = {
-								{
-									name = '@vue/typescript-plugin',
-									location =
-									"/Users/amantha/dev/temabex-nuxt/node_modules/@vue/language-server",
-									languages = { 'vue' },
-									configNamespace = 'typescript',
-								},
-							},
-						},
-					},
-				},
-				filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
-			})
-			vim.lsp.config('vue_ls', {})
-			vim.lsp.enable({ 'vtsls', 'vue_ls' })
+		-- Vue config
+		-- Vue requires a specific setup with plugins for different servers
+		vim.lsp.config('vtsls', {
+			filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+		})
+		vim.lsp.config('vue_ls', {})
+		vim.lsp.enable({ 'vtsls', 'vue_ls' })
 
 			vim.api.nvim_create_autocmd("LspAttach", {
 				group = vim.api.nvim_create_augroup("UserLspConfig", {}),

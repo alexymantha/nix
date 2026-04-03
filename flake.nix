@@ -21,14 +21,11 @@
 
     nur.url = "github:nix-community/NUR";
     zjstatus.url = "github:dj95/zjstatus";
-    flake-utils.url = "github:numtide/flake-utils";
-    crane.url = "github:ipetkov/crane";
     zellij-switch.url = "github:mostafaqanbaryan/zellij-switch";
   };
 
   outputs = {
     self,
-    crane,
     darwin,
     home-manager,
     nixpkgs,
@@ -56,10 +53,12 @@
         specialArgs = {inherit inputs outputs;};
         modules = [
           {nix.channel.enable = false;}
-          {nixpkgs.overlays = [
+          {
+            nixpkgs.overlays = [
               nur.overlays.default
               zellij-switch.overlays.default
-            ];}
+            ];
+          }
           # > Our main nixos configuration file <
           ./hosts/nixos/configuration.nix
         ];
@@ -74,10 +73,12 @@
         system = "aarch64-darwin";
         modules = [
           {nix.channel.enable = false;}
-          {nixpkgs.overlays = [
+          {
+            nixpkgs.overlays = [
               nur.overlays.default
               zellij-switch.overlays.default
-            ];}
+            ];
+          }
           ./hosts/darwin/default.nix
           ./hosts/darwin/amantha-air/overrides.nix
         ];
@@ -88,10 +89,12 @@
         system = "aarch64-darwin";
         modules = [
           {nix.channel.enable = false;}
-          {nixpkgs.overlays = [
+          {
+            nixpkgs.overlays = [
               nur.overlays.default
               zellij-switch.overlays.default
-            ];}
+            ];
+          }
           ./hosts/darwin/default.nix
           ./hosts/darwin/amantha-mbp/overrides.nix
         ];

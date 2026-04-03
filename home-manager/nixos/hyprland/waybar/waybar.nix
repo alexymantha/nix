@@ -1,6 +1,4 @@
-{
-  ...
-}: {
+{...}: {
   home.file.".config/waybar/style.css".source = ./style.css;
   home.file.".config/waybar/indicators/screen-recording.sh".source = ./screen-recording.sh;
   programs.waybar = {

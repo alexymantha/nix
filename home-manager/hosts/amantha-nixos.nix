@@ -1,20 +1,15 @@
-{
-  config,
-  pkgs,
-  ...
-}:
-{
+{pkgs, ...}: {
   imports = [
     ../nixos/home.nix
     ../home.nix
   ];
 
-  home.packages = with pkgs; [
-    prismlauncher
+  home.packages = [
+    pkgs.prismlauncher
     # for strimzi dev
     # TODO: remoe when done
-    jetbrains.idea
-    javaPackages.compiler.temurin-bin.jdk-17
-    maven
+    pkgs.jetbrains.idea
+    pkgs.javaPackages.compiler.temurin-bin.jdk-17
+    pkgs.maven
   ];
 }

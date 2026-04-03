@@ -17,7 +17,7 @@ return {
 			{"<Leader>db", function() require('dap').toggle_breakpoint() end},
 			{"<Leader>dB", function() require('dap').set_breakpoint() end},
 			{"<Leader>dC", function() require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: ")) end},
-			{"<Leader>dlp>", function() require("dap").set_breakpoint(nil, nil, vim.fn.input("Log point message: ")) end},
+			{"<Leader>dlp", function() require("dap").set_breakpoint(nil, nil, vim.fn.input("Log point message: ")) end},
 			{"<Leader>dl", function() require('dap').run_last() end},
 		},
 		config = function()

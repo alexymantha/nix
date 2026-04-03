@@ -4,8 +4,7 @@
   lib,
   pkgs,
   ...
-}:
-{
+}: {
   imports = [
     ./firefox.nix
     ./git.nix
@@ -23,14 +22,6 @@
       outputs.overlays.unstable-packages
     ];
     config.allowUnfree = true;
-    config.allowUnfreePredicate =
-      pkg:
-      builtins.elem (lib.getName pkg) [
-        "obsidian"
-        "spotify"
-        "vault"
-        "slack"
-      ];
   };
 
   programs = {
@@ -38,7 +29,10 @@
     git.enable = true;
     ghostty = {
       enable = true;
-      package = if pkgs.stdenv.isDarwin then pkgs.emptyDirectory else pkgs.ghostty;
+      package =
+        if pkgs.stdenv.isDarwin
+        then pkgs.emptyDirectory
+        else pkgs.ghostty;
       settings = {
         theme = "Ayu";
         font-size = 18;
@@ -63,39 +57,39 @@
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
 
-  home.packages = with pkgs; [
+  home.packages = [
     # Dev tools
-    coreutils
-    gcc
-    unstable.go
-    unstable.nodejs_22
-    python3
+    pkgs.coreutils
+    pkgs.gcc
+    pkgs.unstable.go
+    pkgs.unstable.nodejs_22
+    pkgs.python3
     # Utils
-    fd
-    bat
-    ripgrep
-    eza
-    delta
-    zoxide
-    fzf
-    yq-go
-    rsync
-    yubico-piv-tool
-    nixos-anywhere
+    pkgs.fd
+    pkgs.bat
+    pkgs.ripgrep
+    pkgs.eza
+    pkgs.delta
+    pkgs.zoxide
+    pkgs.fzf
+    pkgs.yq-go
+    pkgs.rsync
+    pkgs.yubico-piv-tool
+    pkgs.nixos-anywhere
     # Apps
-    spotify
-    slack
-    brave
-    gh
+    pkgs.spotify
+    pkgs.slack
+    pkgs.brave
+    pkgs.gh
     # Networking
-    dnsutils
-    openssl
+    pkgs.dnsutils
+    pkgs.openssl
     # Kubernetes
-    kubectl
-    kubectx
-    kubernetes-helm
+    pkgs.kubectl
+    pkgs.kubectx
+    pkgs.kubernetes-helm
     # AI
-    unstable.opencode
+    pkgs.unstable.opencode
   ];
 
   home.sessionVariables = {

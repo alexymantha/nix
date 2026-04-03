@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   zellij-sessionizer = pkgs.stdenv.mkDerivation {
     name = "zellij-sessionizer";
     src = ./zellij-sessionizer.bash;
@@ -12,8 +11,7 @@ let
       chmod +x $out/bin/zellij-sessionizer
     '';
   };
-in
-{
+in {
   programs.zellij = {
     enable = true;
     enableZshIntegration = true;
@@ -28,7 +26,7 @@ in
   };
 
   home.file.".config/zellij/layouts/default.kdl" = {
-    text = builtins.replaceStrings [ "ZJSTATUS_PATH" ] [ "${pkgs.zjstatus}" ] (
+    text = builtins.replaceStrings ["ZJSTATUS_PATH"] ["${pkgs.zjstatus}"] (
       builtins.readFile ./default.kdl
     );
   };

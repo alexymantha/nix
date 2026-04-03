@@ -1,11 +1,7 @@
-{
-  config,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   home = {
-    packages = with pkgs; [
-      raycast
+    packages = [
+      pkgs.raycast
       # Common packages
     ];
   };

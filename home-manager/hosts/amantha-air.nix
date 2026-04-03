@@ -1,15 +1,11 @@
-{
-  config,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   imports = [
     ../darwin/common.nix
     ../home.nix
   ];
 
-  home.packages = with pkgs; [
-    discord
-    ruby
+  home.packages = [
+    pkgs.discord
+    pkgs.ruby
   ];
 }
