@@ -60,6 +60,8 @@ in {
       KeyringMode = "private";
       UMask = "0177";
       RuntimeDirectory = "yubikey-agent";
+      Restart = "on-failure";
+      RestartSec = "1";
     };
   };
 

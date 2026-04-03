@@ -14,7 +14,6 @@
   ];
 
   home.packages = [
-    pkgs.hypridle
     pkgs.hyprpicker
     pkgs.hyprshot
     pkgs.hyprsunset
@@ -29,7 +28,7 @@
     xwayland.enable = true;
 
     # Will use the package from the NixOS module
-    package = pkgs.hyprland;
+    package = pkgs.unstable.hyprland;
 
     settings = {
       monitor = ",preferred,auto,auto";

@@ -1,12 +1,13 @@
-{...}: {
+{pkgs, ...}: {
   services.hypridle = {
     enable = true;
+    package = pkgs.unstable.hypridle;
     settings = {
       general = {
         after_sleep_cmd = "hyprctl dispatch dpms on";
         before_sleep_cmd = "loginctl lock-session";
         lock_cmd = "lock-screen";
-        inhibit_sleep = 3; # wait until screen is locked
+        inhibit_sleep = 3;
       };
       listener = [
         {

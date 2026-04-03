@@ -1,6 +1,7 @@
-{...}: {
+{pkgs, ...}: {
   programs.hyprlock = {
     enable = true;
+    package = pkgs.unstable.hyprlock;
     settings = {
       color = "rgba(24,24,36,1.0)";
       inner_color = "rgba(24,24,36,0.8)";

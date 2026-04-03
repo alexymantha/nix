@@ -163,9 +163,9 @@
 
   programs.hyprland.enable = true;
   programs.hyprland.withUWSM = true;
-  programs.hyprland.package = pkgs.hyprland;
-  programs.hyprland.portalPackage = pkgs.xdg-desktop-portal-hyprland;
-  xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-hyprland];
+  programs.hyprland.package = pkgs.unstable.hyprland;
+  programs.hyprland.portalPackage = pkgs.unstable.xdg-desktop-portal-hyprland;
+  xdg.portal.extraPortals = [pkgs.unstable.xdg-desktop-portal-hyprland];
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
