@@ -147,7 +147,10 @@
   security.polkit.enable = true;
   security.pam.services = {
     sddm.u2fAuth = true;
-    login.u2fAuth = true;
+    login = {
+      u2fAuth = true;
+      enableGnomeKeyring = true;
+    };
     sudo.u2fAuth = true;
     hyprlock.u2fAuth = true;
   };

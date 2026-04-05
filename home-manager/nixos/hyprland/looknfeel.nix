@@ -73,5 +73,9 @@
     cursor = {
       hide_on_key_press = true;
     };
+
+    ecosystem = {
+      no_donation_nag = true;
+    };
   };
 }

@@ -24,8 +24,6 @@
       };
     };
 
-    windowrule = [
-      "scrolltouchpad 0.2, class:com.mitchellh.ghostty"
-    ];
+    windowrule = [];
   };
 }

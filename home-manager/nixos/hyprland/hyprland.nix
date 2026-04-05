@@ -22,6 +22,8 @@
     pkgs.wl-clip-persist
     pkgs.wl-clipboard
     pkgs.wl-screenrec
+    pkgs.unstable.hypridle
+    pkgs.unstable.hyprlock
   ];
   wayland.windowManager.hyprland = {
     enable = true;
