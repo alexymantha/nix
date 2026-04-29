@@ -165,7 +165,6 @@
   systemd.packages = [pkgs.cloudflare-warp]; # for warp-cli
   systemd.targets.multi-user.wants = ["warp-svc.service"];
 
-  services.tailscale.enable = true;
   services.openssh = {
     enable = true;
     settings = {
