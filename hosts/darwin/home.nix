@@ -3,7 +3,8 @@
   outputs,
   pkgs,
   ...
-}: {
+}:
+{
   imports = [
     inputs.home-manager.darwinModules.home-manager
   ];

@@ -21,11 +21,14 @@
 
     nur.url = "github:nix-community/NUR";
     zjstatus.url = "github:dj95/zjstatus";
+    flake-utils.url = "github:numtide/flake-utils";
+    crane.url = "github:ipetkov/crane";
     zellij-switch.url = "github:mostafaqanbaryan/zellij-switch";
   };
 
   outputs = {
     self,
+    crane,
     darwin,
     home-manager,
     nixpkgs,

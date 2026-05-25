@@ -9,6 +9,8 @@
     inputs.agenix.nixosModules.default
   ];
 
+  nixpkgs.config.allowUnfree = true;
+
   nix = {
     package = pkgs.nix;
     settings = {

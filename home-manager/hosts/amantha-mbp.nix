@@ -23,6 +23,7 @@
     pkgs.kyverno
     pkgs.kubelogin-oidc
     pkgs.unstable.colima
+    pkgs.unstable.claude-code
   ];
 
   programs.git = {
