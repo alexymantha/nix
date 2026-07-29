@@ -3,7 +3,8 @@
   lib,
   config,
   ...
-}: let
+}:
+let
   yubikey-agent = pkgs.buildGoModule rec {
     pname = "yubikey-agent";
     version = "tes-pin-policy";
@@ -17,10 +18,9 @@
       hash = "sha256-8SGATG8uAY2ehLe7YoZJxQQ7R1nfS88HOaIfW6UL8pE=";
     };
 
-    buildInputs =
-      lib.optional pkgs.stdenv.hostPlatform.isLinux (lib.getDev pkgs.pcsclite);
+    buildInputs = lib.optional pkgs.stdenv.hostPlatform.isLinux (lib.getDev pkgs.pcsclite);
 
-    nativeBuildInputs = lib.optionals pkgs.stdenv.hostPlatform.isLinux [pkgs.pkg-config];
+    nativeBuildInputs = lib.optionals pkgs.stdenv.hostPlatform.isLinux [ pkgs.pkg-config ];
 
     postPatch = lib.optionalString pkgs.stdenv.hostPlatform.isLinux ''
       substituteInPlace main.go --replace 'notify-send' ${pkgs.libnotify}/bin/notify-send
@@ -28,7 +28,7 @@
 
     doCheck = false;
 
-    subPackages = ["."];
+    subPackages = [ "." ];
 
     ldflags = [
       "-s"
@@ -37,8 +37,9 @@
     ];
   };
   homeDir = "/Users/${config.users.users.amantha.name}";
-in {
-  environment.systemPackages = [yubikey-agent];
+in
+{
+  environment.systemPackages = [ yubikey-agent ];
 
   launchd.user.agents.yubikey-agent = {
     serviceConfig = {
@@ -48,7 +49,7 @@ in {
         "-l"
         "${homeDir}/.yubikey-agent/yubikey-agent.sock"
         "-slots"
-        "0x95"
+        "0x9a"
       ];
       RunAtLoad = true;
       KeepAlive = true;
