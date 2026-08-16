@@ -4,9 +4,9 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   imports = [
-    ./firefox.nix
     ./git.nix
     ./neovim.nix
     ./fish.nix
@@ -16,7 +16,6 @@
   nixpkgs = {
     overlays = [
       inputs.nur.overlays.default
-      inputs.zellij-switch.overlays.default
       outputs.overlays.additions
       outputs.overlays.modifications
       outputs.overlays.unstable-packages
@@ -29,10 +28,7 @@
     git.enable = true;
     ghostty = {
       enable = true;
-      package =
-        if pkgs.stdenv.isDarwin
-        then pkgs.emptyDirectory
-        else pkgs.ghostty;
+      package = if pkgs.stdenv.isDarwin then pkgs.emptyDirectory else pkgs.ghostty;
       settings = {
         theme = "Ayu";
         font-size = 18;

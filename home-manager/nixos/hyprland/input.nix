@@ -23,7 +23,5 @@
         natural_scroll = false;
       };
     };
-
-    windowrule = [];
   };
 }

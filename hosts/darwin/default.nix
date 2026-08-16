@@ -2,7 +2,8 @@
   pkgs,
   inputs,
   ...
-}: {
+}:
+{
   imports = [
     ./home.nix
     ./yubikey.nix
@@ -63,7 +64,6 @@
       autohide-delay = 0.0;
       autohide-time-modifier = 0.01;
       persistent-apps = [
-        "/Applications/Firefox.App"
         "/Applications/Ghostty.App"
       ];
     };
@@ -72,9 +72,9 @@
   homebrew = {
     enable = true;
 
-    taps = [];
-    brews = [];
-    casks = ["ghostty"];
+    taps = [ ];
+    brews = [ ];
+    casks = [ "ghostty" ];
   };
 
   environment.systemPackages = [

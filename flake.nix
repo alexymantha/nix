@@ -36,7 +36,6 @@
       nixpkgs-unstable,
       nur,
       zjstatus,
-      zellij-switch,
       ...
     }@inputs:
     let
@@ -62,7 +61,6 @@
             {
               nixpkgs.overlays = [
                 nur.overlays.default
-                zellij-switch.overlays.default
               ];
             }
             # > Our main nixos configuration file <
@@ -82,7 +80,7 @@
             {
               nixpkgs.overlays = [
                 nur.overlays.default
-                zellij-switch.overlays.default
+                outputs.overlays.additions
               ];
             }
             ./hosts/darwin/default.nix
@@ -98,7 +96,7 @@
             {
               nixpkgs.overlays = [
                 nur.overlays.default
-                zellij-switch.overlays.default
+                outputs.overlays.additions
               ];
             }
             ./hosts/darwin/default.nix

@@ -55,7 +55,8 @@
     };
 
     dwindle = {
-      pseudotile = true;
+      # `pseudotile` was removed in Hyprland 0.56; pseudotiling is now purely
+      # per-window via the `pseudo` dispatcher (bound to $mainMod+P) / window rules.
       preserve_split = true;
       force_split = 2;
     };

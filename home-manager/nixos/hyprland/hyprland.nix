@@ -18,7 +18,7 @@
     pkgs.hyprshot
     pkgs.hyprsunset
     pkgs.nautilus
-    pkgs.blueberry
+    pkgs.blueman
     pkgs.wl-clip-persist
     pkgs.wl-clipboard
     pkgs.wl-screenrec
@@ -28,9 +28,14 @@
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
+    # NOTE: pinned to the legacy default. The "lua" configType generator does not
+    # handle hyprlang variables ($mainMod, $terminal, ...) and emits invalid Lua
+    # (`hl.$mainMod(...)`). Revisit once home-manager supports variables in lua mode.
+    configType = "hyprlang";
 
-    # Will use the package from the NixOS module
-    package = pkgs.unstable.hyprland;
+    # Use the Hyprland and XDPH packages from the NixOS module
+    package = null;
+    portalPackage = null;
 
     settings = {
       monitor = ",preferred,auto,auto";
@@ -50,7 +55,7 @@
         "$mainMod, M, exec, uwsm stop"
         "$mainMod, Space, exec, $menu"
         "$mainMod, P, pseudo,"
-        "$mainMod, J, togglesplit,"
+        "$mainMod, J, layoutmsg, togglesplit"
 
         # Move focus with mainMod + arrow keys
         "$mainMod, left, movefocus, l"

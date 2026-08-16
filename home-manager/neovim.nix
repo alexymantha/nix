@@ -5,6 +5,8 @@
     viAlias = true;
     vimAlias = true;
     defaultEditor = true;
+    withRuby = false;
+    withPython3 = false;
     extraPackages = [
       pkgs.dockerfile-language-server
       pkgs.gopls

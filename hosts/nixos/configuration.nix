@@ -12,7 +12,7 @@
     ./home.nix
     ./yubikey.nix
     ./uwsm.nix
-    ./seamless-login.nix
+    ./kde.nix
   ];
 
   nixpkgs = {
@@ -55,6 +55,7 @@
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.configurationLimit = 10;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.initrd.kernelModules = [ "amdgpu" ];
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
@@ -94,9 +95,6 @@
   console = {
     useXkbConfig = true;
   };
-
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
 
   services.pipewire = {
     enable = true;
@@ -171,9 +169,13 @@
   programs.hyprland.withUWSM = true;
   programs.hyprland.package = pkgs.unstable.hyprland;
   programs.hyprland.portalPackage = pkgs.unstable.xdg-desktop-portal-hyprland;
-  xdg.portal.extraPortals = [ pkgs.unstable.xdg-desktop-portal-hyprland ];
-
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
+  services.elephant.enable = true;
+  systemd.user.services.elephant.path = [
+    pkgs.bash
+    pkgs.uwsm
+  ];
 
   hardware.graphics.enable = true;
   hardware.keyboard.qmk.enable = true;
