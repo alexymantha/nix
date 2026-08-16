@@ -11,7 +11,6 @@
     ./hardware-configuration.nix
     ./home.nix
     ./yubikey.nix
-    ./uwsm.nix
     ./kde.nix
   ];
 
@@ -150,10 +149,8 @@
     sddm.u2fAuth = true;
     login = {
       u2fAuth = true;
-      enableGnomeKeyring = true;
     };
     sudo.u2fAuth = true;
-    hyprlock.u2fAuth = true;
   };
 
   services.udev.extraRules = ''
@@ -165,18 +162,6 @@
      RUN+="${pkgs.systemd}/bin/loginctl lock-sessions"
   '';
 
-  programs.hyprland.enable = true;
-  programs.hyprland.withUWSM = true;
-  programs.hyprland.package = pkgs.unstable.hyprland;
-  programs.hyprland.portalPackage = pkgs.unstable.xdg-desktop-portal-hyprland;
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
-
-  services.elephant.enable = true;
-  systemd.user.services.elephant.path = [
-    pkgs.bash
-    pkgs.uwsm
-  ];
-
   hardware.graphics.enable = true;
   hardware.keyboard.qmk.enable = true;
 
@@ -184,9 +169,6 @@
     enable = true;
     setSocketVariable = true;
   };
-
-  services.gnome.gnome-keyring.enable = true;
-  services.gnome.gcr-ssh-agent.enable = false;
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "24.05";
