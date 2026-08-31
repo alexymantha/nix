@@ -19,6 +19,9 @@
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
 
+    lanzaboote.url = "github:nix-community/lanzaboote/v1.1.0";
+    lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
+
     nur.url = "github:nix-community/NUR";
     zjstatus.url = "github:dj95/zjstatus";
     flake-utils.url = "github:numtide/flake-utils";
@@ -32,6 +35,7 @@
       crane,
       darwin,
       home-manager,
+      lanzaboote,
       nixpkgs,
       nixpkgs-unstable,
       nur,
@@ -57,6 +61,7 @@
         amantha-nixos = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs outputs; };
           modules = [
+            lanzaboote.nixosModules.lanzaboote
             { nix.channel.enable = false; }
             {
               nixpkgs.overlays = [

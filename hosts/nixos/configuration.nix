@@ -20,6 +20,7 @@
       outputs.overlays.modifications
       outputs.overlays.unstable-packages
     ];
+    config.allowUnfree = true;
   };
 
   nix =
@@ -53,12 +54,43 @@
     };
 
   # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.enable = lib.mkForce false;
   boot.loader.systemd-boot.configurationLimit = 10;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.initrd.kernelModules = [ "amdgpu" ];
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_18;
+  boot.lanzaboote = {
+    enable = true;
+    pkiBundle = "/var/lib/sbctl";
+  };
+
+  boot = {
+    plymouth = {
+      enable = true;
+      theme = "spinner_alt";
+      themePackages = with pkgs; [
+        # By default we would install all themes
+        (adi1090x-plymouth-themes.override {
+          selected_themes = [ "spinner_alt" ];
+        })
+      ];
+    };
+
+    # Enable "Silent boot"
+    consoleLogLevel = 3;
+    initrd.verbose = false;
+    kernelParams = [
+      "quiet"
+      "rd.udev.log_level=3"
+      "rd.systemd.show_status=auto"
+    ];
+
+    # Hide the OS choice for bootloaders.
+    # It's still possible to open the bootloader list by pressing any key
+    # It will just not appear on screen unless a key is pressed
+    loader.timeout = 0;
+  };
 
   networking = {
     # Disable DHCP because we want to force a static IP on the management network
@@ -123,7 +155,6 @@
     pkgs.python3
     pkgs.unzip
     pkgs.usbutils
-    pkgs.vesktop
     pkgs.jq
     pkgs.yq
     pkgs.grim
@@ -132,6 +163,7 @@
     pkgs.brightnessctl
     pkgs.zellij-switch
     pkgs.xdg-user-dirs
+    pkgs.sbctl
   ];
 
   services.netbird.enable = true;
@@ -145,22 +177,6 @@
   };
   services.seatd.enable = true;
   security.polkit.enable = true;
-  security.pam.services = {
-    sddm.u2fAuth = true;
-    login = {
-      u2fAuth = true;
-    };
-    sudo.u2fAuth = true;
-  };
-
-  services.udev.extraRules = ''
-    ACTION=="remove",\
-     ENV{ID_BUS}=="usb",\
-     ENV{ID_MODEL_ID}=="0407",\
-     ENV{ID_VENDOR_ID}=="1050",\
-     ENV{ID_VENDOR}=="Yubico",\
-     RUN+="${pkgs.systemd}/bin/loginctl lock-sessions"
-  '';
 
   hardware.graphics.enable = true;
   hardware.keyboard.qmk.enable = true;
@@ -169,6 +185,8 @@
     enable = true;
     setSocketVariable = true;
   };
+
+  programs.steam.enable = true;
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "24.05";

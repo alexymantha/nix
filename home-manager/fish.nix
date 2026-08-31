@@ -49,7 +49,14 @@ in {
   };
   programs.fish = {
     enable = true;
-    interactiveShellInit = "set -U fish_greeting";
+    interactiveShellInit = ''
+      set -U fish_greeting
+
+      # Auto-start zellij on interactive shells (see zellij.dev/documentation/integration.html)
+      set ZELLIJ_AUTO_ATTACH true
+      set ZELLIJ_AUTO_EXIT true
+      eval (zellij setup --generate-auto-start fish | string collect)
+    '';
     shellAliases = {
       dev = "zellij-sessionizer";
       k = "kubectl";

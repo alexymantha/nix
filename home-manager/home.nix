@@ -31,7 +31,8 @@
       package = if pkgs.stdenv.isDarwin then pkgs.emptyDirectory else pkgs.ghostty;
       settings = {
         theme = "Ayu";
-        font-size = 18;
+        font-size = 12;
+        maximize = true;
         keybind = [
           "cmd+t=unbind"
           "cmd+n=unbind"
