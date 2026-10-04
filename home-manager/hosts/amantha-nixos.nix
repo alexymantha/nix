@@ -6,5 +6,6 @@
 
   home.packages = [
     pkgs.prismlauncher
+    pkgs.claude-code
   ];
 }

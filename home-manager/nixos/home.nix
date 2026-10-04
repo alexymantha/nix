@@ -8,6 +8,6 @@
     pkgs.vulkan-headers
     pkgs.vulkan-loader
     pkgs.vulkan-tools
-    pkgs.discord
+    pkgs.unstable.discord
   ];
 }

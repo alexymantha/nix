@@ -19,6 +19,17 @@
       outputs.overlays.additions
       outputs.overlays.modifications
       outputs.overlays.unstable-packages
+      (final: prev: {
+        linux-firmware = prev.linux-firmware.overrideAttrs (old: rec {
+          version = "20260622";
+          src = prev.fetchFromGitLab {
+            owner = "kernel-firmware";
+            repo = "linux-firmware";
+            tag = version;
+            hash = "sha256-nSoJhgI4hAxtNmnj5M6ticzuBSt9uNAYcmc1VR/yXxE=";
+          };
+        });
+      })
     ];
     config.allowUnfree = true;
   };
