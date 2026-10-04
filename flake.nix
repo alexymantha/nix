@@ -27,87 +27,93 @@
     flake-utils.url = "github:numtide/flake-utils";
     crane.url = "github:ipetkov/crane";
     zellij-switch.url = "github:mostafaqanbaryan/zellij-switch";
+
+    # opencode v2 is not yet packaged in nixpkgs (tracking
+    # https://github.com/NixOS/nixpkgs/pull/569770); build it from
+    # upstream's own flake until that lands. Deliberately NOT following
+    # our nixpkgs-unstable: upstream's vendored node_modules hash is a
+    # fixed-output hash computed against bun/nixpkgs versions pinned by
+    # *their* flake.lock, so following a different nixpkgs changes the
+    # bun version used for `bun install` and breaks that hash.
+    opencode.url = "github:anomalyco/opencode/v2.0.22";
   };
 
-  outputs =
-    {
-      self,
-      crane,
-      darwin,
-      home-manager,
-      lanzaboote,
-      nixpkgs,
-      nixpkgs-unstable,
-      nur,
-      zjstatus,
-      ...
-    }@inputs:
-    let
-      inherit (self) outputs;
-      systems = [
-        "x86_64-linux"
-        "aarch64-linux"
-        "aarch64-darwin"
-      ];
-      forAllSystems = nixpkgs.lib.genAttrs systems;
-    in
-    {
-      formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
-      overlays = import ./overlays { inherit inputs; };
+  outputs = {
+    self,
+    crane,
+    darwin,
+    home-manager,
+    lanzaboote,
+    nixpkgs,
+    nixpkgs-unstable,
+    nur,
+    zjstatus,
+    ...
+  } @ inputs: let
+    inherit (self) outputs;
+    systems = [
+      "x86_64-linux"
+      "aarch64-linux"
+      "aarch64-darwin"
+    ];
+    forAllSystems = nixpkgs.lib.genAttrs systems;
+  in {
+    formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
+    overlays = import ./overlays {inherit inputs;};
 
-      # NixOS configuration entrypoint
-      # Available through 'nixos-rebuild --flake .#your-hostname'
-      nixosConfigurations = {
-        amantha-nixos = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs outputs; };
-          modules = [
-            lanzaboote.nixosModules.lanzaboote
-            { nix.channel.enable = false; }
-            {
-              nixpkgs.overlays = [
-                nur.overlays.default
-              ];
-            }
-            # > Our main nixos configuration file <
-            ./hosts/nixos/configuration.nix
-          ];
-        };
-      };
-
-      # Darwin configuration entrypoint
-      darwinConfigurations = {
-        # Personal laptop
-        amantha-air = darwin.lib.darwinSystem {
-          specialArgs = { inherit inputs outputs; };
-          system = "aarch64-darwin";
-          modules = [
-            { nix.channel.enable = false; }
-            {
-              nixpkgs.overlays = [
-                nur.overlays.default
-                outputs.overlays.additions
-              ];
-            }
-            ./hosts/darwin/default.nix
-            ./hosts/darwin/amantha-air/overrides.nix
-          ];
-        };
-        # Work laptop
-        amantha-mbp = darwin.lib.darwinSystem {
-          specialArgs = { inherit inputs outputs; };
-          system = "aarch64-darwin";
-          modules = [
-            { nix.channel.enable = false; }
-            {
-              nixpkgs.overlays = [
-                nur.overlays.default
-                outputs.overlays.additions
-              ];
-            }
-            ./hosts/darwin/default.nix
-            ./hosts/darwin/amantha-mbp/overrides.nix
-          ];
-        };
+    # NixOS configuration entrypoint
+    # Available through 'nixos-rebuild --flake .#your-hostname'
+    nixosConfigurations = {
+      amantha-nixos = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs outputs;};
+        modules = [
+          lanzaboote.nixosModules.lanzaboote
+          {nix.channel.enable = false;}
+          {
+            nixpkgs.overlays = [
+              nur.overlays.default
+            ];
+          }
+          # > Our main nixos configuration file <
+          ./hosts/nixos/configuration.nix
+        ];
       };
     };
+
+    # Darwin configuration entrypoint
+    darwinConfigurations = {
+      # Personal laptop
+      amantha-air = darwin.lib.darwinSystem {
+        specialArgs = {inherit inputs outputs;};
+        system = "aarch64-darwin";
+        modules = [
+          {nix.channel.enable = false;}
+          {
+            nixpkgs.overlays = [
+              nur.overlays.default
+              outputs.overlays.additions
+            ];
+          }
+          ./hosts/darwin/default.nix
+          ./hosts/darwin/amantha-air/overrides.nix
+        ];
+      };
+      # Work laptop
+      amantha-mbp = darwin.lib.darwinSystem {
+        specialArgs = {inherit inputs outputs;};
+        system = "aarch64-darwin";
+        modules = [
+          {nix.channel.enable = false;}
+          {
+            nixpkgs.overlays = [
+              nur.overlays.default
+              outputs.overlays.additions
+            ];
+          }
+          ./hosts/darwin/default.nix
+          ./hosts/darwin/amantha-mbp/overrides.nix
+        ];
+      };
+    };
+  };
 }

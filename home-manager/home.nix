@@ -4,13 +4,13 @@
   lib,
   pkgs,
   ...
-}:
-{
+}: {
   imports = [
     ./git.nix
     ./neovim.nix
     ./fish.nix
     ./zellij.nix
+    ./opencode.nix
   ];
 
   nixpkgs = {
@@ -28,7 +28,10 @@
     git.enable = true;
     ghostty = {
       enable = true;
-      package = if pkgs.stdenv.isDarwin then pkgs.emptyDirectory else pkgs.ghostty;
+      package =
+        if pkgs.stdenv.isDarwin
+        then pkgs.emptyDirectory
+        else pkgs.ghostty;
       settings = {
         theme = "Ayu";
         font-size = 12;
@@ -85,8 +88,6 @@
     pkgs.kubectl
     pkgs.kubectx
     pkgs.kubernetes-helm
-    # AI
-    pkgs.unstable.opencode
   ];
 
   home.sessionVariables = {

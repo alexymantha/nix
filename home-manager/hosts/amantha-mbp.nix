@@ -9,6 +9,9 @@
     ../home.nix
   ];
 
+  # Work laptop: no Home Assistant MCP access.
+  modules.opencode.homeAssistant.enable = false;
+
   home.packages = [
     # Work
     pkgs.awscli2
