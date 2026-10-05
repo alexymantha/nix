@@ -41,7 +41,12 @@ in {
   systemd.user.services.yubikey-agent = lib.mkForce {
     description = "Seamless ssh-agent for YubiKeys";
     documentation = ["https://filippo.io/yubikey-agent"];
-    wantedBy = ["default.target"];
+    # Must start after the graphical session is up, otherwise DISPLAY/WAYLAND_DISPLAY
+    # aren't in the systemd --user environment yet and the first pinentry prompt
+    # fails with "Inappropriate ioctl for device <Pinentry>" (gtk2.isatty), requiring
+    # a manual restart. See https://github.com/FiloSottile/yubikey-agent/issues/167
+    after = ["graphical-session.target"];
+    wantedBy = ["graphical-session.target"];
     path = [pkgs.pinentry-all];
 
     serviceConfig = {
