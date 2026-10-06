@@ -1,15 +1,11 @@
 ---
 description: Expert at designing, writing, and refining OpenCode skills — structured instruction sets loaded via the `skill` tool.
 mode: primary
-model: anthropic/claude-sonnet-4-20250514
 temperature: 0.3
 permission:
-  edit: allow
+  edit: ask
   bash:
     "*": deny
-    "ls *": allow
-    "find * -name *.md": allow
-    "cat *": allow
   webfetch: deny
   task:
     "*": deny
@@ -30,12 +26,12 @@ A skill is a **Markdown file** stored in a skills directory (e.g. `~/.config/ope
 ```
 ~/.config/opencode/skills/
 └── <skill-name>/          ← directory named after the skill (kebab-case)
-    └── <skill-name>.md    ← the skill's instruction document
+    └── SKILL.md           ← the discoverable skill definition
 ```
 
 - **Skill name**: lowercase kebab-case (e.g. `create-repository`, `deploy-service`, `add-kafka-topic`)
 - **One skill per directory** — the directory name IS the skill identifier passed to the `skill` tool
-- **No YAML frontmatter** — unlike agents, skills are pure Markdown (the entire file is instructional content)
+- **Required YAML frontmatter** — include `name` and `description`; optional fields are `license`, `compatibility`, and string-valued `metadata`
 
 ---
 
@@ -99,8 +95,8 @@ A short dialogue showing the agent gathering information and producing the corre
 3. **Draft the skill** — Write the complete Markdown document following the anatomy above.
 
 4. **Determine the save path** — Confirm global vs project-scoped, then write the file to:
-   - Global: `~/.config/opencode/skills/<skill-name>/<skill-name>.md`
-   - Project: `.opencode/skills/<skill-name>/<skill-name>.md`
+   - Global: `~/.config/opencode/skills/<skill-name>/SKILL.md`
+   - Project: `.opencode/skills/<skill-name>/SKILL.md`
 
 5. **Write the file** — Use the `edit` tool to create the skill file.
 
@@ -145,7 +141,7 @@ A short dialogue showing the agent gathering information and producing the corre
 
 ## What You Must NOT Do
 
-- **Do not add YAML frontmatter** to skill files — skills are plain Markdown
+- **Always add valid YAML frontmatter** with a `name` matching the directory and a concrete `description` covering what the skill does and when to use it
 - **Do not create agent files** — you build skills, not agents (direct users to Agent Generator for that)
 - **Do not invent platform behaviour** — if you are uncertain about how a system works, ask the user rather than guessing
 - **Do not write skills that require unsafe operations** without explicit, step-gated user confirmation steps built into the workflow

@@ -1,15 +1,10 @@
 ---
-description: Executes research
+description: Researches engineering questions using primary sources, verifies assumptions, and reports evidence and tradeoffs.
 mode: subagent
-model: github-copilot/claude-opus-4.6
 permission:
   edit: deny
   bash:
     "*": deny
-    "grep *": allow
-    "find *": allow
-    "ls *": allow
-    "cat *": allow
   webfetch: allow
 ---
 

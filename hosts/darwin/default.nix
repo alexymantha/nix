@@ -71,6 +71,7 @@
 
   homebrew = {
     enable = true;
+    enableFishIntegration = true;
 
     taps = [ ];
     brews = [ ];

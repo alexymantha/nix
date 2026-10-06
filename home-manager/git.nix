@@ -1,11 +1,21 @@
 {
   config,
+  lib,
   pkgs,
   ...
 }: let
-  getSigningKey = pkgs.writeShellScriptBin "get_signing_key" ''
-    ssh-add -L | grep "9c" | awk '$0="key::"$0'
-  '';
+  # Git uses a dedicated passphrase-protected key instead of the YubiKey agent,
+  # which stays the default SSH_AUTH_SOCK for everything else.
+  gitKey = "${config.home.homeDirectory}/.ssh/id_ed25519_git";
+
+  # macOS: Apple's ssh reads the passphrase from the login Keychain (UseKeychain),
+  # so no agent is needed. Nix's openssh does not support UseKeychain.
+  # Linux: a separate ssh-agent caches the key; ksshaskpass stores the
+  # passphrase in KWallet, which is unlocked at login.
+  gitSshCommand =
+    if pkgs.stdenv.isDarwin
+    then "/usr/bin/ssh -i ${gitKey} -o IdentitiesOnly=yes -o IdentityAgent=none -o UseKeychain=yes"
+    else "SSH_ASKPASS=${pkgs.kdePackages.ksshaskpass}/bin/ksshaskpass SSH_ASKPASS_REQUIRE=prefer ssh -i ${gitKey} -o IdentitiesOnly=yes -o IdentityAgent=$XDG_RUNTIME_DIR/ssh-agent-git.sock -o AddKeysToAgent=yes";
 
   # Standalone libsecret credential helper, extracted from a git build with
   # withLibsecret enabled. Only this single binary is installed (not the
@@ -30,12 +40,9 @@ in {
         gpgsign = false;
         template = "${config.home.homeDirectory}/.gitmessage";
       };
-      gpg = {
-        format = "ssh";
-        ssh = {
-          defaultKeyCommand = "${getSigningKey}/bin/get_signing_key";
-        };
-      };
+      core.sshCommand = gitSshCommand;
+      user.signingkey = "${gitKey}.pub";
+      gpg.format = "ssh";
       push = {
         autoSetupRemote = true;
       };
@@ -54,7 +61,12 @@ in {
   '';
 
   home.packages = [
-    getSigningKey
     gitCredentialLibsecret
   ];
+
+  systemd.user.services.ssh-agent-git = lib.mkIf pkgs.stdenv.isLinux {
+    Unit.Description = "ssh-agent for the git SSH key";
+    Service.ExecStart = "${pkgs.openssh}/bin/ssh-agent -D -a %t/ssh-agent-git.sock";
+    Install.WantedBy = ["default.target"];
+  };
 }

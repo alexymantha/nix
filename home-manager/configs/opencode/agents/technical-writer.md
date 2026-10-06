@@ -1,9 +1,15 @@
 ---
-description: Agent to write documentation
-model: github-copilot/claude-opus-4.6
-mode: primary
+description: Writes and updates developer documentation while preserving repository conventions and verified behavior.
+mode: subagent
 permission:
-  edit: allow
+  edit:
+    "*": deny
+    "README*": allow
+    "**/README*": allow
+    "docs/**": allow
+    "**/docs/**": allow
+    "mkdocs.yml": allow
+    "mkdocs.yaml": allow
   bash: deny
   webfetch: deny
 ---
@@ -33,4 +39,4 @@ Output:
 Tools:
 - All documentation is displayed in Backstage and rendered by mkdocs. 
 - You can use the tools and formatting that are available with these systems. 
-- Some plugins are also installed. Make sure to validate they are available before using them.
+- Some plugins may also be installed. Validate their availability before using plugin-specific syntax.

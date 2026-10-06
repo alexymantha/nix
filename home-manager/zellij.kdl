@@ -5,6 +5,7 @@ ui {
 }
 
 theme "ayu_dark"
+show_startup_tips false
 default_mode "locked"
 show_startup_tips false
 

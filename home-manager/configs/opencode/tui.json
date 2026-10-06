@@ -1,0 +1,10 @@
+{
+  "$schema": "https://opencode.ai/tui.json",
+  "theme": "kanagawa",
+  "keybinds": {},
+  "attention": {
+    "enabled": true,
+    "notifications": true,
+    "sound": false
+  }
+}

@@ -2,52 +2,53 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   ayu = builtins.fromTOML (builtins.readFile ./ayu.toml);
-in {
+in
+{
   programs.starship = {
     enable = true;
     enableFishIntegration = true;
-    settings =
-      ayu
-      // {
-        format = lib.concatStrings [
-          "$username"
-          "$hostname"
-          "$localip"
-          "$shlvl"
-          "$directory"
-          "$git_branch"
-          "$git_commit"
-          "$git_state"
-          "$git_metrics"
-          "$git_status"
-          "$custom"
-          "$sudo"
-          "$cmd_duration"
-          "$line_break"
-          "$jobs"
-          "$battery"
-          "$time"
-          "$status"
-          "$os"
-          "$container"
-          "$netns"
-          "$shell"
-          "$character"
-        ];
-        git_status = {
-          ahead = "⇡\${count}";
-          diverged = "⇕⇡\${ahead_count}⇣\${behind_count}";
-          behind = "⇣\${count}";
-        };
-        add_newline = false;
-        scan_timeout = 10;
-        line_break.disabled = true;
-        palette = "ayu";
+    settings = ayu // {
+      format = lib.concatStrings [
+        "$username"
+        "$hostname"
+        "$localip"
+        "$shlvl"
+        "$directory"
+        "$git_branch"
+        "$git_commit"
+        "$git_state"
+        "$git_metrics"
+        "$git_status"
+        "$custom"
+        "$sudo"
+        "$cmd_duration"
+        "$line_break"
+        "$jobs"
+        "$battery"
+        "$time"
+        "$status"
+        "$os"
+        "$container"
+        "$netns"
+        "$shell"
+        "$character"
+      ];
+      git_status = {
+        ahead = "⇡\${count}";
+        diverged = "⇕⇡\${ahead_count}⇣\${behind_count}";
+        behind = "⇣\${count}";
       };
+      add_newline = false;
+      scan_timeout = 10;
+      line_break.disabled = true;
+      palette = "ayu";
+    };
   };
   programs.fish = {
+    generateCompletions = false;
     enable = true;
     interactiveShellInit = ''
       set -U fish_greeting
@@ -71,6 +72,27 @@ in {
       gnuls = "command ls";
       find = "fd";
       gnufind = "command find";
+    };
+    functions = {
+      fish_should_add_to_history = {
+        description = "Filter sensitive commands from history";
+        # Best effort to avoid keeping sensitive credentials
+        body = ''
+          # leading space = private (replicates default behavior)
+          string match -qr '^\s' -- $argv[1]; and return 1
+
+          # sensitive argument patterns
+          string match -qri -- '[-]password=|[-]secret=|[-]token=|[-]api[-_]?key=' $argv[1]; and return 1
+
+          # specific commands that always carry secrets
+          string match -qr -- '^oathtool\b' $argv[1]; and return 1
+
+          # inline env vars with secrets
+          string match -qri -- '(?:VAULT_TOKEN|AWS_SECRET_ACCESS_KEY|AWS_SESSION_TOKEN)=["\x27]?(?![$(])' $argv[1]; and return 1
+
+          return 0
+        '';
+      };
     };
   };
 }

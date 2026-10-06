@@ -9,8 +9,9 @@
     ../home.nix
   ];
 
-  # Work laptop: no Home Assistant MCP access.
-  modules.opencode.homeAssistant.enable = false;
+  # Work laptop: GitHub Copilot only, no Home Assistant. Work-specific
+  # opencode settings live in the unmanaged ~/.config/opencode/work.json.
+  modules.opencode.profile = "work";
 
   home.packages = [
     # Work

@@ -36,6 +36,7 @@
         theme = "Ayu";
         font-size = 12;
         maximize = true;
+        link-url = true;
         keybind = [
           "cmd+t=unbind"
           "cmd+n=unbind"

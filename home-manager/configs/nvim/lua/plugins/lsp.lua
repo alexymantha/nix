@@ -3,7 +3,6 @@ return {
 		"neovim/nvim-lspconfig",
 		event = { "BufReadPre", "BufNewFile" },
 		config = function()
-			local lspconfig = require("lspconfig")
 			local server_configs = {
 				clangd = {
 					cmd = {
@@ -50,20 +49,20 @@ return {
 					end,
 					settings = {
 						schemaStore = { url = "https://www.schemastore.org/api/json/catalog.json", enable = false },
-				yaml = {
-					validate = false,
-					schemas = {
-						["kubernetes"] = "/*.yaml",
-					},
-				},
+						yaml = {
+							validate = false,
+							schemas = {
+								["kubernetes"] = "/*.yaml",
+							},
+						},
 					},
 				},
 			}
 
 			-- Simple servers that don't need configuration
 			local simple_servers = {
-			'buf_ls', 'dockerls', 'gopls', 'jsonls', 'nil_ls',
-			'pyright', 'rust_analyzer', 'templ', 'terraformls'
+				'buf_ls', 'dockerls', 'gopls', 'jsonls', 'nil_ls',
+				'pyright', 'rust_analyzer', 'templ', 'terraformls'
 			}
 
 			-- Configure servers with custom settings
@@ -80,13 +79,13 @@ return {
 			end
 
 
-		-- Vue config
-		-- Vue requires a specific setup with plugins for different servers
-		vim.lsp.config('vtsls', {
-			filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
-		})
-		vim.lsp.config('vue_ls', {})
-		vim.lsp.enable({ 'vtsls', 'vue_ls' })
+			-- Vue config
+			-- Vue requires a specific setup with plugins for different servers
+			vim.lsp.config('vtsls', {
+				filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+			})
+			vim.lsp.config('vue_ls', {})
+			vim.lsp.enable({ 'vtsls', 'vue_ls' })
 
 			vim.api.nvim_create_autocmd("LspAttach", {
 				group = vim.api.nvim_create_augroup("UserLspConfig", {}),
@@ -131,15 +130,8 @@ return {
 									bufnr = ev.buf,
 									timeout_ms = 3000,
 									filter = function(c)
-										-- Disable html formatting if templ is available
-										if c.name == "html" then
-											local templ_clients = vim.lsp.get_clients({
-												bufnr = ev.buf,
-												name = "templ",
-											})
-											return #templ_clients == 0
-										end
-										return true
+										local allowed = { "gopls", "templ" }
+										return vim.tbl_contains(allowed, c.name)
 									end,
 								})
 							end,
