@@ -11,6 +11,7 @@
     ./fish.nix
     ./zellij.nix
     ./opencode.nix
+    ./tuicr.nix
   ];
 
   nixpkgs = {
@@ -77,6 +78,8 @@
     pkgs.rsync
     pkgs.yubico-piv-tool
     pkgs.nixos-anywhere
+    # tuicr is not yet in the pinned nixpkgs (nixos-26.05), only unstable.
+    pkgs.unstable.tuicr
     # Apps
     pkgs.spotify
     pkgs.slack

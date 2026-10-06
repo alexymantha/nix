@@ -148,6 +148,13 @@ in {
 
     {
       home.packages = [pkgs.opencode];
+
+      # tuicr's agent skill (SKILL.md + zellij/tmux/... wrapper scripts),
+      # taken from the same source as the packaged tuicr so they stay in sync.
+      xdg.configFile."opencode/skills/tuicr".source = "${pkgs.unstable.tuicr.src}/skills/tuicr";
+    }
+
+    {
       xdg.configFile = lib.genAttrs (map (f: "opencode/${f}") sharedFiles) (name: {
         source = ./configs + "/${name}";
       });

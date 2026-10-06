@@ -75,6 +75,7 @@
     enable = true;
     pkiBundle = "/var/lib/sbctl";
   };
+  boot.supportedFilesystems = [ "cifs" ];
 
   boot = {
     plymouth = {
@@ -198,6 +199,22 @@
   };
 
   programs.steam.enable = true;
+
+  fileSystems."/mnt/alexy" = {
+    device = "//10.0.0.250/alexy";
+    fsType = "cifs";
+    options = [
+      "credentials=/etc/smb-credentials-alexy"
+      "uid=1000"
+      "gid=100"
+      "vers=3.1.1"
+      "_netdev"
+      "nofail"
+      "x-systemd.automount"
+      "noauto"
+      "x-systemd.idle-timeout=60"
+    ];
+  };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "24.05";
