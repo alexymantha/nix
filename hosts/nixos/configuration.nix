@@ -192,6 +192,7 @@
 
   hardware.graphics.enable = true;
   hardware.keyboard.qmk.enable = true;
+  hardware.bluetooth.enable = true;
 
   virtualisation.docker.rootless = {
     enable = true;
@@ -199,6 +200,8 @@
   };
 
   programs.steam.enable = true;
+  programs.steam.gamescopeSession.enable = true;
+  programs.gamemode.enable = true;
 
   fileSystems."/mnt/alexy" = {
     device = "//10.0.0.250/alexy";
