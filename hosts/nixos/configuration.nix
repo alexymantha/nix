@@ -12,6 +12,7 @@
     ./home.nix
     ./yubikey.nix
     ./kde.nix
+    ./printing.nix
   ];
 
   nixpkgs = {

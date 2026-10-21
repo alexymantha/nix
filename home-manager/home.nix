@@ -12,6 +12,7 @@
     ./zellij.nix
     ./opencode.nix
     ./tuicr.nix
+    ./obsidian.nix
   ];
 
   nixpkgs = {
