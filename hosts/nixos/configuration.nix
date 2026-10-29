@@ -106,25 +106,40 @@
   };
 
   networking = {
-    # Disable DHCP because we want to force a static IP on the management network
+    # Interfaces are configured explicitly through systemd.network below
     useDHCP = false;
-    dhcpcd.enable = false;
-    nameservers = [
-      "192.168.2.1"
-    ];
-    defaultGateway = "192.168.2.1";
-    vlans.management = {
-      id = 20;
-      interface = "enp16s0";
-    };
-    interfaces.management.ipv4.addresses = [
-      {
-        address = "192.168.2.9";
-        prefixLength = 24;
-      }
-    ];
+    useNetworkd = true;
     hostName = "amantha-nixos";
     networkmanager.enable = false; # Easiest to use and most distros use this by default.
+  };
+
+  systemd.network = {
+    enable = true;
+    netdevs."20-management" = {
+      netdevConfig = {
+        Kind = "vlan";
+        Name = "management";
+      };
+      vlanConfig.Id = 20;
+    };
+    # Trunk port: only carries the VLAN, no addresses on the untagged network
+    networks."30-enp16s0" = {
+      matchConfig.Name = "enp16s0";
+      vlan = [ "management" ];
+      networkConfig = {
+        LinkLocalAddressing = "no";
+        IPv6AcceptRA = false;
+      };
+      linkConfig.RequiredForOnline = "carrier";
+    };
+    networks."40-management" = {
+      matchConfig.Name = "management";
+      networkConfig = {
+        DHCP = "yes";
+        IPv6AcceptRA = true;
+      };
+      linkConfig.RequiredForOnline = "routable";
+    };
   };
 
   # Set your time zone.
